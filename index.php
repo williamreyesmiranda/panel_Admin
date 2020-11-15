@@ -1,11 +1,11 @@
 <?php
 session_start();
 if (!empty($_SESSION['active'])){
-    header('location: panel_administrativo/');
+    header('location: panel_admin/');
   }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <!-- Required meta tags -->
@@ -95,7 +95,7 @@ if (!empty($_SESSION['active'])){
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="popper/popper.min.js"></script>
     <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
-    <script src="js/ajax.js"></script>
+    <script src="js/ajaxx.js"></script>
     <script src="js/off-canvas.js"></script>
     <script src="js/hoverable-collapse.js"></script>
     <script src="js/template.js"></script>

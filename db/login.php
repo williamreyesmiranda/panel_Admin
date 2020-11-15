@@ -8,8 +8,9 @@ $usuario=(isset($_POST['usuario'])) ? $_POST['usuario'] : '';
 $password=(isset($_POST['password'])) ? $_POST['password'] : '';
 $pw=md5($password);
 
-$consultaSQL="SELECT u.idusuario, u.nombre, u.usuario, u.cedula, u.sexo , u.rol as 'idrol' ,r.rol FROM usuario u INNER JOIN rol r on u.rol = r.idrol 
-WHERE u.usuario= '$usuario' AND u.clave= '$pw' AND u.estatus>=1";
+$consultaSQL="SELECT u.idusuario, u.nombre, u.usuario, u.correo, u.sexo , u.rol as 'idrol' ,r.rol 
+                FROM usuario u INNER JOIN rol r on u.rol = r.idrol 
+                WHERE u.usuario= '$usuario' AND u.clave= '$pw' AND u.estatus>=1";
 $resultado = $conexion->consultarDatos($consultaSQL);
 
 if($resultado){
@@ -20,8 +21,8 @@ if($resultado){
     $_SESSION['user'] = $resultado[0]['usuario'];
     $_SESSION['idrol'] = $resultado[0]['idrol']; 
     $_SESSION['rol'] = $resultado[0]['rol']; 
-    $_SESSION['cedula'] = $resultado[0]['cedula']; 
     $_SESSION['sexo'] = $resultado[0]['sexo']; 
+    $_SESSION['correo'] = $resultado[0]['correo']; 
 }else{
    print json_encode(-1);
    

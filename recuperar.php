@@ -21,7 +21,7 @@ if (!empty($_SESSION['active'])){
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/stylee.css">
+    <link rel="stylesheet" href="css/styleee.css">
     <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
    
     <!-- endinject -->
@@ -88,7 +88,7 @@ if (!empty($_SESSION['active'])){
     <script src="jquery/jquery-3.5.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="popper/popper.min.js"></script>
-    <script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="js/ajax.js"></script>
     <script src="js/off-canvas.js"></script>
     <script src="js/hoverable-collapse.js"></script>
