@@ -15,7 +15,7 @@ if (empty($_SESSION['active'])) {
         $unds = $_POST['unds'];
         $procesos = $_POST['procesos'];
         $idUsuario = $_SESSION['iduser'];
-        $diasHabiles = fechaToDays($fechaInicio, $fechaFin);
+        $diasHabiles = $_POST['diasHabiles'];
 
         //ingresar datos a tabla pedidos
         $conexion = new Conexion();
@@ -219,8 +219,9 @@ if (empty($_SESSION['active'])) {
                                     <div class="invalid-feedback">Ingrese Fecha</div>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label for="">Días Hábiles</label>
-                                    <div id="diasHabiles" class="form-control"></div>
+                                    <label for="diasHabiles">Días Hábiles</label>
+                                    <input class="form-control" type="text" name="diasHabiles" id="diasHabiles" readonly>
+                                   
                                 </div>
                             </div>
 
@@ -271,7 +272,7 @@ if (empty($_SESSION['active'])) {
                     url: "php/cargarDias.php",
                     data: $('#formIngresoPedido').serialize(),
                     success: function(r) {
-                        $('#diasHabiles').html(r);
+                        $('#diasHabiles').val(r);
                         $('#diasProceso').empty();
                         $('#procesos').val('');
 

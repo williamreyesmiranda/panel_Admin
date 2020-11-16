@@ -50,11 +50,12 @@ function agregarPedido() {
         }
     });
 }
+//alerta al cancelar modal
+$('.salirModal').click(function() {
+    alertify.error("Se Canceló Proceso");
+});
 
-function btnCancelar() {
-    alertify.error('Proceso Cancelado');
-}
-
+//ingresar datos a formulario editar pedido
 function formEditarPedido(datos) {
     d = datos.split('||');
     $('#idPedidoEditar').val(d[0]);
@@ -65,8 +66,9 @@ function formEditarPedido(datos) {
     $('#finEditar').val(d[5]);
     $('#undsEditar').val(d[7]);
     $('#procesosEditar').val(d[6]);
-    $('#diasEditar').html(d[8]);
+    $('#diasEditar').val(d[8]);
     $('#idProcesosEditar').val(d[9]);
+    $('#editarPedido').modal({ backdrop: 'static', keyboard: false })
 }
 
 //Editar Pedido
@@ -78,6 +80,7 @@ function editarPedido() {
         data: $("#formEditarPedido").serialize(),
         success: function(r) {
             if (r == 1) {
+                $('#mostrarTabla').load('tablas/tablaPedido.php');
                 alertify.success("Pedido Editado Correctamente");
             } else {
                 alertify.error('Error al Editar Pedido');

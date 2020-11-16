@@ -11,7 +11,7 @@ $consultaSQL = "SELECT * FROM procesos WHERE idproceso =$idProceso";
 $result = $conexion->consultarDatos($consultaSQL);
 
 $diasHabiles = fechaToDays($fechaInicio, $fechaFin);
-$diasProceso = $result[0]['dias_habiles'];
+$diasProceso = $result[0]['dias_proceso'];
 $diferencia = $diasProceso - $diasHabiles;
 
 ?>
@@ -60,7 +60,7 @@ if ($dato1 != '') {
 $dato2 = strtolower($result[0]['2']);
 $tiempo2 = $result[0]['tiempo2'];
 $dias2 = round($diasHabiles * $tiempo2);
-$inicio2 = dayToFecha($final1, 0);
+$inicio2 = dayToFecha($final1, 1);
 $final2 = dayToFecha($inicio2, $dias2 - 1);
 if ($dato2 != '') {
     ?>
@@ -81,7 +81,7 @@ if ($dato2 != '') {
 $dato3 = strtolower($result[0]['3']);
 $tiempo3 = $result[0]['tiempo3'];
 $dias3 = round($diasHabiles * $tiempo3);
-$inicio3 = dayToFecha($final2, 0);
+$inicio3 = dayToFecha($final2, 1);
 $final3 = dayToFecha($inicio3, $dias3 - 1);
 if ($dato3 != '') {
     ?>
@@ -102,7 +102,7 @@ if ($dato3 != '') {
 $dato4 = strtolower($result[0]['4']);
 $tiempo4 = $result[0]['tiempo4'];
 $dias4 = round($diasHabiles * $tiempo4);
-$inicio4 = dayToFecha($final3, 0);
+$inicio4 = dayToFecha($final3, 1);
 $final4 = dayToFecha($inicio4, $dias4 - 1);
 if ($dato4 != '') {
     ?>
@@ -123,7 +123,7 @@ if ($dato4 != '') {
 $dato5 = strtolower($result[0]['5']);
 $tiempo5 = $result[0]['tiempo5'];
 $dias5 = round($diasHabiles * $tiempo5);
-$inicio5 = dayToFecha($final4, 0);
+$inicio5 = dayToFecha($final4, 1);
 $final5 = dayToFecha($inicio5, $dias5 - 1);
 if ($dato5 != '') {
     ?>
@@ -144,7 +144,7 @@ if ($dato5 != '') {
 $dato6 = strtolower($result[0]['6']);
 $tiempo6 = $result[0]['tiempo6'];
 $dias6 = round($diasHabiles * $tiempo6);
-$inicio6 = dayToFecha($final5, 0);
+$inicio6 = dayToFecha($final5, 1);
 $final6 = dayToFecha($inicio6, $dias6 - 1);
 if ($dato6 != '') {
     ?>
