@@ -51,6 +51,19 @@ function agregarPedido() {
     });
 }
 
+function formEditarPedido(datos) {
+    d = datos.split('||');
+    $('#idPedidoEditar').val(d[0]);
+    $('#nroPedidoEditar').val(d[1]);
+    $('#clienteEdit').val(d[2]);
+    $('#asesorEdit').val(d[3]);
+    $('#inicioEditar').val(d[4]);
+    $('#finEditar').val(d[5]);
+    $('#undsEditar').val(d[7]);
+    $('#procesosEditar').val(d[6]);
+    $('#diasEditar').html(d[8]);
+}
+
 //Editar Pedido
 function editarPedido() {
     $.ajax({
@@ -63,4 +76,11 @@ function editarPedido() {
             }
         }
     });
+}
+//confirmar anulado
+
+function confirmarAnuladoPedido() {
+    alertify.prompt('Anular Pedido', 'Prompt Message', 'Prompt Value',
+        function(evt, value) { alertify.success('You entered: ' + value) },
+        function() { alertify.error('Cancel') });
 }
