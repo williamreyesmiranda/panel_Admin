@@ -1,14 +1,14 @@
 <?php   
 include("../../db/Conexion.php");
 include("../php/funcionFecha.php");
-$idPedido=$_POST['idPedido'];
-$nroPedido = $_POST['nroPedido'];
-$nombreCliente = $_POST['nombreCliente'];
+$idPedido=$_POST['idPedidoEditar'];
+$nroPedido = $_POST['nroPedidoEditar'];
+$nombreCliente = $_POST['clienteEditar'];
 $asesor = $_POST['asesor'];
-$fechaInicio = $_POST['fechaInicio'];
-$fechaFin = $_POST['fechaFin'];
-$unds = $_POST['unds'];
-$procesos = $_POST['procesos'];
+$fechaInicio = $_POST['inicioEditar'];
+$fechaFin = $_POST['finEditar'];
+$unds = $_POST['undsEditar'];
+$diasHabiles=fechaToDays($fechaInicio,$fechaFin);
 
 $conexion= new Conexion();
 $consultaSQL="UPDATE pedidos SET num_pedido='$nroPedido', iniciofecha='$fechaInicio', infecha='$fechaFin'
