@@ -49,7 +49,7 @@ if (empty($_SESSION['active'])) {
             $dato2 = strtolower($result[0]['2']);
             $tiempo2 = $result[0]['tiempo2'];
             $dias2 = round($diasHabiles * $tiempo2);
-            $inicio2 = dayToFecha($final1, 0);
+            $inicio2 = dayToFecha($final1, 1);
             $final2 = dayToFecha($inicio2, $dias2 - 1);
             $consultaSQL = "INSERT INTO $dato2(pedido, iniciofecha, finfecha, dias) VALUES ('$maxPedido','$inicio2','$final2', $dias2)";
             $insert2 = $conexion->agregarDatos($consultaSQL);
@@ -62,7 +62,7 @@ if (empty($_SESSION['active'])) {
             $dato3 = strtolower($result[0]['3']);
             $tiempo3 = $result[0]['tiempo3'];
             $dias3 = round($diasHabiles * $tiempo3);
-            $inicio3 = dayToFecha($final2, 0);
+            $inicio3 = dayToFecha($final2, 1);
             $final3 = dayToFecha($inicio3, $dias3 - 1);
             if ($dato3 != '') {
                 $consultaSQL = "INSERT INTO $dato3(pedido, iniciofecha, finfecha, dias) VALUES ('$maxPedido','$inicio3','$final3', $dias3)";
@@ -78,7 +78,7 @@ if (empty($_SESSION['active'])) {
             $dato4 = strtolower($result[0]['4']);
             $tiempo4 = $result[0]['tiempo4'];
             $dias4 = round($diasHabiles * $tiempo4);
-            $inicio4 = dayToFecha($final3, 0);
+            $inicio4 = dayToFecha($final3, 1);
             $final4 = dayToFecha($inicio4, $dias4 - 1);
             if ($dato4 != '') {
                 $consultaSQL = "INSERT INTO $dato4(pedido, iniciofecha, finfecha, dias) VALUES ('$maxPedido','$inicio4','$final4', $dias4)";
@@ -94,7 +94,7 @@ if (empty($_SESSION['active'])) {
             $dato5 = strtolower($result[0]['5']);
             $tiempo5 = $result[0]['tiempo5'];
             $dias5 = round($diasHabiles * $tiempo5);
-            $inicio5 = dayToFecha($final4, 0);
+            $inicio5 = dayToFecha($final4, 1);
             $final5 = dayToFecha($inicio5, $dias5 - 1);
             if ($dato5 != '') {
                 $consultaSQL = "INSERT INTO $dato5(pedido, iniciofecha, finfecha, dias) VALUES ('$maxPedido','$inicio3','$final5', $dias5)";
@@ -110,7 +110,7 @@ if (empty($_SESSION['active'])) {
             $dato6 = strtolower($result[0]['6']);
             $tiempo6 = $result[0]['tiempo6'];
             $dias6 = round($diasHabiles * $tiempo6);
-            $inicio6 = dayToFecha($final5, 0);
+            $inicio6 = dayToFecha($final5, 1);
             $final6 = dayToFecha($inicio6, $dias6 - 1);
             if ($dato6 != '') {
                 $consultaSQL = "INSERT INTO $dato3(pedido, iniciofecha, finfecha, dias) VALUES ('$maxPedido','$inicio6','$final6', $dias6)";
@@ -163,7 +163,6 @@ if (empty($_SESSION['active'])) {
                             <div class="form-row">
                                 <div class="form-group col-md-3">
                                     <input type="text" class="form-control" id="nroPedido" name="nroPedido" placeholder="Nro Pedido (*)" autocomplete="off" required autofocus>
-                                    <!-- <div class="valid-feedback">Listo</div> -->
                                     <div class="invalid-feedback">Ingrese el Nro de Pedido</div>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -174,17 +173,13 @@ if (empty($_SESSION['active'])) {
 
                                     ?>
 
-                                    <input list="nombreCliente" name="nombreCliente" class="form-control" placeholder="Nombre Cliente (*)" autocomplete="off" required></label>
+                                    <input list="nombreCliente" name="nombreCliente" class="form-control nombreCliente" placeholder="Nombre Cliente (*)" autocomplete="off" required></label>
                                     <datalist name="nombreCliente" id="nombreCliente">
                                         <?php foreach ($clientes as $cliente) : ?>
                                             <option value="<?php echo $cliente['nombre'] ?>"></option>
                                         <?php endforeach; ?>
-
-
-
                                     </datalist>
 
-                                    <!-- <div class="valid-feedback">Listo</div> -->
                                     <div class="invalid-feedback">Ingrese el Nombre del Cliente.</div>
                                 </div>
                                 <div class="form-group col-md-3">
@@ -195,7 +190,7 @@ if (empty($_SESSION['active'])) {
 
                                     ?>
 
-                                    <input list="asesor" name="asesor" class="form-control" placeholder="Asesor (*)" autocomplete="off" required></label>
+                                    <input list="asesor" name="asesor" id="" class="form-control asesor" placeholder="Asesor (*)" autocomplete="off" required></label>
                                     <datalist name="asesor" id="asesor">
                                         <?php foreach ($asesores as $asesor) : ?>
                                             <option value="<?php echo $asesor['usuario'] ?>"></option>
@@ -221,7 +216,7 @@ if (empty($_SESSION['active'])) {
                                 <div class="form-group col-md-2">
                                     <label for="diasHabiles">Días Hábiles</label>
                                     <input class="form-control" type="text" name="diasHabiles" id="diasHabiles" readonly>
-                                   
+
                                 </div>
                             </div>
 
@@ -286,11 +281,6 @@ if (empty($_SESSION['active'])) {
                 $('#diasHabiles').empty();
                 $('#diasProceso').empty();
             });
-        });
-    </script>
-    <!-- Cargar procesos -->
-    <script>
-        $(document).ready(function() {
 
             $('#procesos').change(function() {
                 $.ajax({
@@ -302,8 +292,22 @@ if (empty($_SESSION['active'])) {
                     }
                 });
             });
+            $('.nombreCliente').change(function() {
+                $.ajax({
+                    type: "POST",
+                    url: "php/cargarAsesor.php",
+                    data: $('#formIngresoPedido').serialize(),
+                    success: function(r) {
+                        $('.asesor').val(r);
+                    }
+                });
+
+            });
+
         });
     </script>
+    <!-- Cargar procesos -->
+
 
 </body>
 

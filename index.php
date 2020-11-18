@@ -26,6 +26,7 @@ if (!empty($_SESSION['active'])){
 </head>
 
 <body>
+    
     <div class="container-scroller d-flex ">
         <div class="container-fluid page-body-wrapper full-page-wrapper d-flex">
             <div class="content-wrapper d-flex align-items-stretch auth auth-img-bg">

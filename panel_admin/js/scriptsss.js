@@ -52,23 +52,23 @@ function agregarPedido() {
 }
 //alerta al cancelar modal
 $('.salirModal').click(function() {
-    alertify.error("Se Canceló Proceso");
+    alertify.warning("Se Canceló Proceso");
 });
 
 //ingresar datos a formulario editar pedido
 function formEditarPedido(datos) {
     d = datos.split('||');
-    $('#idPedidoEditar').val(d[0]);
-    $('#nroPedidoEditar').val(d[1]);
-    $('#clienteEdit').val(d[2]);
-    $('#asesorEdit').val(d[3]);
-    $('#inicioEditar').val(d[4]);
-    $('#finEditar').val(d[5]);
-    $('#undsEditar').val(d[7]);
-    $('#procesosEditar').val(d[6]);
-    $('#diasEditar').val(d[8]);
-    $('#idProcesosEditar').val(d[9]);
-    $('#editarPedido').modal({ backdrop: 'static', keyboard: false })
+    $('.idPedidoEditar').val(d[0]);
+    $('.nroPedidoEditar').val(d[1]);
+    $('.clienteEdit').val(d[2]);
+    $('.asesorEdit').val(d[3]);
+    $('.inicioEditar').val(d[4]);
+    $('.finEditar').val(d[5]);
+    $('.undsEditar').val(d[7]);
+    $('.procesosEditar').val(d[6]);
+    $('.diasEditar').val(d[8]);
+    $('.idProcesosEditar').val(d[9]);
+
 }
 
 //Editar Pedido
@@ -78,6 +78,7 @@ function editarPedido() {
         type: "POST",
         url: "php/editarPedido.php",
         data: $("#formEditarPedido").serialize(),
+        datatype: "json",
         success: function(r) {
             if (r == 1) {
                 $('#mostrarTabla').load('tablas/tablaPedido.php');
@@ -88,10 +89,53 @@ function editarPedido() {
         }
     });
 }
-//confirmar anulado
+//Editar Proceso Pedido
+function editarProceso() {
+    $.ajax({
+        type: "POST",
+        url: "php/editarProceso.php",
+        data: $("#formEditarProceso").serialize(),
+        datatype: "json",
+        success: function(r) {
+            console.log(r);
+            if (r == 1) {
+                $('#mostrarTabla').load('tablas/tablaPedido.php');
+                alertify.success("Proceso Editado Correctamente");
+            } else {
+                alertify.error('Error al editar Proceso');
+            }
+        }
+    });
+}
 
-function confirmarAnuladoPedido() {
-    alertify.prompt('Anular Pedido', 'Prompt Message', 'Prompt Value',
-        function(evt, value) { alertify.success('You entered: ' + value) },
-        function() { alertify.error('Cancel') });
+//confirmar anulado
+function confirmarAnuladoPedido(datos) {
+    d = datos.split('||');
+    idPedido = "id=" + d[0];
+    alertify.prompt('Anular Pedido', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br><b>Asesor: </b>' + d[3] + '<br><b>Unds: </b>' + d[7] + '<br><b>Procesos: </b>' + d[6] + '<br><br>Motivo por la cual se anula el Pedido:<br>', '',
+        function(evt, value) {
+            input = idPedido + "&obs=" + value;
+            anularPedido(input)
+        },
+        function() { alertify.warning('Se Canceló Proceso') }).set('labels', { ok: 'Anular', cancel: 'Cancelar' });
+}
+//anular Pedido
+function anularPedido(datos) {
+
+
+    $.ajax({
+        type: "POST",
+        url: "php/anularPedido.php",
+        data: datos,
+        dataType: "json",
+        success: function(data) {
+            if (data == 1) {
+                $('#mostrarTabla').load('tablas/tablaPedido.php');
+                alertify.success('Pedido Anulado Correctamente');
+            } else {
+                alertify.error('Error al Anular Pedido');
+            }
+
+        }
+    });
 }

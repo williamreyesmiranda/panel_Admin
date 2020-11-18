@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (empty($_SESSION['active'])){
+    header('location: ../');
+  }
+?>
 <table class="table table-hover table-condensed table-bordered" id="tablaDinamica" width="100%" cellspacing="0">
     <thead>
         <tr class="text-center">
@@ -57,7 +63,7 @@
 
 
         ?>
-            <tr>
+            <tr class="text-center">
                 <td><?php echo ($pedido['num_pedido']); ?></td>
                 <td><?php echo ($pedido['cliente']); ?></td>
                 <td><?php echo ($pedido['asesor']); ?></td>
@@ -78,11 +84,12 @@
                 <td><?php echo ($pedido['unds']); ?></td>
                 <td><?php echo ($pedido['usuario']); ?></td>
                 <td>
-                    <h5>
+                    <h5><?php if( $_SESSION['user']==$pedido['usuario'] || $_SESSION['idrol']==1 ):?>
                         <a class="my-auto" title=" Editar pedido" data-toggle="modal" data-target="#editarPedido"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarPedido('<?php echo ($datos); ?>')"></i></a>
-                        <a class="my-auto" title="Cambiar Procesos" data-toggle="modal" data-target="#editarProceso<?php echo ($pedido['idpedido']); ?>"><i class="far fa-paper-plane a-text-kmisetas my-auto"></i></i></a>
+                        <a class="my-auto" title="Cambiar Procesos" data-toggle="modal" data-target="#editarProceso"><i class="far fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarPedido('<?php echo ($datos); ?>')"></i></a>
                         <a class="my-auto" title="Anular" onclick="confirmarAnuladoPedido('<?php echo ($datos); ?>')" id="anularPedido"><i class="fas fa-minus-circle a-text-kmisetas my-auto"></i></a>
-                    </h5>
+                    <?php endif;?>
+                        </h5>
                 </td>
             </tr>
 
