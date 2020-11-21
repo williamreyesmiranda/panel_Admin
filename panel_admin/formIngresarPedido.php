@@ -145,7 +145,7 @@ if (empty($_SESSION['active'])) {
 
 </head>
 
-<body class="sb-nav-fixed " id="loadForm">
+<body class="sb-nav-fixed " >
     <?php include("includes/navBar.php") ?>
     <div id="layoutSidenav_content">
         <main>
@@ -162,7 +162,7 @@ if (empty($_SESSION['active'])) {
                         <form action="" id="formIngresoPedido" class="needs-validation mt-4 p-2 " method="POST" novalidate>
                             <div class="form-row">
                                 <div class="form-group col-md-3">
-                                    <input type="text" class="form-control" id="nroPedido" name="nroPedido" placeholder="Nro Pedido (*)" autocomplete="off" required autofocus>
+                                    <input type="text" class="form-control" id="nroPedido" name="nroPedido" placeholder="<?php if($_SESSION['idrol']==3){echo "Orden de Corte (*)";}else{echo "Nro Pedido (*)";} ?>" autocomplete="off" required autofocus>
                                     <div class="invalid-feedback">Ingrese el Nro de Pedido</div>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -173,7 +173,7 @@ if (empty($_SESSION['active'])) {
 
                                     ?>
 
-                                    <input list="nombreCliente" name="nombreCliente" class="form-control nombreCliente" placeholder="Nombre Cliente (*)" autocomplete="off" required></label>
+                                    <input list="nombreCliente" name="nombreCliente" class="form-control nombreCliente" placeholder="<?php if($_SESSION['idrol']==3){echo "Referencia (*)";}else{echo "Nombre Cliente (*)";} ?>" autocomplete="off" required></label>
                                     <datalist name="nombreCliente" id="nombreCliente">
                                         <?php foreach ($clientes as $cliente) : ?>
                                             <option value="<?php echo $cliente['nombre'] ?>"></option>
@@ -190,7 +190,7 @@ if (empty($_SESSION['active'])) {
 
                                     ?>
 
-                                    <input list="asesor" name="asesor" id="" class="form-control asesor" placeholder="Asesor (*)" autocomplete="off" required></label>
+                                    <input list="asesor" name="asesor" id="" class="form-control asesor" placeholder="<?php if($_SESSION['idrol']==3){echo "Cliente (*)";}else{echo "Asesor (*)";} ?>" autocomplete="off" required></label>
                                     <datalist name="asesor" id="asesor">
                                         <?php foreach ($asesores as $asesor) : ?>
                                             <option value="<?php echo $asesor['usuario'] ?>"></option>

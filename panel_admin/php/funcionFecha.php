@@ -34,3 +34,6 @@ function dayToFecha($fecha, $dias)
     $total = (($dias + $findesemana) * 86400) + $datestart;
     return $fechafinal = date('Y-m-d', $total);
 }
+
+
+?>
