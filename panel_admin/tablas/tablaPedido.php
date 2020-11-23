@@ -4,7 +4,7 @@ if (empty($_SESSION['active'])){
     header('location: ../');
   }
 ?>
-<table class="table table-hover table-condensed table-bordered" id="tablaDinamica" width="100%" cellspacing="0">
+<table class="table table-hover table-condensed table-bordered tablaDinamica" id="" width="100%" cellspacing="0">
     <thead>
         <tr class="text-center">
             <th>Pedido</th>
@@ -98,22 +98,8 @@ if (empty($_SESSION['active'])){
         endforeach; ?>
     </tbody>
 </table>
-
+<script src="js/scriptss.js"></script>
 <!-- datatable -->
 <script>
-    $(document).ready(function() {
-        //datatable
-        $('#tablaDinamica').DataTable({
-
-            responsive: true,
-            "order": [
-                [6, "asc"]
-            ],
-            "pageLength": 25,
-            "language": {
-                "url": "./plugins/datatable/Spanish.json"
-            },
-        });
-
-    });
+   
 </script>

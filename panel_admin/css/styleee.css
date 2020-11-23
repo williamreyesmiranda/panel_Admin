@@ -10441,3 +10441,31 @@ body {
     text-decoration: none !important;
     cursor: pointer;
 }
+
+.texto-vertical-2 {
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    display: block;
+}
+
+.table-container {
+    max-width: 100% !important;
+    max-height: 600px;
+    overflow-x: scroll;
+    overflow-y: scroll;
+}
+
+.table-container .sticky-left {
+    position: sticky;
+    left: 0px;
+    background-color: white;
+    z-index: 99;
+}
+
+.table-container .sticky-top {
+    position: sticky;
+    padding: 0;
+    top: 0;
+    background-color: white;
+    z-index: 99;
+}

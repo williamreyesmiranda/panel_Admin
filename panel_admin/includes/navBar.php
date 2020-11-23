@@ -84,7 +84,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Nomina
                             </a>
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="kmk">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Liquidaciones
                             </a>

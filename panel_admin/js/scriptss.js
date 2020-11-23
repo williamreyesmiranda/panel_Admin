@@ -1,3 +1,19 @@
+//datatable
+
+$(document).ready(function() {
+
+    $('.tablaDinamica').DataTable({
+        responsive: true,
+        "order": [
+            [6, "asc"]
+        ],
+        "pageLength": 25,
+        "language": {
+            "url": "./plugins/datatable/Spanish.json"
+        },
+    });
+
+});
 //ocultar el sidebar
 (function($) {
     "use strict";
