@@ -1,19 +1,11 @@
-//datatable
-
+//icono reload
 $(document).ready(function() {
-
-    $('.tablaDinamica').DataTable({
-        responsive: true,
-        "order": [
-            [6, "asc"]
-        ],
-        "pageLength": 25,
-        "language": {
-            "url": "./plugins/datatable/Spanish.json"
-        },
-    });
-
+    $('.centrado').fadeIn();
+    window.onload = function() {
+        $('.centrado').fadeOut();
+    }
 });
+
 //ocultar el sidebar
 (function($) {
     "use strict";
@@ -68,8 +60,10 @@ function agregarPedido() {
 }
 //alerta al cancelar modal
 $('.salirModal').click(function() {
-    alertify.warning("Se Canceló Proceso");
+    alertify.error("Se Canceló Proceso");
 });
+
+// SCRIPT DATOS DE PEDIDOS
 
 //ingresar datos a formulario editar pedido
 function formEditarPedido(datos) {
@@ -86,10 +80,8 @@ function formEditarPedido(datos) {
     $('.idProcesosEditar').val(d[9]);
 
 }
-
 //Editar Pedido
 function editarPedido() {
-
     $.ajax({
         type: "POST",
         url: "php/editarPedido.php",
@@ -115,7 +107,9 @@ function editarProceso() {
         success: function(r) {
             console.log(r);
             if (r == 1) {
+                $('.centrado').fadeIn();
                 $('#mostrarTabla').load('tablas/tablaPedido.php');
+                $('.centrado').fadeOut();
                 alertify.success("Proceso Editado Correctamente");
             } else {
                 alertify.error('Error al editar Proceso');
@@ -123,7 +117,6 @@ function editarProceso() {
         }
     });
 }
-
 //confirmar anulado
 function confirmarAnuladoPedido(datos) {
     d = datos.split('||');
@@ -133,7 +126,7 @@ function confirmarAnuladoPedido(datos) {
             input = idPedido + "&obs=" + value;
             anularPedido(input)
         },
-        function() { alertify.warning('Se Canceló Proceso') }).set('labels', { ok: 'Anular', cancel: 'Cancelar' });
+        function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Anular', cancel: 'Cancelar' });
 }
 //anular Pedido
 function anularPedido(datos) {
@@ -152,6 +145,129 @@ function anularPedido(datos) {
                 alertify.error('Error al Anular Pedido');
             }
 
+        }
+    });
+}
+
+//SCRIPTS DE CLIENTES
+//ingresar datos a formulario editar cliente
+function formEditarCliente(datos) {
+    d = datos.split('||');
+    $('.idCliente').val(d[0]);
+    $('.documento').val(d[1]);
+    $('.nombre').val(d[2]);
+    $('.direccion').val(d[3]);
+    $('.asesor').val(d[4]);
+    $('.celular').val(d[5]);
+    $('.correo').val(d[6]);
+
+}
+//Editar Cliente
+function editarCliente() {
+
+    $.ajax({
+        type: "POST",
+        url: "php/editarCliente.php",
+        data: $("#formEditarCliente").serialize(),
+        datatype: "json",
+        success: function(r) {
+            console.log(r);
+            if (r == 1) {
+                $('.centrado').fadeIn();
+                $('.mostrarTabla').load('tablas/tablaClientes.php');
+                $('.centrado').fadeOut();
+                alertify.success("Cliente Editado Correctamente");
+            } else {
+                alertify.error('Error al Editar Cliente');
+            }
+        }
+    });
+}
+
+//SCRIPTS DE ASESORES
+//ingresar datos a formulario editar cliente
+function formEditarAsesor(datos) {
+    d = datos.split('||');
+    $('.idAsesor').val(d[0]);
+    $('.nombre').val(d[1]);
+    $('.usuario').val(d[2]);
+    $('.correo').val(d[3]);
+    $('.celular').val(d[4]);
+
+}
+//Editar Asesor
+function editarAsesor() {
+
+    $.ajax({
+        type: "POST",
+        url: "php/editarAsesor.php",
+        data: $("#formEditarAsesor").serialize(),
+        datatype: "json",
+        success: function(r) {
+            console.log(r);
+            if (r == 1) {
+                $('.centrado').fadeIn();
+                $('.mostrarTabla').load('tablas/tablaAsesores.php');
+                $('.centrado').fadeOut();
+                alertify.success("Asesor Editado Correctamente");
+            } else {
+                alertify.error('Error al Editar Asesor');
+            }
+        }
+    });
+}
+
+
+//SCRIPT DE VER PEDIDO EN MODAL
+function verPedido(datos) {
+    d = datos.split('||');
+    $('.nroPedido').val("Nro Pedido: " + d[1]);
+    $('.cliente').val("Cliente: " + d[2]);
+    $('.asesor').val("Asesor: " + d[3]);
+    $('.inicio').val("Fecha Inicio: " + d[4]);
+    $('.fin').val("Fecha Entrega: " + d[5]);
+    $('.dias').val("Días Hábiles: " + d[6]);
+    $('.procesos').val("Procesos: " + d[7]);
+    $('.unds').val("Unds: " + d[8]);
+    $('.estadoPedido').val("Estado: " + d[9]);
+
+
+}
+
+//SCRIPT DE BODEGA
+//Ingresar datos aformulario editar bodega
+function formEditarBodega(datos) {
+    d = datos.split('||');
+    $('.nroPedido').html("<b>Nro Pedido:</b> " + d[1]);
+    $('.cliente').html("<b>Cliente:</b> " + d[2]);
+    $('.asesor').html("<b>Asesor:</b> " + d[3]);
+    $('.inicio').html("<b>Fecha Inicio:</b> " + d[4]);
+    $('.fin').html("<b>Fecha Entrega:</b> " + d[5]);
+    $('.procesos').html("<b>Procesos:</b> " + d[7]);
+    $('.unds').html("<b>Unds:</b> " + d[8]);
+    $('.idBodega').val(d[10]);
+    $('.obs_bodega').val(d[11]);
+    $('.parcial').val(d[12]);
+    $('.idPedido').val(d[0]);
+}
+//Editar Bodega
+function editarBodega() {
+    alert($("#formEditarBodega").serialize(), );
+    $.ajax({
+        type: "POST",
+        url: "php/editarBodega.php",
+        data: $("#formEditarBodega").serialize(),
+        datatype: "json",
+        success: function(r) {
+            console.log(r);
+            if (r == 1) {
+                $('.centrado').fadeIn();
+                $('.mostrarTabla').load('tablas/tablaBodega.php');
+                $('.centrado').fadeOut();
+                alertify.success("Pedido Editado Correctamente");
+            } else {
+                alertify.error('Error al Editar Pedido');
+            }
         }
     });
 }

@@ -14,3 +14,18 @@
         
         <script src="plugins/alertify/alertify.js"></script>
         
+         <!-- inicioicono reload -->
+<div class="centrado">
+        <div class="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        
+    </div>
+    <!-- fin icono reload -->

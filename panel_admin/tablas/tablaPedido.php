@@ -98,8 +98,21 @@ if (empty($_SESSION['active'])){
         endforeach; ?>
     </tbody>
 </table>
-<script src="js/scriptss.js"></script>
+<!-- <script src="js/scriptsss.js"></script> -->
 <!-- datatable -->
 <script>
-   
+   $(document).ready(function() {
+
+$('.tablaDinamica').DataTable({
+    responsive: true,
+    "order": [
+        [6, "asc"]
+    ],
+    "pageLength": 25,
+    "language": {
+        "url": "./plugins/datatable/Spanish.json"
+    },
+});
+
+});
 </script>

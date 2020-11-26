@@ -32,13 +32,13 @@ if (!empty($_SESSION['active'])){
             <div class="content-wrapper d-flex align-items-stretch auth auth-img-bg">
                 <div class="row flex-grow">
                     <div class="col-lg-6 d-flex align-items-center justify-content-center bg-dark">
-                        <div class="auth-form-transparent text-left p-3">
+                        <div  class="auth-form-transparent text-left p-3 ">
                             <div class="brand-logo">
-                                <img src="images/logo_kamisetas.png" alt="logo">
+                                <img style="width:300px" src="images/logo_kamisetas.png" alt="logo">
                             </div>
-                            <h1 class="text-white py-5 text-center">Bienvenidos!</h1>
+                            <h1 style="width:300px" class="text-white py-5 text-center">Bienvenidos!</h1>
                             <h6 class="font-weight-light text-white">Inicio de sesión.</h6>
-                            <form action="" class="pt-3 " method="POST" id="formLogin">
+                            <form style="width:300px" action="" class="pt-3 " method="POST" id="formLogin">
                                 <div class="form-group mb-5 ">
                                     <div class="input-group rounded">
                                         <div class="input-group-prepend bg-transparent ">

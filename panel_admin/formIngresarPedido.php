@@ -1,6 +1,7 @@
 <?php
+
 session_start();
-include("includes/scriptUp.php");
+
 include("../db/Conexion.php");
 include("php/funcionFecha.php");
 if (empty($_SESSION['active'])) {
@@ -140,8 +141,10 @@ if (empty($_SESSION['active'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>INICIO</title>
+    <title>REGISTRO PEDIDO</title>
     <link rel="shortcut icon" href="images/icono.png" />
+    <?php   include("includes/scriptUp.php");?>
+  
 
 </head>
 

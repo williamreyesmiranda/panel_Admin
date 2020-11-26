@@ -24,7 +24,7 @@ if (empty($_SESSION['active'])) {
 
 
 <body class="sb-nav-fixed ">
-    
+
     <?php include("includes/navBar.php") ?>
     <div id="layoutSidenav_content">
         <main>
@@ -36,113 +36,71 @@ if (empty($_SESSION['active'])) {
 
                 <!-- tabla -->
                 <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table mr-1"></i> Lista de Pedidos Pendientes
+                    <div class="card-header ">
+                        <i class="fas fa-table mr-1"></i> Lista de Pedidos Para Bodega
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <div id="mostrarTabla"></div>
+                            <div class="mostrarTabla"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- MODALES -->
-            <!-- modal editar pedido (sin proceso) -->
-            <div class="modal fade" id="editarPedido" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+            <!-- modal ver pedido  -->
+            <div class="modal fade" id="verPedido" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">
                     <div class="modal-content ">
                         <div class="modal-header">
-                            <h2 class="modal-title mx-auto">Editar Pedido</h2>
+                            <h2 class="modal-title text-center">Información Detallada del Pedido</h2>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span class="salirModal" aria-hidden="true">&times;</span>
+                                <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <div class=" mx-auto d-block border border-dark rounded col-md-9">
                                 <h3 class="mx-auto d-block mt-2 p-1 text-center"><span></span></h3>
-                                <form id="formEditarPedido" class="needs-validation mt-4 p-2 " method="POST" novalidate>
-
-                                    <div class="form-group">
-                                        <input class="idPedidoEditar" type="hidden" name="idPedidoEditar">
-                                        <input type="hidden" name="procesos" class="idProcesosEditar">
-                                        <input type="text" class="form-control input-sm nroPedidoEditar" name="nroPedidoEditar" value="" placeholder="Nro Pedido (*)" autocomplete="off" required>
-                                        <!-- <div class="valid-feedback">Listo</div> -->
-                                        <div class="invalid-feedback">Ingrese el Nro de Pedido</div>
-                                    </div>
-                                    <div class="form-group">
-                                        <?php
-                                        $conexion = new Conexion();
-                                        $consultaSQL = "SELECT * FROM clientes order by nombre asc";
-                                        $clientes = $conexion->consultarDatos($consultaSQL);
-                                        ?>
-                                        <input list="clienteEditar" name="clienteEditar" id="clienteEdit" class="form-control clienteEdit" value="" placeholder="Cliente (*)" autocomplete="off" required></label>
-                                        <datalist name="clienteEditar" id="clienteEditar">
-                                            <?php foreach ($clientes as $cliente) : ?>
-                                                <option value="<?php echo $cliente['nombre'] ?>"></option>
-                                            <?php endforeach; ?>
-                                        </datalist>
-
-                                        <!-- <div class="valid-feedback">Listo</div> -->
-                                        <div class="invalid-feedback">Ingrese el Nombre del Cliente.</div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <?php
-
-                                        $consultaAsesor = "SELECT * FROM asesor order by usuario asc";
-                                        $asesores = $conexion->consultarDatos($consultaAsesor);
-                                        ?>
-
-                                        <input list="asesorEditar" name="asesor" id="asesorEdit" class="form-control asesorEdit" value="" placeholder="Asesor (*)" autocomplete="off" required></label>
-                                        <datalist name="asesorEditar" id="asesorEditar">
-                                            <?php foreach ($asesores as $asesor) : ?>
-                                                <option value="<?php echo $asesor['usuario'] ?>"></option>
-                                            <?php endforeach; ?>
-                                        </datalist>
-
-                                        <!-- <div class="valid-feedback">Listo</div> -->
-                                        <div class="invalid-feedback">Ingrese el Asesor.</div>
-                                    </div>
 
 
-                                    <div class="form-group">
-                                        <label for="inicioEditar">Fecha Inicio: (*)</label>
-                                        <input type="date" class="form-control input-sm inicioEditar" id="inicioEditar" name="fechaInicio" value="" required>
-                                        <!-- <div class="valid-feedback">Listo</div> -->
-                                        <div class="invalid-feedback">Por Favor Ingrese Fecha</div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="finEditar">Fecha Final: (*)</label>
-                                        <input type="date" class="form-control input-sm finEditar" id="finEditar" name="fechaFin" value="" required>
-                                        <!-- <div class="valid-feedback">Listo</div> -->
-                                        <div class="invalid-feedback">Por Favor Ingrese Fecha</div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Días Hábiles</label>
-                                        <input class="form-control input-sm diasEditar diasEditar" type="text " name="diasEditar" id="diasEditar" readonly>
-                                        <!-- <div class="form-control input-sm"><span id="diasEditar" name='diasEditar'></span></div> -->
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="undsEditar">Unds: (*)</label>
-                                        <input type="number" class="form-control input-sm undsEditar" value="" id="undsEditar" placeholder="" name="undsEditar" required>
-                                        <!-- <div class="valid-feedback">Listo</div> -->
-                                        <div class="invalid-feedback">Por Favor Ingrese Fecha</div>
-                                    </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-sm nroPedido" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control cliente" readonly>
 
-                                    <div class="form-group ">
-                                        <label for="">Procesos (*)</label>
-                                        <input type="text" class="form-control input-sm procesosEditar" id="procesosEditar" readonly>
-                                        <!-- <div class="valid-feedback">Listo</div> -->
-                                        <div class="invalid-feedback">Por Favor Ingrese Fecha</div>
-                                    </div>
-                                    <div class="diasProcesoEditar"></div>
-                                </form>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control asesor" readonly>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-sm inicio" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-sm fin" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control input-sm dias" type="text " readonly>
+
+                                </div>
+                                <div class="form-group ">
+                                    <input type="text" class="form-control input-sm unds" readonly>
+                                </div>
+
+                                <div class="form-group ">
+                                    <input type="text" class="form-control input-sm procesos" readonly>
+                                </div>
+                                <div class="form-group ">
+                                    <input type="text" class="form-control input-sm estadoPedido" readonly>
+                                </div>
+
+
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-dark" data-dismiss="modal" id="modalEditarPedido" onclick="editarPedido();">Editar Pedido</button>
-                            <button type="button" class="btn btn-danger salirModal" data-dismiss="modal" id="salirModal" >Cancelar</button>
+
+                            <button type="button" class="btn btn-dark " data-dismiss="modal" id="">Aceptar</button>
 
                         </div>
                     </div>
@@ -150,6 +108,51 @@ if (empty($_SESSION['active'])) {
 
 
 
+            </div>
+            <!-- modal editar Bodega -->
+            <div class="modal fade" id="editarBodega" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog">
+                    <div class="modal-content ">
+                        <div class="modal-header">
+                            <h2 class="modal-title mx-auto">Editar Bodega</h2>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span class="salirModal" aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class=" mx-auto d-block border border-dark rounded col-md-9 mb-2 py-2">
+                                <div class="nroPedido"></div>
+                                <div class="cliente"></div>
+                                <div class="asesor"></div>
+                                <div class="inicio"></div>
+                                <div class="fin"></div>
+                                <div class="procesos"></div>
+                                <div class="unds"></div>
+                            </div>
+                            <div class=" mx-auto d-block border border-dark rounded col-md-9">
+                                <h3 class="mx-auto d-block mt-2 p-1 text-center"><span></span></h3>
+
+                                <form id="formEditarBodega" class="" method="POST" novalidate>
+                                    <input type="hidden" name="idPedido" class="idPedido">
+                                    <input type="hidden" name="idBodega" class="idBodega">
+                                    <div class="form-group text-center col-md-5 mx-auto">
+                                        <label for="parcial">Parcial:</label>
+                                        <input type="number" name="parcial" id="parcial" class="form-control parcial" aria-describedby="helpId">
+                                    </div>
+                                    <div class="form-group text-center ">
+                                        <label for="obs_bodega">Parcial:</label>
+                                        <textarea name="obs_bodega" id="obs_bodega" class="form-control obs_bodega" rows="5"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-dark" data-dismiss="modal" id="modalEditarBodega" onclick="editarBodega();">Editar Pedido</button>
+                            <button type="button" class="btn btn-danger salirModal" data-dismiss="modal" id="salirModal">Cancelar</button>
+
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- modal editar pedido (solo proceso) -->
             <div class="modal fade" id="editarProceso" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
@@ -168,7 +171,7 @@ if (empty($_SESSION['active'])) {
 
                                     <div class="form-group">
                                         <input class="idPedidoEditar" type="hidden" name="idPedido">
-                                        
+
                                         <input type="hidden" name="asesor" class=" asesorEdit">
                                         <input type="hidden" class=" inicioEditar" name="fechaInicio">
                                         <input type="hidden" class="finEditar" name="fechaFin">
@@ -185,7 +188,7 @@ if (empty($_SESSION['active'])) {
                                     <div class="form-group ">
                                         <label for="undsEditar">Unds: (*)</label>
                                         <input type="number" class="form-control input-sm undsEditar" name="undsEditar" readonly>
-                                       </div>
+                                    </div>
 
                                     <div class="form-group">
                                         <?php
@@ -200,7 +203,7 @@ if (empty($_SESSION['active'])) {
                                             <?php endforeach; ?>
                                         </datalist>
                                     </div>
-                                        
+
 
                                     <div class="diasProcesoEditar"></div>
                                 </form>
@@ -208,7 +211,7 @@ if (empty($_SESSION['active'])) {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-dark" data-dismiss="modal" id="modalEditarPedido" onclick="editarProceso();">Editar Pedido</button>
-                            <button type="button" class="btn btn-danger salirModal" data-dismiss="modal"  >Cancelar</button>
+                            <button type="button" class="btn btn-danger salirModal" data-dismiss="modal">Cancelar</button>
 
                         </div>
                     </div>
@@ -227,7 +230,7 @@ if (empty($_SESSION['active'])) {
     <!-- alerta al cancelar modal -->
     <script>
         $(document).ready(function() {
-            $('#mostrarTabla').load('tablas/tablaPedido.php');
+            $('.mostrarTabla').load('tablas/tablaBodega.php');
 
             //cargar dias habiles en editar pedido
             $('.finEditar').change(function() {
@@ -250,9 +253,9 @@ if (empty($_SESSION['active'])) {
                     }
                 });
             });
-$('.procesosCargar').change(function () { 
-  
-    $.ajax({
+            $('.procesosCargar').change(function() {
+
+                $.ajax({
                     type: "POST",
                     url: "php/cargarProcesos.php",
                     data: $('#formEditarPedido').serialize(),
@@ -260,8 +263,8 @@ $('.procesosCargar').change(function () {
                         $('.diasProcesoEditar').html(data);
                     }
                 });
-    
-});
+
+            });
             //borrar los datos cuando se ingresa nueva fecha en inicioFecha
             $('.inicioEditar').change(function() {
                 $('.finEditar').val(''),
