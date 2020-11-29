@@ -68,7 +68,7 @@ if (empty($_SESSION['active'])) {
 
     </tbody>
 </table>
-<script src="js/scriptss.js"></script>
+<!-- <script src="js/scri.js"></script> -->
 <!-- datatable -->
 <script>
 $(document).ready(function() {

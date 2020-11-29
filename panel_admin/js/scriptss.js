@@ -204,7 +204,7 @@ function editarAsesor() {
         data: $("#formEditarAsesor").serialize(),
         datatype: "json",
         success: function(r) {
-            console.log(r);
+
             if (r == 1) {
                 $('.centrado').fadeIn();
                 $('.mostrarTabla').load('tablas/tablaAsesores.php');
@@ -223,7 +223,7 @@ function verPedido(datos) {
     d = datos.split('||');
     $('.nroPedido').val("Nro Pedido: " + d[1]);
     $('.cliente').val("Cliente: " + d[2]);
-    $('.asesor').val("Asesor: " + d[3]);
+    $('.asesor').val("Asesor: " + d[3] + " (" + d[15] + ")");
     $('.inicio').val("Fecha Inicio: " + d[4]);
     $('.fin').val("Fecha Entrega: " + d[5]);
     $('.dias').val("Días Hábiles: " + d[6]);
@@ -233,14 +233,39 @@ function verPedido(datos) {
 
 
 }
+//finalizar novedad generalmente
+function finalizarNovedad() {
+
+    $.ajax({
+        type: "POST",
+        url: "php/finalizarNovedad.php",
+        data: $(".formFinalizarNovedad").serialize(),
+        datatype: "json",
+        success: function(r) {
+            console.log(r)
+            if (r == 1) {
+                $('.centrado').fadeIn();
+                $('.mostrarTabla').load('tablas/tablaBodega.php');
+                $('.centrado').fadeOut();
+                alertify.success("Se ha finalizado  novedad Correctamente.");
+            } else {
+                alertify.error("No se ha reportado ninguna novedad para este pedido.");
+            }
+        }
+    });
+}
 
 //SCRIPT DE BODEGA
 //Ingresar datos aformulario editar bodega
 function formEditarBodega(datos) {
     d = datos.split('||');
+    $('.idPedido').val(d[0]);
+    $('.nroPedido').val(d[1]);
+    $('.cliente').val(d[2]);
+    $('.asesor').val(d[3]);
     $('.nroPedido').html("<b>Nro Pedido:</b> " + d[1]);
     $('.cliente').html("<b>Cliente:</b> " + d[2]);
-    $('.asesor').html("<b>Asesor:</b> " + d[3]);
+    $('.asesor').html("<b>Asesor:</b> " + d[3] + " (" + d[15] + ")");
     $('.inicio').html("<b>Fecha Inicio:</b> " + d[4]);
     $('.fin').html("<b>Fecha Entrega:</b> " + d[5]);
     $('.procesos').html("<b>Procesos:</b> " + d[7]);
@@ -248,11 +273,12 @@ function formEditarBodega(datos) {
     $('.idBodega').val(d[10]);
     $('.obs_bodega').val(d[11]);
     $('.parcial').val(d[12]);
-    $('.idPedido').val(d[0]);
+    $('.idNovedad').val(d[13]);
+    $('.novedad').val(d[14]);
+
 }
 //Editar Bodega
 function editarBodega() {
-    alert($("#formEditarBodega").serialize(), );
     $.ajax({
         type: "POST",
         url: "php/editarBodega.php",
@@ -267,6 +293,26 @@ function editarBodega() {
                 alertify.success("Pedido Editado Correctamente");
             } else {
                 alertify.error('Error al Editar Pedido');
+            }
+        }
+    });
+}
+//novedad Bodega
+function novedadBodega() {
+
+    $.ajax({
+        type: "POST",
+        url: "php/novedadBodega.php",
+        data: $("#formNovedadBodega").serialize(),
+        datatype: "json",
+        success: function(r) {
+            if (r == 1) {
+                $('.centrado').fadeIn();
+                $('.mostrarTabla').load('tablas/tablaBodega.php');
+                $('.centrado').fadeOut();
+                alertify.success("Novedad Generada Correctamente. Se ha enviado copia al Comercial");
+            } else {
+                alertify.error('Error al generar Novedad');
             }
         }
     });

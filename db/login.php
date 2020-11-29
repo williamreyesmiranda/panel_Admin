@@ -22,6 +22,7 @@ if($resultado){
     $_SESSION['idrol'] = $resultado[0]['idrol']; 
     $_SESSION['rol'] = $resultado[0]['rol']; 
     $_SESSION['sexo'] = $resultado[0]['sexo']; 
+    $_SESSION['cedula'] = $data['cedula']; 
     $_SESSION['correo'] = $resultado[0]['correo']; 
 }else{
    print json_encode(-1);

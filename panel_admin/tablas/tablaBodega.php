@@ -5,7 +5,7 @@ if (empty($_SESSION['active'])) {
 }
 ?>
 <div class="table-container">
-    <table class="table table-hover table-condensed table-bordered tablaDinamica" id="" cellspacing="0">
+    <table class="table table-hover table-condensed table-bordered tablaDinamica" style="width:1700px !important;"id="" cellspacing="0">
         <thead>
             <tr>
                 <th class="alert-info text-center" colspan="6">Info Pedido</th>
@@ -60,13 +60,15 @@ if (empty($_SESSION['active'])) {
             $consultaSQL = "SELECT pe.idpedido, pe.num_pedido, pe.cliente, pe.asesor, pe.fecha_inicio as 'iniciopedido', 
         pe.fecha_fin as 'finpedido', pe.dias_habiles as 'diaspedido', pe.unds, pe.fecha_ingreso, pe.usuario,
         bo.idbodega, bo.iniciofecha as 'iniciobodega', bo.finfecha as 'finbodega', bo.dias as 'diasbodega',
-        bo.inicioprocesofecha, bo.finprocesofecha, bo.parcial, us.usuario, bo.obs_bodega, pr.siglas, es.estado, est.estado as 'estadopedido'
+        bo.inicioprocesofecha, bo.finprocesofecha, bo.parcial, us.usuario, bo.obs_bodega, bo.numNovedad, pr.siglas, es.estado, est.estado as 'estadopedido'
         FROM pedidos pe 
+        
         INNER JOIN procesos pr ON pe.procesos=pr.idproceso
         INNER JOIN bodega bo ON pe.idpedido=bo.pedido
         INNER JOIN usuario us on pe.usuario=us.idusuario
         INNER JOIN estado es ON bo.estado=es.id_estado
         INNER JOIN estado est ON pe.estado=est.id_estado
+        
         WHERE bo.estado<3";
             $pedidos = $conexion->consultarDatos($consultaSQL);
             foreach ($pedidos as $pedido) :
@@ -85,9 +87,20 @@ if (empty($_SESSION['active'])) {
                 if ($diafaltabodega < 0) {
                     $diafaltabodega =  - (fechaToDays($diabodega, $hoy) - 1);
                 }
+                //consulta de la novedad por medio del idNovedad
+                $numNovedad=$pedido['numNovedad'];
+                $consultaSQL="SELECT * FROM novedades WHERE idNovedad='$numNovedad'";
+                $result=$conexion->consultarDatos($consultaSQL);
+                $novedad=@$result[0]['novedad'];
+                //consulta del nombre del asesor por medio del usuario
+                $asesor=$pedido['asesor'];
+                $consultaSQL="SELECT * FROM asesor WHERE usuario='$asesor'";
+                $result=$conexion->consultarDatos($consultaSQL);
+                $nombreAsesor=@$result[0]['nombre'];
 
                 $datos = $pedido['idpedido'] . "||" . $pedido['num_pedido'] . "||" . $pedido['cliente'] . "||" . $pedido['asesor'] . "||" . $pedido['iniciopedido'] . "||" .
-                    $pedido['finpedido'] . "||" . $pedido['diaspedido'] . "||" . $pedido['siglas'] . "||" . $pedido['unds'] . "||" . $pedido['estadopedido'] . "||" . $pedido['idbodega'] . "||" . $pedido['obs_bodega'] . "||" . $pedido['parcial'];
+                    $pedido['finpedido'] . "||" . $pedido['diaspedido'] . "||" . $pedido['siglas'] . "||" . $pedido['unds'] . "||" . $pedido['estadopedido'] . "||" . $pedido['idbodega'] .
+                     "||" . $pedido['obs_bodega'] . "||" . $pedido['parcial']. "||" . $pedido['numNovedad']. "||" .$novedad. "||" .$nombreAsesor;
 
 
             ?>
@@ -118,12 +131,12 @@ if (empty($_SESSION['active'])) {
                      }?>
                     <td><?php echo ($parcial);?></td>
                     <td><?php echo ($falta);?></td>
-                    <td><?php echo ($pedido['obs_bodega']);?></td>
+                    <td><?php echo ($pedido['obs_bodega']); if($pedido['numNovedad']>0){echo ("<br><b>Novedad:</b>".$novedad);}?></td>
                     <td><?php echo ($pedido['estado']);?></td>
                     <td>
                         <h5>
                             <a class="my-auto" title=" Editar Bodega" data-toggle="modal" data-target="#editarBodega"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarBodega('<?php echo ($datos); ?>')"></i></a>
-                            <a class="my-auto" title="Reportar Novedad" data-toggle="modal" data-target="#editarProceso"><i class="far fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarBodega('<?php echo ($datos); ?>')"></i></a>
+                            <a class="my-auto" title="Reportar Novedad" data-toggle="modal" data-target="#novedadBodega"><i class="far fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarBodega('<?php echo ($datos); ?>')"></i></a>
                             <a class="my-auto" title="Finalizar" onclick="confirmarFinalizadoBodega('<?php echo ($datos); ?>')" id="anularBodega"><i class="fas fa-minus-circle a-text-kmisetas my-auto"></i></a>
                         </h5>
                     </td>
@@ -144,7 +157,7 @@ if (empty($_SESSION['active'])) {
         $('.tablaDinamica').DataTable({
             responsive: true,
             "order": [
-                [6, "asc"]
+                [9, "asc"]
             ],
             "pageLength": 25,
             "language": {

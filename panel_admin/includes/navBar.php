@@ -1,14 +1,14 @@
 
 
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand" href="index.php">Panel</a>
+    <a class="navbar-brand" href="index.php"><img src="images/logo_kamisetas.png" style="width:90px; height:50px"alt=""></a>
     <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
 
     <!-- Navbar-->
     <ul class="navbar-nav  ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <p class="text-kmisetas mx-auto"><?php
                                             include("functions.php");
-                                            echo fechaC(); ?> </p>&nbsp;&nbsp;
+                                            /* echo fechaC(); */ ?> </p>&nbsp;&nbsp;
 
         <h5 class="text-kmisetas mx-auto"><?php
                                             date_default_timezone_set('America/Bogota');
@@ -34,8 +34,8 @@
                 <div class="nav">
                     <!--  <div class="sb-sidenav-menu-heading">Core</div> -->
                     <a class="nav-link text-kmisetas-hover" href="index.php">
-                        <div class="sb-nav-link-icon text-kmisetas-hover"><i class="fas fa-tachometer-alt text-kmisetas-hover"></i></div>
-                        Dashboard
+                        <div class="sb-nav-link-icon text-kmisetas-hover"><i class="fas fa-home"></i></div>
+                        Inicio
                     </a>
                     <div class="sb-sidenav-menu-heading">Interface</div>
                     <a class="nav-link collapsed text-kmisetas-hover" href="#" data-toggle="collapse" data-target="#administracion" aria-expanded="false" aria-controls="collapseLayouts">

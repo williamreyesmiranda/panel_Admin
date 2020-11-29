@@ -143,82 +143,64 @@ if (empty($_SESSION['active'])) {
                                         <label for="obs_bodega">Parcial:</label>
                                         <textarea name="obs_bodega" id="obs_bodega" class="form-control obs_bodega" rows="5"></textarea>
                                     </div>
+                                    
                                 </form>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-dark" data-dismiss="modal" id="modalEditarBodega" onclick="editarBodega();">Editar Pedido</button>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-dark" name="btnEditarBodega"data-dismiss="modal" id="modalEditarBodega" onclick="editarBodega();">Editar Pedido</button>
                             <button type="button" class="btn btn-danger salirModal" data-dismiss="modal" id="salirModal">Cancelar</button>
 
                         </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
-            <!-- modal editar pedido (solo proceso) -->
-            <div class="modal fade" id="editarProceso" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+            <!-- modal novedad Bodega -->
+            <div class="modal fade" id="novedadBodega" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">
-                    <div class="modal-content">
+                    <div class="modal-content ">
                         <div class="modal-header">
-                            <h2 class="modal-title mx-auto">Editar Proceso</h2>
+                            <h2 class="modal-title mx-auto">Reportar Novedad</h2>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span class="salirModal" aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
+                            <div class=" mx-auto d-block border border-dark rounded col-md-9 mb-2 py-2">
+                                <div class="nroPedido"></div>
+                                <div class="cliente"></div>
+                                <div class="asesor"></div>
+                                <div class="inicio"></div>
+                                <div class="fin"></div>
+                                <div class="procesos"></div>
+                                <div class="unds"></div>
+                                <div>Tu Correo:<?php echo($_SESSION['correo']);?></div>
+                            </div>
                             <div class=" mx-auto d-block border border-dark rounded col-md-9">
-                                <h3 class="mx-auto d-block mt-2 p-1 text-center"><span></span></h3>
-                                <form id="formEditarProceso" class="needs-validation mt-4 p-2 " method="POST" novalidate>
+                                <h3 class="mx-auto d-block mt-2 p-1 text-center"><span>Escribe la Novedad!!</span></h3>
 
-                                    <div class="form-group">
-                                        <input class="idPedidoEditar" type="hidden" name="idPedido">
-
-                                        <input type="hidden" name="asesor" class=" asesorEdit">
-                                        <input type="hidden" class=" inicioEditar" name="fechaInicio">
-                                        <input type="hidden" class="finEditar" name="fechaFin">
-                                        <input type="hidden" class="diasEditar" type="text " name="diasEditar">
-                                        <label for="">Nro Pedido:</label>
-                                        <input type="text" class="form-control input-sm nroPedidoEditar" name="nroPedido" readonly>
-
+                                <form id="formNovedadBodega" class="formFinalizarNovedad" method="POST" novalidate>
+                                    <input type="hidden" name="idPedido" class="idPedido">
+                                    <input type="hidden" name="idNovedad" class="idNovedad">
+                                    <input type="hidden" name="asesor" class="asesor">
+                                    <input type="hidden" name="nroPedido" class="nroPedido">
+                                    <input type="hidden" name="cliente" class="cliente">
+                                    <div class="form-group text-center ">
+                                        <label for="novedad">Novedad:</label>
+                                        <textarea name="novedad" id="novedad" class="form-control novedad" rows="5"></textarea>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="">Cliente:</label>
-                                        <input type="text" name="clienteEditar" class="form-control clienteEdit" value="" readonly></label>
-                                    </div>
-
-                                    <div class="form-group ">
-                                        <label for="undsEditar">Unds: (*)</label>
-                                        <input type="number" class="form-control input-sm undsEditar" name="undsEditar" readonly>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <?php
-                                        $conexion = new Conexion();
-                                        $consultaSQL = "SELECT * FROM procesos ";
-                                        $procesos = $conexion->consultarDatos($consultaSQL);
-                                        ?>
-                                        <input list="procesosProceso" name="procesosProceso" class="form-control procesosEditar" value="" placeholder="Procesos (*)" autocomplete="off" required></label>
-                                        <datalist name="procesosProceso" id="procesosProceso">
-                                            <?php foreach ($procesos as $proceso) : ?>
-                                                <option value="<?php echo $proceso['siglas'] ?>"></option>
-                                            <?php endforeach; ?>
-                                        </datalist>
-                                    </div>
-
-
-                                    <div class="diasProcesoEditar"></div>
                                 </form>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-dark" data-dismiss="modal" id="modalEditarPedido" onclick="editarProceso();">Editar Pedido</button>
-                            <button type="button" class="btn btn-danger salirModal" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal"  onclick="novedadBodega();">Reportar Novedad</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal"  onclick="finalizarNovedad();">Finalizar Novedad</button>
+                            <button type="button" class="btn btn-danger salirModal" data-dismiss="modal" id="salirModal">Cancelar</button>
 
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
 
         </main>
@@ -232,45 +214,7 @@ if (empty($_SESSION['active'])) {
         $(document).ready(function() {
             $('.mostrarTabla').load('tablas/tablaBodega.php');
 
-            //cargar dias habiles en editar pedido
-            $('.finEditar').change(function() {
-                //llamar dias habiles
-                $.ajax({
-                    type: "POST",
-                    url: "php/cargarDias.php",
-                    data: $('#formEditarPedido').serialize(),
-                    success: function(data) {
-                        $('.diasEditar').val(data);
-                    }
-                });
-                //llamar dias de procesos
-                $.ajax({
-                    type: "POST",
-                    url: "php/cargarProcesos.php",
-                    data: $('#formEditarPedido').serialize(),
-                    success: function(data) {
-                        $('.diasProcesoEditar').html(data);
-                    }
-                });
-            });
-            $('.procesosCargar').change(function() {
-
-                $.ajax({
-                    type: "POST",
-                    url: "php/cargarProcesos.php",
-                    data: $('#formEditarPedido').serialize(),
-                    success: function(data) {
-                        $('.diasProcesoEditar').html(data);
-                    }
-                });
-
-            });
-            //borrar los datos cuando se ingresa nueva fecha en inicioFecha
-            $('.inicioEditar').change(function() {
-                $('.finEditar').val(''),
-                    $('.diasEditar').val('');
-                $('.diasProcesoEditar').html('');
-            });
+            
 
         });
     </script>

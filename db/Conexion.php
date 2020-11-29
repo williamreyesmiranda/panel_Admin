@@ -38,7 +38,7 @@ class Conexion
         if ($resultado) {
             return 1;
         } else {
-            echo "error";
+            return "error";
         }
     }
 
@@ -69,7 +69,7 @@ class Conexion
         if ($resultado) {
             return 1;
         } else {
-            echo "error";
+            return "error";
         }
     }
 
@@ -86,7 +86,7 @@ class Conexion
         if ($resultado) {
             return 1;
         } else {
-            echo "error";
+            return "error";
         }
     }
     
