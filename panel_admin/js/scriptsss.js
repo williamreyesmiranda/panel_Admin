@@ -267,6 +267,7 @@ function formEditarBodega(datos) {
     $('.cliente').html("<b>Cliente:</b> " + d[2]);
     $('.asesor').html("<b>Asesor:</b> " + d[3] + " (" + d[15] + ")");
     $('.inicio').html("<b>Fecha Inicio:</b> " + d[4]);
+    $('.correoAsesor').html("<b>Correo Asesor:</b> " + d[16]);
     $('.fin').html("<b>Fecha Entrega:</b> " + d[5]);
     $('.procesos').html("<b>Procesos:</b> " + d[7]);
     $('.unds').html("<b>Unds:</b> " + d[8]);

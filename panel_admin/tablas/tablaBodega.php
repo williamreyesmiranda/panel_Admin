@@ -97,10 +97,11 @@ if (empty($_SESSION['active'])) {
                 $consultaSQL="SELECT * FROM asesor WHERE usuario='$asesor'";
                 $result=$conexion->consultarDatos($consultaSQL);
                 $nombreAsesor=@$result[0]['nombre'];
+                $correoAsesor=@$result[0]['correo'];
 
                 $datos = $pedido['idpedido'] . "||" . $pedido['num_pedido'] . "||" . $pedido['cliente'] . "||" . $pedido['asesor'] . "||" . $pedido['iniciopedido'] . "||" .
                     $pedido['finpedido'] . "||" . $pedido['diaspedido'] . "||" . $pedido['siglas'] . "||" . $pedido['unds'] . "||" . $pedido['estadopedido'] . "||" . $pedido['idbodega'] .
-                     "||" . $pedido['obs_bodega'] . "||" . $pedido['parcial']. "||" . $pedido['numNovedad']. "||" .$novedad. "||" .$nombreAsesor;
+                     "||" . $pedido['obs_bodega'] . "||" . $pedido['parcial']. "||" . $pedido['numNovedad']. "||" .$novedad. "||" .$nombreAsesor. "||" .$correoAsesor;
 
 
             ?>

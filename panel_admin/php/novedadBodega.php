@@ -60,7 +60,7 @@ $destinatario = $correoAsesor;
         
         //direcciones que recibirán copia oculta 
         /* $headers .= "Bcc: pepe@pepe.com,juan@juan.com\r\n";  */
-        $mail=mail($destinatario,$asunto,$cuerpo,$headers);
+        $mail=@mail($destinatario,$asunto,$cuerpo,$headers);
        
 }else{
     $consultaSQL="INSERT INTO novedades(idPedido, area, novedad, usuario) VALUES ('$idPedido','bodega','$novedad','$idUsuario');
@@ -109,7 +109,7 @@ $destinatario = $correoAsesor;
         //direcciones que recibirán copia oculta 
         /* $headers .= "Bcc: pepe@pepe.com,juan@juan.com\r\n";  */
         
-        $mail=mail($destinatario,$asunto,$cuerpo,$headers);
+        $mail=@mail($destinatario,$asunto,$cuerpo,$headers);
 
 }
 echo json_encode($result);

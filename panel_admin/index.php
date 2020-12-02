@@ -466,7 +466,7 @@ if (empty($_SESSION['active'])) {
                 </div>
                 <div class="card mb-4">
                     <div class="card-header  alert-secondary">
-                    <h1 class="text-center">INFORME GENERAL DE PEDIDOS</h1>
+                    <h1 class="text-center">NOVEDADES DE ÁREAS</h1>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -513,7 +513,7 @@ if (empty($_SESSION['active'])) {
                                             <td><?php echo ($novedad['asesor']); ?></td>
                                             <td><?php echo ($novedad['area']); ?></td>
                                             <td><?php echo ($novedad['novedad']); ?></td>
-                                            <?php if($novedad['estado']=1){echo "<td class='alert-dark'>Activo</td>";}else{echo "<td class='alert-success'>Finalizado</td>";}; ?>
+                                            <?php if($novedad['estadoNovedad']==1){echo "<td class='alert-dark'>Activo</td>";}else{echo "<td class='alert-success'>Finalizado</td>";}; ?>
                                             <td><?php echo ($novedad['nombre']); ?></td>
                                         </tr>
 

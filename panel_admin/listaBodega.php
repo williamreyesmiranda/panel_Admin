@@ -171,11 +171,12 @@ if (empty($_SESSION['active'])) {
                                 <div class="nroPedido"></div>
                                 <div class="cliente"></div>
                                 <div class="asesor"></div>
+                                <div class="correoAsesor"></div>
                                 <div class="inicio"></div>
                                 <div class="fin"></div>
                                 <div class="procesos"></div>
                                 <div class="unds"></div>
-                                <div>Tu Correo:<?php echo($_SESSION['correo']);?></div>
+                               
                             </div>
                             <div class=" mx-auto d-block border border-dark rounded col-md-9">
                                 <h3 class="mx-auto d-block mt-2 p-1 text-center"><span>Escribe la Novedad!!</span></h3>

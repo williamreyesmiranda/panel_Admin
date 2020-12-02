@@ -10,9 +10,7 @@ $nroPedido=$_POST['nroPedido'];
 $novedad=$_POST['novedad'];
 $correoUsuario=$_SESSION['correo'];
 $asesor=$_POST['asesor'];
-$area="bodega";
 
-echo($idNovedad);
 $conexion= new Conexion();
 //buscar correo asesor
 $consultaSQL="SELECT correo, nombre FROM asesor WHERE usuario='$asesor'";
@@ -26,7 +24,11 @@ if($idNovedad>0){
 $result=$conexion->editarDatos($consultaSQL);
 $consultaSQL="SELECT area FROM novedades  
            WHERE idNovedad='$idNovedad'";
-$result=$conexion->consultarDatos($consultaSQL);
+$query=$conexion->consultarDatos($consultaSQL);
+$area=$query[0]['area'];
+$consultaSQL="UPDATE $area SET numNovedad='' 
+              WHERE pedido='$idPedido'";
+$result=$conexion->editarDatos($consultaSQL);
 $destinatario = $correoAsesor; 
         $asunto = "Novedad Finalizada para el pedido N°".$nroPedido; 
         $cuerpo = " 
@@ -63,7 +65,7 @@ $destinatario = $correoAsesor;
         
         //direcciones que recibirán copia oculta 
         /* $headers .= "Bcc: pepe@pepe.com,juan@juan.com\r\n";  */
-        $mail=mail($destinatario,$asunto,$cuerpo,$headers);
+        $mail=@mail($destinatario,$asunto,$cuerpo,$headers);
        
 }else{
     $result="No se ha reportado ninguna novedad para este pedido.";
