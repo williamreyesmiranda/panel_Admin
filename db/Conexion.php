@@ -86,7 +86,7 @@ class Conexion
         if ($resultado) {
             return 1;
         } else {
-            return "error";
+            echo "error";
         }
     }
     

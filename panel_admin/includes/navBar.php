@@ -1,7 +1,7 @@
 
 
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand" href="index.php"><img src="images/logo_kamisetas.png" style="width:90px; height:50px"alt=""></a>
+<nav class="sb-topnav navbar navbar-expand navbar-dark sb-sidenav-dark ">
+    <a class="navbar-brand" href="index.php"><img src="images/logo_kamisetas.png" style="width:100px; height:50px"alt=""></a>
     <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
 
     <!-- Navbar-->
@@ -33,10 +33,10 @@
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <!--  <div class="sb-sidenav-menu-heading">Core</div> -->
-                    <a class="nav-link text-kmisetas-hover" href="index.php">
+                    <!-- <a class="nav-link text-kmisetas-hover" href="index.php">
                         <div class="sb-nav-link-icon text-kmisetas-hover"><i class="fas fa-home"></i></div>
                         Inicio
-                    </a>
+                    </a> -->
                     <div class="sb-sidenav-menu-heading">Interface</div>
                     <a class="nav-link collapsed text-kmisetas-hover" href="#" data-toggle="collapse" data-target="#administracion" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon text-kmisetas-hover"><i class="fas fa-asterisk"></i></div>
@@ -76,7 +76,7 @@
                         <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="listaBodega.php">Lista Pedidos</a>
-                                <a class="nav-link" href="">Reporte</a>
+                                <a class="nav-link" href="reporteBodega.php">Reporte</a>
                                 <a class="nav-link" href="">Recuperar</a>
                             </nav>
                         </div>

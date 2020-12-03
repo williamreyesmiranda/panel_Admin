@@ -1,4 +1,4 @@
-<link href="css/styleee.css" rel="stylesheet" />
+<link href="css/stylee.css" rel="stylesheet" />
 <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="plugins/alertify/css/alertify.css">
 <link rel="stylesheet" href="plugins/alertify/css/themes/default.css">
@@ -15,7 +15,7 @@
         <script src="plugins/alertify/alertify.js"></script>
         
          <!-- inicioicono reload -->
-<div class="centrado">
+<!--<div class="centrado">
         <div class="lds-roller">
             <div></div>
             <div></div>
@@ -28,4 +28,4 @@
         </div>
         
     </div>
-    <!-- fin icono reload -->
+     fin icono reload -->

@@ -74,6 +74,12 @@ if (empty($_SESSION['active'])) {
 $(document).ready(function() {
 
     $('.tablaClientes').DataTable({
+        dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'pdfHtml5'
+            ],
         responsive: true,
         "order": [
             [1, "asc"]

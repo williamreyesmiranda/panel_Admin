@@ -19,16 +19,16 @@ $correoAsesor=$result[0]['correo'];
 $nombreAsesor=$result[0]['nombre'];
 
 if($idNovedad>0){
-    $consultaSQL="UPDATE novedades SET novedad='$novedad', estado=0   
+    $consultaSQL="UPDATE novedades SET novedad='$novedad', estadoNovedad=0   
            WHERE idNovedad='$idNovedad'";
 $result=$conexion->editarDatos($consultaSQL);
 $consultaSQL="SELECT area FROM novedades  
            WHERE idNovedad='$idNovedad'";
 $query=$conexion->consultarDatos($consultaSQL);
 $area=$query[0]['area'];
-$consultaSQL="UPDATE $area SET numNovedad='' 
+$consultaSQL="UPDATE $area SET numNovedad=NULL 
               WHERE pedido='$idPedido'";
-$result=$conexion->editarDatos($consultaSQL);
+$eliminarNovedad=$conexion->editarDatos($consultaSQL);
 $destinatario = $correoAsesor; 
         $asunto = "Novedad Finalizada para el pedido N°".$nroPedido; 
         $cuerpo = " 

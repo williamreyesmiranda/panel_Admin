@@ -206,9 +206,7 @@ function editarAsesor() {
         success: function(r) {
 
             if (r == 1) {
-                $('.centrado').fadeIn();
                 $('.mostrarTabla').load('tablas/tablaAsesores.php');
-                $('.centrado').fadeOut();
                 alertify.success("Asesor Editado Correctamente");
             } else {
                 alertify.error('Error al Editar Asesor');
@@ -233,7 +231,8 @@ function verPedido(datos) {
 
 
 }
-//finalizar novedad generalmente
+
+//FINALIZAR NOVEDADES GENERALMENTE
 function finalizarNovedad() {
 
     $.ajax({
@@ -245,7 +244,7 @@ function finalizarNovedad() {
             console.log(r)
             if (r == 1) {
                 $('.centrado').fadeIn();
-                $('.mostrarTabla').load('tablas/tablaBodega.php');
+                $('.tablabodega').load('tablas/tablaBodega.php');
                 $('.centrado').fadeOut();
                 alertify.success("Se ha finalizado  novedad Correctamente.");
             } else {
@@ -289,7 +288,7 @@ function editarBodega() {
             console.log(r);
             if (r == 1) {
                 $('.centrado').fadeIn();
-                $('.mostrarTabla').load('tablas/tablaBodega.php');
+                $('.tablabodega').load('tablas/tablaBodega.php');
                 $('.centrado').fadeOut();
                 alertify.success("Pedido Editado Correctamente");
             } else {
@@ -309,12 +308,43 @@ function novedadBodega() {
         success: function(r) {
             if (r == 1) {
                 $('.centrado').fadeIn();
-                $('.mostrarTabla').load('tablas/tablaBodega.php');
+                $('.tablabodega').load('tablas/tablaBodega.php');
                 $('.centrado').fadeOut();
                 alertify.success("Novedad Generada Correctamente. Se ha enviado copia al Comercial");
             } else {
                 alertify.error('Error al generar Novedad');
             }
+        }
+    });
+} //confirmar anulado
+function confirmarFinalizarBodega(datos) {
+    d = datos.split('||');
+    idPedido = "idPedido=" + d[0];
+    idBodega = "&idBodega=" + d[10];
+    unds = "&unds=" + d[8];
+
+    alertify.prompt('Finalizar Bodega', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br><b>Asesor: </b>' + d[3] + " (" + d[15] + ")" + '<br><b>Unds: </b>' + d[8] + '<br><b>Procesos: </b>' + d[7] + '<br><br>Observaciones de Finalizado :<br>', '',
+        function(evt, obs) {
+            input = idPedido + "&obs=" + obs + idBodega + unds;
+            finalizarBodega(input)
+        },
+        function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
+}
+//anular Pedido
+function finalizarBodega(datos) {
+    $.ajax({
+        type: "POST",
+        url: "php/finalizarBodega.php",
+        data: datos,
+        dataType: "json",
+        success: function(data) {
+            if (data == 1) {
+                $('.tablabodega').load('tablas/tablaBodega.php');
+                alertify.success('Pedido Finalizado Correctamente');
+            } else {
+                alertify.error('Error al Anular Pedido');
+            }
+
         }
     });
 }

@@ -1,8 +1,8 @@
 <?php
 session_start();
-if (empty($_SESSION['active'])){
+if (empty($_SESSION['active'])) {
     header('location: ../');
-  }
+}
 ?>
 <table class="table table-hover table-condensed table-bordered tablaDinamica" id="" width="100%" cellspacing="0">
     <thead>
@@ -84,12 +84,12 @@ if (empty($_SESSION['active'])){
                 <td><?php echo ($pedido['unds']); ?></td>
                 <td><?php echo ($pedido['usuario']); ?></td>
                 <td>
-                    <h5><?php if( $_SESSION['user']==$pedido['usuario'] || $_SESSION['idrol']==1 ):?>
-                        <a class="my-auto" title=" Editar pedido" data-toggle="modal" data-target="#editarPedido"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarPedido('<?php echo ($datos); ?>')"></i></a>
-                        <a class="my-auto" title="Cambiar Procesos" data-toggle="modal" data-target="#editarProceso"><i class="far fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarPedido('<?php echo ($datos); ?>')"></i></a>
-                        <a class="my-auto" title="Anular" onclick="confirmarAnuladoPedido('<?php echo ($datos); ?>')" id="anularPedido"><i class="fas fa-minus-circle a-text-kmisetas my-auto"></i></a>
-                    <?php endif;?>
-                        </h5>
+                    <h5><?php if ($_SESSION['user'] == $pedido['usuario'] || $_SESSION['idrol'] == 1) : ?>
+                            <a class="my-auto" title=" Editar pedido" data-toggle="modal" data-target="#editarPedido"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarPedido('<?php echo ($datos); ?>')"></i></a>
+                            <a class="my-auto" title="Cambiar Procesos" data-toggle="modal" data-target="#editarProceso"><i class="far fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarPedido('<?php echo ($datos); ?>')"></i></a>
+                            <a class="my-auto" title="Anular" onclick="confirmarAnuladoPedido('<?php echo ($datos); ?>')" id="anularPedido"><i class="fas fa-minus-circle a-text-kmisetas my-auto"></i></a>
+                        <?php endif; ?>
+                    </h5>
                 </td>
             </tr>
 
@@ -101,18 +101,24 @@ if (empty($_SESSION['active'])){
 <!-- <script src="js/scriptsss.js"></script> -->
 <!-- datatable -->
 <script>
-   $(document).ready(function() {
+    $(document).ready(function() {
 
-$('.tablaDinamica').DataTable({
-    responsive: true,
-    "order": [
-        [6, "asc"]
-    ],
-    "pageLength": 25,
-    "language": {
-        "url": "./plugins/datatable/Spanish.json"
-    },
-});
+        $('.tablaDinamica').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'pdfHtml5'
+            ],
+            responsive: true,
+            "order": [
+                [6, "asc"]
+            ],
+            "pageLength": 25,
+            "language": {
+                "url": "./plugins/datatable/Spanish.json"
+            },
+        });
 
-});
+    });
 </script>

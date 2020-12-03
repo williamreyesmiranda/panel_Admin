@@ -10450,7 +10450,6 @@ body {
 
 .table-container {
     max-width: 100% !important;
-    max-height: 650px !important;
     overflow-x: scroll !important;
     overflow-y: scroll !important;
 }

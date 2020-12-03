@@ -17,7 +17,7 @@ if (empty($_SESSION['active'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>LISTA PEDIDOS</title>
+    <title>LISTA BODEGA</title>
     <link rel="shortcut icon" href="images/icono.png" />
     <?php include("includes/scriptUp.php") ?>
 </head>
@@ -30,7 +30,7 @@ if (empty($_SESSION['active'])) {
         <main>
             <div class="container-fluid">
                 <ol class="breadcrumb mb-3 mt-3">
-                    <li class="breadcrumb-item "><a class="a-text-kmisetas" href="index.php">Dashboard</a></li>
+                    <li class="breadcrumb-item "><a class="a-text-kmisetas" href="index.php">Inicio</a></li>
                     <li class="breadcrumb-item active">Lista Pedidos</li>
                 </ol>
 
@@ -41,7 +41,7 @@ if (empty($_SESSION['active'])) {
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <div class="mostrarTabla"></div>
+                            <div class="tablabodega"></div>
                         </div>
                     </div>
                 </div>
@@ -213,7 +213,7 @@ if (empty($_SESSION['active'])) {
     <!-- alerta al cancelar modal -->
     <script>
         $(document).ready(function() {
-            $('.mostrarTabla').load('tablas/tablaBodega.php');
+            $('.tablabodega').load('tablas/tablaBodega.php');
 
             
 

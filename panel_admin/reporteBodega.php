@@ -5,8 +5,6 @@
 session_start();
 include("../db/Conexion.php");
 include("php/funcionFecha.php");
-date_default_timezone_set('America/Bogota');
-
 if (empty($_SESSION['active'])) {
     header('location: ../');
 }
@@ -20,26 +18,26 @@ if (empty($_SESSION['active'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>INICIO</title>
+    <title>REPORTE BODEGA</title>
     <link rel="shortcut icon" href="images/icono.png" />
     <?php include("includes/scriptUp.php") ?>
 </head>
-<style>
 
-</style>
 
 <body class="sb-nav-fixed ">
+
     <?php include("includes/navBar.php") ?>
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
                 <ol class="breadcrumb mb-3 mt-3">
-
-                    <li class="breadcrumb-item active">Inicio</li>
+                    <li class="breadcrumb-item "><a class="a-text-kmisetas" href="index.php">Inicio</a></li>
+                    <li class="breadcrumb-item active">Reporte Bodega</li>
                 </ol>
                 <?php
                 $hoy = date('Y-m-d');
                 $tresDias = dayToFecha($hoy, 3);
+                $conexion = new Conexion();
                 ?>
                 <div class="accordion" id="accordionExample">
                     <!-- botones para acordeon -->
@@ -49,9 +47,8 @@ if (empty($_SESSION['active'])) {
                     <div class="breadcrumb mb-3 mt-3 px-0 h-100">
 
                         <div class="col-xl-3 col-md-6 ">
-                            <div class="card btn-outline-danger border-danger mb-1 ">
+                            <div class="card h-100 bg-danger text-white mb-1 ">
                                 <?php
-                                $conexion = new Conexion();
                                 $consultaSQL = "SELECT count(unds) as 'contar', sum(unds) as 'unds'  FROM pedidos 
                                 WHERE estado<3 AND fecha_fin < '$hoy'";
                                 $pedidos = $conexion->consultarDatos($consultaSQL);
@@ -61,15 +58,14 @@ if (empty($_SESSION['active'])) {
                                 <div class="card-header"><?php echo $contar . " pedidos.  (" . $unds . " unds)."; ?>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small btn-outline-danger stretched-link" data-toggle="collapse" href="#pedidosAtrasados" role="button" aria-expanded="false" aria-controls="pedidosAtrasados">Ver detalle</a>
-                                    <div class="small btn-outline-danger"><i class="fas fa-angle-right"></i></div>
+                                    <a class="small text-white stretched-link" data-toggle="collapse" href="#pedidosAtrasados" role="button" aria-expanded="false" aria-controls="pedidosAtrasados">Ver detalle</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
-                            <div class="card btn-outline-warning border-warning mb-1">
+                            <div class="card h-100 bg-warning text-dark mb-1">
                                 <?php
-                                $conexion = new Conexion();
                                 $consultaSQL = "SELECT count(unds) as 'contar', sum(unds) as 'unds'  FROM pedidos 
                                 WHERE estado<3 AND fecha_fin BETWEEN '$hoy' AND '$tresDias'";
                                 $pedidos = $conexion->consultarDatos($consultaSQL);
@@ -79,33 +75,31 @@ if (empty($_SESSION['active'])) {
                                 <div class="card-header"><?php echo $contar . " pedidos.  (" . $unds . " unds)."; ?>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small btn-outline-warning stretched-link" data-toggle="collapse" href="#pedidosTresDias" role="button" aria-expanded="false" aria-controls="pedidosTresDias">Ver detalle</a>
-                                    <div class="small btn-outline-warning"><i class="fas fa-angle-right"></i></div>
+                                    <a class="small text-dark stretched-link" data-toggle="collapse" href="#pedidosTresDias" role="button" aria-expanded="false" aria-controls="pedidosTresDias">Ver detalle</a>
+                                    <div class="small text-dark"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
-                            <div class="card btn-outline-success border-success mb-1">
+                            <div class="card h-100 bg-success text-white mb-1">
                                 <?php
-                                $conexion = new Conexion();
                                 $consultaSQL = "SELECT count(unds) as 'contar', sum(unds) as 'unds'  FROM pedidos 
                                 WHERE estado<3 AND fecha_fin > '$tresDias'";
                                 $pedidos = $conexion->consultarDatos($consultaSQL);
                                 $contar = $pedidos[0]['contar'];
                                 $unds = $pedidos[0]['unds'];
                                 ?>
-                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $unds . " unds)."; ?>
+                                <div class="card-header">4 días en adelante: <?php echo $contar . " pedidos.  (" . $unds . " unds)."; ?>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small btn-outline-success stretched-link" data-toggle="collapse" href="#pedidosCuatroDias" role="button" aria-expanded="false" aria-controls="pedidosCuatroDias">Ver detalle</a>
-                                    <div class="small btn-outline-success"><i class="fas fa-angle-right"></i></div>
+                                    <a class="small text-white stretched-link" data-toggle="collapse" href="#pedidosCuatroDias" role="button" aria-expanded="false" aria-controls="pedidosCuatroDias">Ver detalle</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
-                            <div class="card btn-outline-dark border-dark mb-1">
+                            <div class="card h-100 bg-dark text-white mb-1">
                                 <?php
-                                $conexion = new Conexion();
                                 $consultaSQL = "SELECT count(unds) as 'contar', sum(unds) as 'unds'  FROM pedidos 
                                 WHERE estado<3 ";
                                 $pedidos = $conexion->consultarDatos($consultaSQL);
@@ -115,8 +109,8 @@ if (empty($_SESSION['active'])) {
                                 <div class="card-header">Total:
                                     <?php echo $contar . " pedidos.  (" . $unds . " unds)."; ?></div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small btn-outline-dark stretched-link" data-toggle="collapse" href="#calendarioPedidos" role="button" aria-expanded="false" aria-controls="calendarioPedidos">Ver Calendario</a>
-                                    <div class="small btn-outline-dark"><i class="fas fa-angle-right"></i></div>
+                                    <a class="small text-white stretched-link" data-toggle="collapse" href="#calendarioPedidos" role="button" aria-expanded="false" aria-controls="calendarioPedidos">Ver Calendario</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
                         </div>
@@ -478,76 +472,6 @@ if (empty($_SESSION['active'])) {
 
                     </div>
                 </div>
-                <!-- Novedades -->
-                <div class="card mb-4">
-                    <div class="card-header  alert-secondary">
-                        <h1 class="text-center">NOVEDADES DE ÁREAS</h1>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover table-condensed table-bordered tablaNovedad" id="" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr class="text-center">
-                                        <th>ID</th>
-                                        <th>Nr° Pedido</th>
-                                        <th>Cliente</th>
-                                        <th>Asesor</th>
-                                        <th>Área</th>
-                                        <th>Novedad</th>
-                                        <th>Estado</th>
-                                        <th>Generado Por:</th>
-
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr class="text-center">
-                                        <th>ID</th>
-                                        <th>Nr° Pedido</th>
-                                        <th>Cliente</th>
-                                        <th>Asesor</th>
-                                        <th>Área</th>
-                                        <th>Novedad</th>
-                                        <th>Estado</th>
-                                        <th>Generado Por:</th>
-                                    </tr>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                    <?php
-                                    $conexion = new Conexion();
-                                    $consultaSQL = "SELECT * FROM novedades nov
-                                                    INNER JOIN pedidos pe ON nov.idPedido=pe.idpedido
-                                                    INNER JOIN usuario usu ON usu.idusuario=nov.usuario";
-                                    $novedades = $conexion->consultarDatos($consultaSQL);
-                                    foreach ($novedades as $novedad) :
-                                    ?>
-                                        <tr class="text-center">
-                                            <td><?php echo ($novedad['idNovedad']); ?></td>
-                                            <td><?php echo ($novedad['num_pedido']); ?></td>
-                                            <td><?php echo ($novedad['cliente']); ?></td>
-                                            <td><?php echo ($novedad['asesor']); ?></td>
-                                            <td><?php echo ($novedad['area']); ?></td>
-                                            <td><?php echo ($novedad['novedad']); ?></td>
-                                            <?php if ($novedad['estadoNovedad'] == 1) {
-                                                echo "<td class='alert-dark'>Activo</td>";
-                                            } else {
-                                                echo "<td class='alert-success'>Finalizado</td>";
-                                            }; ?>
-                                            <td><?php echo ($novedad['nombre']); ?></td>
-                                        </tr>
-
-                                    <?php
-
-                                    endforeach;  ?>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
         </main>
         <?php include("includes/footer.php") ?>
     </div>
@@ -557,42 +481,13 @@ if (empty($_SESSION['active'])) {
     <!-- alerta al cancelar modal -->
     <script>
         $(document).ready(function() {
-            $('.tablaDinamica').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                    'copyHtml5',
-                    'excelHtml5',
-                    'csvHtml5',
-                    'pdfHtml5'
-                ],
-                responsive: true,
-                "order": [
-                    [1, "asc"]
-                ],
-                "pageLength": 25,
-                "language": {
-                    "url": "plugins/datatable/Spanish.json"
-                },
-            });
-            $('.tablaNovedad').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                    'copyHtml5',
-                    'excelHtml5',
-                    'csvHtml5',
-                    'pdfHtml5'
-                ],
-                responsive: true,
-                "order": [
-                    [0, "des"]
-                ],
-                "pageLength": 25,
-                "language": {
-                    "url": "plugins/datatable/Spanish.json"
-                },
-            });
+            $('.tablabodega').load('tablas/tablaBodega.php');
+
+
+
         });
     </script>
+
 </body>
 
 </html>

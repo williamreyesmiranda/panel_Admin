@@ -137,8 +137,8 @@ if (empty($_SESSION['active'])) {
                     <td>
                         <h5>
                             <a class="my-auto" title=" Editar Bodega" data-toggle="modal" data-target="#editarBodega"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarBodega('<?php echo ($datos); ?>')"></i></a>
-                            <a class="my-auto" title="Reportar Novedad" data-toggle="modal" data-target="#novedadBodega"><i class="far fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarBodega('<?php echo ($datos); ?>')"></i></a>
-                            <a class="my-auto" title="Finalizar" onclick="confirmarFinalizadoBodega('<?php echo ($datos); ?>')" id="anularBodega"><i class="fas fa-minus-circle a-text-kmisetas my-auto"></i></a>
+                            <a class="my-auto" title="Reportar Novedad" data-toggle="modal" data-target="#novedadBodega"><i class="fas fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarBodega('<?php echo ($datos); ?>')"></i></a>
+                            <a class="my-auto" title="Finalizar" onclick="confirmarFinalizarBodega('<?php echo ($datos); ?>')" id="finalizarBodega"><i class="fas fa-check-circle a-text-kmisetas my-auto"></i></a>
                         </h5>
                     </td>
                 </tr>
@@ -156,6 +156,12 @@ if (empty($_SESSION['active'])) {
     $(document).ready(function() {
 
         $('.tablaDinamica').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'pdfHtml5'
+            ],
             responsive: true,
             "order": [
                 [9, "asc"]

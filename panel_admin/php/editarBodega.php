@@ -11,10 +11,10 @@ $usuario = $_SESSION['iduser'];
 $conexion= new Conexion();
 $consultaSQL="UPDATE bodega SET parcial='$parcial', obs_bodega='$obs_bodega',
       usuario='$usuario', inicioprocesofecha='$inicioproceso', estado=1
-             WHERE idbodega='$idBodega'";
+             WHERE idbodega='$idBodega';
+             UPDATE pedidos SET estado=1 WHERE idpedido='$idPedido'";
 $result=$conexion->editarDatos($consultaSQL);
 echo json_encode($result);
-$consultaSQL="UPDATE pedidos SET estado=1 WHERE idpedido='$idPedido'";
-$result=$conexion->editarDatos($consultaSQL);
+
 
 ?>
