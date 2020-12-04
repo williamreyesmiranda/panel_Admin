@@ -15,8 +15,8 @@ $conexion= new Conexion();
 //buscar correo asesor
 $consultaSQL="SELECT correo, nombre FROM asesor WHERE usuario='$asesor'";
 $result=$conexion->consultarDatos($consultaSQL);
-$correoAsesor=$result[0]['correo'];
-$nombreAsesor=$result[0]['nombre'];
+$correoAsesor=@$result[0]['correo'];
+$nombreAsesor=@$result[0]['nombre'];
 
 if($idNovedad>0){
     $consultaSQL="UPDATE novedades SET novedad='$novedad', estadoNovedad=0   

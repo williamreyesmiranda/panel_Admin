@@ -8,21 +8,15 @@ if (!empty($_SESSION['active'])){
 <html lang="es">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>K-misetas y K-misetas SAS</title>
-    <!-- base:css -->
-    
-    <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
    
-  
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
+   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styleee.css">
     <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
-   
-    <!-- endinject -->
-    <link rel="shortcut icon" href="images/icono.png" />
+   <link rel="shortcut icon" href="images/icono.png" />
 </head>
 
 <body>
@@ -73,7 +67,7 @@ if (!empty($_SESSION['active'])){
 
                     </div>
                     
-                    <div style="background: url(images/<?php echo $aleatorio=(rand(1, 3));?>.png); background-size: cover;" class="col-lg-6 d-none d-lg-flex flex-row">
+                    <div style="background: url(images/<?php echo $aleatorio=(rand(1, 3));?>.png); background-size: contain;" class="col-lg-6 d-none d-lg-flex flex-row">
 
                         <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy; 2020 K-misetas y K-misetas SAS.</p>
 

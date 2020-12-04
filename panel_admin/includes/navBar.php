@@ -67,17 +67,33 @@
                     Áreas
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-kmisetas-hover"></i></div>
                 </a>
+                <!-- bodega -->
                 <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseBodega" aria-expanded="false" aria-controls="pagesCollapseAuth">
                             Bodega
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                        <div class="collapse" id="pagesCollapseBodega" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="listaBodega.php">Lista Pedidos</a>
                                 <a class="nav-link" href="reporteBodega.php">Reporte</a>
-                                <a class="nav-link" href="">Recuperar</a>
+                            </nav>
+                        </div>
+                        
+                    </nav>
+                </div>
+                <!-- corte -->
+                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseCorte" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                            Corte
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="pagesCollapseCorte" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="listaCorte.php">Lista Pedidos</a>
+                                <a class="nav-link" href="reporteCorte.php">Reporte</a>
                             </nav>
                         </div>
                         

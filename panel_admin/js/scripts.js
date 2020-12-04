@@ -241,11 +241,9 @@ function finalizarNovedad() {
         data: $(".formFinalizarNovedad").serialize(),
         datatype: "json",
         success: function(r) {
-            console.log(r)
             if (r == 1) {
-                $('.centrado').fadeIn();
                 $('.tablabodega').load('tablas/tablaBodega.php');
-                $('.centrado').fadeOut();
+                $('.tablacorte').load('tablas/tablaCorte.php');
                 alertify.success("Se ha finalizado  novedad Correctamente.");
             } else {
                 alertify.error("No se ha reportado ninguna novedad para este pedido.");
@@ -316,7 +314,7 @@ function novedadBodega() {
             }
         }
     });
-} //confirmar anulado
+} //confirmar finalizado
 function confirmarFinalizarBodega(datos) {
     d = datos.split('||');
     idPedido = "idPedido=" + d[0];
@@ -330,7 +328,99 @@ function confirmarFinalizarBodega(datos) {
         },
         function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
 }
-//anular Pedido
+//finalizar Pedido
+function finalizarBodega(datos) {
+    $.ajax({
+        type: "POST",
+        url: "php/finalizarBodega.php",
+        data: datos,
+        dataType: "json",
+        success: function(data) {
+            if (data == 1) {
+                $('.tablabodega').load('tablas/tablaBodega.php');
+                alertify.success('Pedido Finalizado Correctamente');
+            } else {
+                alertify.error('Error al Anular Pedido');
+            }
+
+        }
+    });
+}
+
+//SCRIPT DE CORTE
+//Ingresar datos aformulario editar CORTE
+function formEditarCorte(datos) {
+    d = datos.split('||');
+    $('.idPedido').val(d[0]);
+    $('.nroPedido').val(d[1]);
+    $('.cliente').val(d[2]);
+    $('.asesor').val(d[3]);
+    $('.nroPedido').html("<b>Nro Pedido:</b> " + d[1]);
+    $('.cliente').html("<b>Cliente:</b> " + d[2]);
+    $('.asesor').html("<b>Asesor:</b> " + d[3] + " (" + d[15] + ")");
+    $('.inicio').html("<b>Fecha Inicio:</b> " + d[4]);
+    $('.correoAsesor').html("<b>Correo Asesor:</b> " + d[16]);
+    $('.fin').html("<b>Fecha Entrega:</b> " + d[5]);
+    $('.procesos').html("<b>Procesos:</b> " + d[7]);
+    $('.unds').html("<b>Unds:</b> " + d[8]);
+    $('.idCorte').val(d[10]);
+    $('.obs_corte').val(d[11]);
+    $('.parcial').val(d[12]);
+    $('.idNovedad').val(d[13]);
+    $('.novedad').val(d[14]);
+    $('.oc').val(d[17]);
+
+}
+//Editar Corte
+function editarCorte() {
+    $.ajax({
+        type: "POST",
+        url: "php/editarCorte.php",
+        data: $("#formEditarCorte").serialize(),
+        datatype: "json",
+        success: function(r) {
+            console.log(r);
+            if (r == 1) {
+                $('.tablacorte').load('tablas/tablaCorte.php');
+                alertify.success("Pedido Editado Correctamente");
+            } else {
+                alertify.error('Error al Editar Pedido');
+            }
+        }
+    });
+}
+//novedad Bodega
+function novedadCorte() {
+
+    $.ajax({
+        type: "POST",
+        url: "php/novedadCorte.php",
+        data: $("#formNovedadCorte").serialize(),
+        datatype: "json",
+        success: function(r) {
+            if (r == 1) {
+                $('.tablacorte').load('tablas/tablaCorte.php');
+                alertify.success("Novedad Generada Correctamente. Se ha enviado copia al Comercial");
+            } else {
+                alertify.error('Error al generar Novedad');
+            }
+        }
+    });
+} //confirmar finalizado
+function confirmarFinalizarBodega(datos) {
+    d = datos.split('||');
+    idPedido = "idPedido=" + d[0];
+    idBodega = "&idBodega=" + d[10];
+    unds = "&unds=" + d[8];
+
+    alertify.prompt('Finalizar Bodega', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br><b>Asesor: </b>' + d[3] + " (" + d[15] + ")" + '<br><b>Unds: </b>' + d[8] + '<br><b>Procesos: </b>' + d[7] + '<br><br>Observaciones de Finalizado :<br>', '',
+        function(evt, obs) {
+            input = idPedido + "&obs=" + obs + idBodega + unds;
+            finalizarBodega(input)
+        },
+        function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
+}
+//finalizar Pedido
 function finalizarBodega(datos) {
     $.ajax({
         type: "POST",

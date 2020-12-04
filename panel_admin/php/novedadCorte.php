@@ -10,7 +10,7 @@ $nroPedido=$_POST['nroPedido'];
 $novedad=$_POST['novedad'];
 $correoUsuario=$_SESSION['correo'];
 $asesor=$_POST['asesor'];
-$area="bodega";
+$area="corte";
 
 
 $conexion= new Conexion();
@@ -63,15 +63,15 @@ $destinatario = $correoAsesor;
         $mail=@mail($destinatario,$asunto,$cuerpo,$headers);
        
 }else{
-    $consultaSQL="INSERT INTO novedades(idPedido, area, novedad, usuario) VALUES ('$idPedido','bodega','$novedad','$idUsuario');
+    $consultaSQL="INSERT INTO novedades(idPedido, area, novedad, usuario) VALUES ('$idPedido','corte','$novedad','$idUsuario');
                   ";
 $result=$conexion->agregarDatos($consultaSQL);
 $consultaSQL="SELECT MAX(idNovedad) as 'maxnovedad' FROM novedades";
 $result=$conexion->consultarDatos($consultaSQL);
 $maxNovedad=$result[0]['maxnovedad'];
 
-//ingreso del ultimo id ingresado a bodega
-$consultaSQL="UPDATE bodega SET numNovedad='$maxNovedad' WHERE pedido='$idPedido'";
+//ingreso del ultimo id ingresado a Corte
+$consultaSQL="UPDATE corte SET numNovedad='$maxNovedad' WHERE pedido='$idPedido'";
 $result=$conexion->editarDatos($consultaSQL);
 $destinatario = $correoAsesor; 
         $asunto = "Novedad de ".$area." para el pedido N°".$nroPedido; 
