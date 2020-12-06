@@ -472,10 +472,6 @@ if (empty($_SESSION['active'])) {
                             </tbody>
 
                         </table>
-
-
-
-
                     </div>
                 </div>
                 <!-- Novedades -->
@@ -562,8 +558,8 @@ if (empty($_SESSION['active'])) {
                 buttons: [
                     'copyHtml5',
                     'excelHtml5',
-                    'csvHtml5',
-                    'pdfHtml5'
+                    'pdfHtml5',
+                    'print'
                 ],
                 responsive: true,
                 "order": [
@@ -579,14 +575,14 @@ if (empty($_SESSION['active'])) {
                 buttons: [
                     'copyHtml5',
                     'excelHtml5',
-                    'csvHtml5',
-                    'pdfHtml5'
+                    'pdfHtml5',
+                    'print'
                 ],
                 responsive: true,
                 "order": [
                     [0, "des"]
                 ],
-                "pageLength": 25,
+                "pageLength": 10,
                 "language": {
                     "url": "plugins/datatable/Spanish.json"
                 },

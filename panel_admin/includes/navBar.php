@@ -99,6 +99,22 @@
                         
                     </nav>
                 </div>
+                <!-- confeccion -->
+                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseConfeccion" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                            Confeccion
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="pagesCollapseConfeccion" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="listaConfeccion.php">Lista Pedidos</a>
+                                <a class="nav-link" href="reporteConfeccion.php">Reporte</a>
+                            </nav>
+                        </div>
+                        
+                    </nav>
+                </div>
                 <div class="sb-sidenav-menu-heading">Cartera</div>
                 <a class="nav-link" href="ensayo.php">
                     <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>

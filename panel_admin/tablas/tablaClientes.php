@@ -81,7 +81,8 @@ $fin=1;
             buttons: [
                 'copyHtml5',
                 'excelHtml5',
-                'pdfHtml5'
+                'pdfHtml5',
+                'print'
             ],
             responsive: true,
             "order": [

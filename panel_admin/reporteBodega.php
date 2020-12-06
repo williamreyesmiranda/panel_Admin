@@ -551,8 +551,8 @@ if (empty($_SESSION['active'])) {
                 buttons: [
                     'copyHtml5',
                     'excelHtml5',
-                    'csvHtml5',
-                    'pdfHtml5'
+                    'pdfHtml5',
+                    'print'
                 ],
                 responsive: true,
                 "order": [

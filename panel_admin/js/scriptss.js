@@ -1,6 +1,5 @@
 //icono reload
 $(document).ready(function() {
-    $('.centrado').fadeIn();
     window.onload = function() {
         $('.centrado').fadeOut();
     }
@@ -63,8 +62,7 @@ $('.salirModal').click(function() {
     alertify.error("Se Canceló Proceso");
 });
 
-// SCRIPT DATOS DE PEDIDOS
-
+// SCRIPTS DATOS DE PEDIDOS
 //ingresar datos a formulario editar pedido
 function formEditarPedido(datos) {
     d = datos.split('||');
@@ -216,7 +214,7 @@ function editarAsesor() {
 }
 
 
-//SCRIPT DE VER PEDIDO EN MODAL
+//SCRIPTS DE VER PEDIDO EN MODAL
 function verPedido(datos) {
     d = datos.split('||');
     $('.nroPedido').val("Nro Pedido: " + d[1]);
@@ -244,6 +242,7 @@ function finalizarNovedad() {
             if (r == 1) {
                 $('.tablabodega').load('tablas/tablaBodega.php');
                 $('.tablacorte').load('tablas/tablaCorte.php');
+                $('.tablaconfeccion').load('tablas/tablaConfeccion.php');
                 alertify.success("Se ha finalizado  novedad Correctamente.");
             } else {
                 alertify.error("No se ha reportado ninguna novedad para este pedido.");
@@ -252,7 +251,8 @@ function finalizarNovedad() {
     });
 }
 
-//SCRIPT DE BODEGA
+
+//SCRIPTS DE BODEGA
 //Ingresar datos aformulario editar bodega
 function formEditarBodega(datos) {
     d = datos.split('||');
@@ -319,14 +319,18 @@ function confirmarFinalizarBodega(datos) {
     d = datos.split('||');
     idPedido = "idPedido=" + d[0];
     idBodega = "&idBodega=" + d[10];
+    idNovedad = "&idNovedad=" + d[13];
     unds = "&unds=" + d[8];
-
-    alertify.prompt('Finalizar Bodega', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br><b>Asesor: </b>' + d[3] + " (" + d[15] + ")" + '<br><b>Unds: </b>' + d[8] + '<br><b>Procesos: </b>' + d[7] + '<br><br>Observaciones de Finalizado :<br>', '',
-        function(evt, obs) {
-            input = idPedido + "&obs=" + obs + idBodega + unds;
-            finalizarBodega(input)
-        },
-        function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
+    if (d[13] != 0) {
+        alertify.alert('Finalizar Novedad', '<center>Este pedido contiene una novedad que no ha sido solucionada. <br>Por favor darle trámite para finalizar Pedido.</center>');
+    } else {
+        alertify.prompt('Finalizar Bodega', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br><b>Asesor: </b>' + d[3] + " (" + d[15] + ")" + '<br><b>Unds: </b>' + d[8] + '<br><b>Procesos: </b>' + d[7] + '<br><br>Observaciones de Finalizado :<br>', '',
+            function(evt, obs) {
+                input = idPedido + "&obs=" + obs + idBodega + unds + idNovedad;
+                finalizarBodega(input)
+            },
+            function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
+    }
 }
 //finalizar Pedido
 function finalizarBodega(datos) {
@@ -347,7 +351,8 @@ function finalizarBodega(datos) {
     });
 }
 
-//SCRIPT DE CORTE
+
+//SCRIPTS DE CORTE
 //Ingresar datos aformulario editar CORTE
 function formEditarCorte(datos) {
     d = datos.split('||');
@@ -407,29 +412,128 @@ function novedadCorte() {
         }
     });
 } //confirmar finalizado
-function confirmarFinalizarBodega(datos) {
+function confirmarFinalizarCorte(datos) {
     d = datos.split('||');
     idPedido = "idPedido=" + d[0];
-    idBodega = "&idBodega=" + d[10];
+    idCorte = "&idCorte=" + d[10];
     unds = "&unds=" + d[8];
-
-    alertify.prompt('Finalizar Bodega', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br><b>Asesor: </b>' + d[3] + " (" + d[15] + ")" + '<br><b>Unds: </b>' + d[8] + '<br><b>Procesos: </b>' + d[7] + '<br><br>Observaciones de Finalizado :<br>', '',
-        function(evt, obs) {
-            input = idPedido + "&obs=" + obs + idBodega + unds;
-            finalizarBodega(input)
-        },
-        function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
+    if (d[13] != 0) {
+        alertify.alert('Finalizar Novedad', '<center>Este pedido contiene una novedad que no ha sido solucionada. <br>Por favor darle trámite para finalizar Pedido.</center>');
+    } else {
+        alertify.prompt('Finalizar Corte', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br><b>Asesor: </b>' + d[3] + " (" + d[15] + ")" + '<br><b>Unds: </b>' + d[8] + '<br><b>Procesos: </b>' + d[7] + '<br><br>Observaciones de Finalizado :<br>', '',
+            function(evt, obs) {
+                input = idPedido + idCorte + unds + "&obs=" + obs;
+                finalizarCorte(input);
+            },
+            function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
+    }
 }
 //finalizar Pedido
-function finalizarBodega(datos) {
+function finalizarCorte(datos) {
     $.ajax({
         type: "POST",
-        url: "php/finalizarBodega.php",
+        url: "php/finalizarCorte.php",
         data: datos,
         dataType: "json",
         success: function(data) {
             if (data == 1) {
-                $('.tablabodega').load('tablas/tablaBodega.php');
+                $('.tablacorte').load('tablas/tablaCorte.php');
+                alertify.success('Pedido Finalizado Correctamente');
+            } else {
+                alertify.error('Error al Anular Pedido');
+            }
+
+        }
+    });
+}
+
+
+//SCRIPTS DE CONFECCION
+//Ingresar datos aformulario editar CORTE
+function formEditarConfeccion(datos) {
+    d = datos.split('||');
+    $('.idPedido').val(d[0]);
+    $('.nroPedido').val(d[1]);
+    $('.cliente').val(d[2]);
+    $('.asesor').val(d[3]);
+    $('.nroPedido').html("<b>Nro Pedido:</b> " + d[1]);
+    $('.cliente').html("<b>Cliente:</b> " + d[2]);
+    $('.asesor').html("<b>Asesor:</b> " + d[3] + " (" + d[15] + ")");
+    $('.inicio').html("<b>Fecha Inicio:</b> " + d[4]);
+    $('.correoAsesor').html("<b>Correo Asesor:</b> " + d[16]);
+    $('.fin').html("<b>Fecha Entrega:</b> " + d[5]);
+    $('.procesos').html("<b>Procesos:</b> " + d[7]);
+    $('.unds').html("<b>Unds:</b> " + d[8]);
+    $('.idConfeccion').val(d[10]);
+    $('.obs_confeccion').val(d[11]);
+    $('.parcial').val(d[12]);
+    $('.idNovedad').val(d[13]);
+    $('.novedad').val(d[14]);
+    $('.entrega').val(d[17]);
+
+}
+//Editar confeccion
+function editarConfeccion() {
+    $.ajax({
+        type: "POST",
+        url: "php/editarConfeccion.php",
+        data: $("#formEditarConfeccion").serialize(),
+        datatype: "json",
+        success: function(r) {
+            if (r == 1) {
+                $('.tablaconfeccion').load('tablas/tablaConfeccion.php');
+                alertify.success("Pedido Editado Correctamente");
+            } else {
+                alertify.error('Error al Editar Pedido');
+            }
+        }
+    });
+}
+//novedad Bodega
+function novedadConfeccion() {
+
+    $.ajax({
+        type: "POST",
+        url: "php/novedadConfeccion.php",
+        data: $("#formNovedadConfeccion").serialize(),
+        datatype: "json",
+        success: function(r) {
+            if (r == 1) {
+                $('.tablaconfeccion').load('tablas/tablaConfeccion.php');
+                alertify.success("Novedad Generada Correctamente. Se ha enviado copia al Comercial");
+            } else {
+                alertify.error('Error al generar Novedad');
+            }
+        }
+    });
+}
+//confirmar finalizado
+function confirmarFinalizarConfeccion(datos) {
+    d = datos.split('||');
+    idPedido = "idPedido=" + d[0];
+    idConfeccion = "&idConfeccion=" + d[10];
+    unds = "&unds=" + d[8];
+    if (d[13] != 0) {
+        alertify.alert('Finalizar Novedad', '<center>Este pedido contiene una novedad que no ha sido solucionada. <br>Por favor darle trámite para finalizar Pedido.</center>');
+    } else {
+        alertify.prompt('Finalizar Confeccion', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br><b>Asesor: </b>' + d[3] + " (" + d[15] + ")" + '<br><b>Unds: </b>' + d[8] + '<br><b>Procesos: </b>' + d[7] + '<br><br>Observaciones de Finalizado :<br>', '',
+            function(evt, obs) {
+                input = idPedido + idConfeccion + unds + "&obs=" + obs;
+                finalizarConfeccion(input);
+            },
+            function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
+    }
+}
+//finalizar Pedido
+function finalizarConfeccion(datos) {
+    $.ajax({
+        type: "POST",
+        url: "php/finalizarConfeccion.php",
+        data: datos,
+        dataType: "json",
+        success: function(data) {
+            if (data == 1) {
+                $('.tablaconfeccion').load('tablas/tablaConfeccion.php');
                 alertify.success('Pedido Finalizado Correctamente');
             } else {
                 alertify.error('Error al Anular Pedido');

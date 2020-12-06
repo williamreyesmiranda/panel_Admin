@@ -9,7 +9,7 @@ if (empty($_SESSION['active'])) {
         <thead>
             <tr>
                 <th class="alert-info text-center" colspan="6">Info Pedido</th>
-                <th class="alert-secondary text-center" colspan="9">Info Corte</th>
+                <th class="alert-secondary text-center" colspan="10">Info Corte</th>
             </tr>
             <tr class="text-center">
                 <th class="sticky-top">Pedido</th>
@@ -164,7 +164,8 @@ if (empty($_SESSION['active'])) {
             buttons: [
                 'copyHtml5',
                 'excelHtml5',
-                'pdfHtml5'
+                'pdfHtml5',
+                'print'
             ],
             responsive: true,
             "order": [
