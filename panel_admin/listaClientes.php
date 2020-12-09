@@ -2,7 +2,9 @@
 <html lang="es">
 
 <?php
-session_start();
+session_start([
+    'cookie_lifetime' => 86400,
+]);
 include("../db/Conexion.php");
 if (empty($_SESSION['active'])) {
     header('location: ../');

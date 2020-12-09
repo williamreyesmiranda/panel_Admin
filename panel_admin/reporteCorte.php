@@ -2,7 +2,9 @@
 <html lang="es">
 
 <?php
-session_start();
+session_start([
+    'cookie_lifetime' => 86400,
+]);
 include("../db/Conexion.php");
 include("php/funcionFecha.php");
 if (empty($_SESSION['active'])) {
@@ -32,6 +34,7 @@ if (empty($_SESSION['active'])) {
             <div class="container-fluid">
                 <ol class="breadcrumb mb-3 mt-3">
                     <li class="breadcrumb-item "><a class="a-text-kmisetas" href="index.php">Inicio</a></li>
+                    <li class="breadcrumb-item "><a class="a-text-kmisetas" href="listaCorte.php">Lista Corte</a></li>
                     <li class="breadcrumb-item active">Reporte Corte</li>
                 </ol>
                 <?php
@@ -46,7 +49,7 @@ if (empty($_SESSION['active'])) {
                     </div>
                     <div class="breadcrumb mb-3 mt-3 px-0 h-100">
 
-                        <div class="col-xl-3 col-md-6 ">
+                        <div class="col-xl-3 col-md-6 mb-2">
                             <div class="card h-100 bg-danger text-white mb-1 ">
                                 <?php
                                 $consultaSQL = "SELECT count(bo.idcorte) as 'contar', sum(pe.unds) as 'unds', sum(bo.parcial) as 'parcial'  FROM corte bo
@@ -66,7 +69,7 @@ if (empty($_SESSION['active'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-md-6">
+                        <div class="col-xl-3 col-md-6 mb-2">
                             <div class="card h-100 bg-warning text-dark mb-1">
                                 <?php
                                 $consultaSQL = "SELECT count(bo.idcorte) as 'contar', sum(pe.unds) as 'unds', sum(bo.parcial) as 'parcial'  FROM corte bo
@@ -86,7 +89,7 @@ if (empty($_SESSION['active'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-md-6">
+                        <div class="col-xl-3 col-md-6 mb-2">
                             <div class="card h-100 bg-success text-white mb-1">
                                 <?php
                                 $consultaSQL = "SELECT count(bo.idcorte) as 'contar', sum(pe.unds) as 'unds', sum(bo.parcial) as 'parcial'  FROM corte bo
@@ -106,7 +109,7 @@ if (empty($_SESSION['active'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-md-6">
+                        <div class="col-xl-3 col-md-6 mb-2">
                             <div class="card h-100 bg-dark text-white mb-1">
                                 <?php
                                 $consultaSQL = "SELECT count(bo.idcorte) as 'contar', sum(pe.unds) as 'unds', sum(bo.parcial) as 'parcial'  FROM corte bo
@@ -508,7 +511,8 @@ if (empty($_SESSION['active'])) {
                                                                                 <td><?php echo ($pedido['unds'] - $pedido['parcial']) ?></td>
                                                                                 <td><?php echo ($pedido['obs_corte']);
                                                                                     if ($pedido['numNovedad'] > 0) {
-                                                                                        echo ("<br><b>Novedad:</b>" . $novedad);} ?></td>
+                                                                                        echo ("<br><b>Novedad:</b>" . $novedad);
+                                                                                    } ?></td>
 
                                                                             </tr>
                                                                         <?php endforeach; ?>
@@ -571,7 +575,7 @@ if (empty($_SESSION['active'])) {
                     "url": "plugins/datatable/Spanish.json"
                 },
             });
-});
+        });
     </script>
 
 </body>

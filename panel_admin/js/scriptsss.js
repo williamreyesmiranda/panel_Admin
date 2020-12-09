@@ -214,7 +214,7 @@ function editarAsesor() {
 }
 
 
-//SCRIPTS DE VER PEDIDO EN MODAL
+//SCRIPTS DE VER PEDIDO EN MODAL (este modal está en navBar.php)
 function verPedido(datos) {
     d = datos.split('||');
     $('.nroPedido').val("Nro Pedido: " + d[1]);
@@ -230,7 +230,7 @@ function verPedido(datos) {
 
 }
 
-//FINALIZAR NOVEDADES GENERALMENTE
+//FINALIZAR NOVEDADES EN GENERAL
 function finalizarNovedad() {
 
     $.ajax({
@@ -243,6 +243,10 @@ function finalizarNovedad() {
                 $('.tablabodega').load('tablas/tablaBodega.php');
                 $('.tablacorte').load('tablas/tablaCorte.php');
                 $('.tablaconfeccion').load('tablas/tablaConfeccion.php');
+                $('.tablasublimacion').load('tablas/tablaSublimacion.php');
+                $('.tablaestampacion').load('tablas/tablaEstampacion.php');
+                $('.tablabordado').load('tablas/tablaBordado.php');
+                $('.tablaterminacion').load('tablas/tablaTerminacion.php');
                 alertify.success("Se ha finalizado  novedad Correctamente.");
             } else {
                 alertify.error("No se ha reportado ninguna novedad para este pedido.");
@@ -539,6 +543,433 @@ function finalizarConfeccion(datos) {
                 alertify.error('Error al Anular Pedido');
             }
 
+        }
+    });
+}
+
+
+//SCRIPTS DE SUBLIMACION
+//Ingresar datos aformulario editar Sublimacion
+function formEditarSublimacion(datos) {
+    d = datos.split('||');
+    $('.idPedido').val(d[0]);
+    $('.nroPedido').val(d[1]);
+    $('.cliente').val(d[2]);
+    $('.asesor').val(d[3]);
+    $('.nroPedido').html("<b>Nro Pedido:</b> " + d[1]);
+    $('.cliente').html("<b>Cliente:</b> " + d[2]);
+    $('.asesor').html("<b>Asesor:</b> " + d[3] + " (" + d[15] + ")");
+    $('.inicio').html("<b>Fecha Inicio:</b> " + d[4]);
+    $('.correoAsesor').html("<b>Correo Asesor:</b> " + d[16]);
+    $('.fin').html("<b>Fecha Entrega:</b> " + d[5]);
+    $('.procesos').html("<b>Procesos:</b> " + d[7]);
+    $('.unds').html("<b>Unds:</b> " + d[8]);
+    $('.idSublimacion').val(d[10]);
+    $('.obs_sublimacion').val(d[11]);
+    $('.parcial').val(d[12]);
+    $('.idNovedad').val(d[13]);
+    $('.novedad').val(d[14]);
+
+
+}
+//Editar Sublimacion
+function editarSublimacion() {
+    $.ajax({
+        type: "POST",
+        url: "php/editarSublimacion.php",
+        data: $("#formEditarSublimacion").serialize(),
+        datatype: "json",
+        success: function(r) {
+            console.log(r);
+            if (r == 1) {
+                $('.tablasublimacion').load('tablas/tablaSublimacion.php');
+                alertify.success("Pedido Editado Correctamente");
+            } else {
+                alertify.error('Error al Editar Pedido');
+            }
+        }
+    });
+}
+//novedad Sublimacion
+function novedadSublimacion() {
+
+    $.ajax({
+        type: "POST",
+        url: "php/novedadSublimacion.php",
+        data: $("#formNovedadSublimacion").serialize(),
+        datatype: "json",
+        success: function(r) {
+            if (r == 1) {
+                $('.tablasublimacion').load('tablas/tablaSublimacion.php');
+                alertify.success("Novedad Generada Correctamente. Se ha enviado copia al Comercial");
+            } else {
+                alertify.error('Error al generar Novedad');
+            }
+        }
+    });
+} //confirmar finalizado
+function confirmarFinalizarSublimacion(datos) {
+    d = datos.split('||');
+    idPedido = "idPedido=" + d[0];
+    idSublimacion = "&idSublimacion=" + d[10];
+    unds = "&unds=" + d[8];
+    if (d[13] != 0) {
+        alertify.alert('Finalizar Novedad', '<center>Este pedido contiene una novedad que no ha sido solucionada. <br>Por favor darle trámite para finalizar Pedido.</center>');
+    } else {
+        alertify.prompt('Finalizar Sublimación', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br><b>Asesor: </b>' + d[3] + " (" + d[15] + ")" + '<br><b>Unds: </b>' + d[8] + '<br><b>Procesos: </b>' + d[7] + '<br><br>Observaciones de Finalizado :<br>', '',
+            function(evt, obs) {
+                input = idPedido + idSublimacion + unds + "&obs=" + obs;
+                finalizarSublimacion(input);
+            },
+            function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
+    }
+}
+//finalizar Pedido
+function finalizarSublimacion(datos) {
+    $.ajax({
+        type: "POST",
+        url: "php/finalizarSublimacion.php",
+        data: datos,
+        dataType: "json",
+        success: function(data) {
+            if (data == 1) {
+                $('.tablasublimacion').load('tablas/tablaSublimacion.php');
+                alertify.success('Pedido Finalizado Correctamente');
+            } else {
+                alertify.error('Error al Anular Pedido');
+            }
+
+        }
+    });
+}
+
+
+//SCRIPTS DE Estampacion
+//Ingresar datos aformulario editar Estampacion
+function formEditarEstampacion(datos) {
+    d = datos.split('||');
+    $('.idPedido').val(d[0]);
+    $('.nroPedido').val(d[1]);
+    $('.cliente').val(d[2]);
+    $('.asesor').val(d[3]);
+    $('.nroPedido').html("<b>Nro Pedido:</b> " + d[1]);
+    $('.cliente').html("<b>Cliente:</b> " + d[2]);
+    $('.asesor').html("<b>Asesor:</b> " + d[3] + " (" + d[15] + ")");
+    $('.inicio').html("<b>Fecha Inicio:</b> " + d[4]);
+    $('.correoAsesor').html("<b>Correo Asesor:</b> " + d[16]);
+    $('.fin').html("<b>Fecha Entrega:</b> " + d[5]);
+    $('.procesos').html("<b>Procesos:</b> " + d[7]);
+    $('.unds').html("<b>Unds:</b> " + d[8]);
+    $('.idEstampacion').val(d[10]);
+    $('.obs_estampacion').val(d[11]);
+    $('.parcial').val(d[12]);
+    $('.idNovedad').val(d[13]);
+    $('.novedad').val(d[14]);
+    $('.arte').val(d[17]);
+    $('.grabacion').val(d[18]);
+    $('.estampacion').val(d[19]);
+    $('.sublimacion').val(d[20]);
+    $('.tecnica').val(d[21]);
+    $('.nro_diseno').val(d[22]);
+    $('.posicion').val(d[23]);
+    $('.seda').val(d[24]);
+    $('.nro_plancha').val(d[25]);
+    $('.fren').val(d[26]);
+    $('.esp').val(d[27]);
+    $('.otro').val(d[28]);
+    $('.prep').val(d[29]);
+    $('.est').val(d[30]);
+    $('.sub').val(d[31]);
+
+}
+//Editar estampacion
+function editarEstampacion() {
+    $.ajax({
+        type: "POST",
+        url: "php/editarEstampacion.php",
+        data: $("#formEditarEstampacion").serialize(),
+        datatype: "json",
+        success: function(r) {
+            console.log(r);
+            if (r == 1) {
+                $('.tablaestampacion').load('tablas/tablaEstampacion.php');
+                alertify.success("Pedido Editado Correctamente");
+            } else {
+                alertify.error('Error al Editar Pedido');
+            }
+        }
+    });
+}
+//novedad Estampacion
+function novedadEstampacion() {
+
+    $.ajax({
+        type: "POST",
+        url: "php/novedadEstampacion.php",
+        data: $("#formNovedadEstampacion").serialize(),
+        datatype: "json",
+        success: function(r) {
+            if (r == 1) {
+                $('.tablaestampacion').load('tablas/tablaEstampacion.php');
+                alertify.success("Novedad Generada Correctamente. Se ha enviado copia al Comercial");
+            } else {
+                alertify.error('Error al generar Novedad');
+            }
+        }
+    });
+} //confirmar finalizado
+function confirmarFinalizarEstampacion(datos) {
+    d = datos.split('||');
+    idPedido = "idPedido=" + d[0];
+    idEstampacion = "&idEstampacion=" + d[10];
+    unds = "&unds=" + d[8];
+    if (d[13] != 0) {
+        alertify.alert('Finalizar Novedad', '<center>Este pedido contiene una novedad que no ha sido solucionada. <br>Por favor darle trámite para finalizar Pedido.</center>');
+    } else {
+        alertify.prompt('Finalizar Sublimación', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br><b>Asesor: </b>' + d[3] + " (" + d[15] + ")" + '<br><b>Unds: </b>' + d[8] + '<br><b>Procesos: </b>' + d[7] + '<br><br>Observaciones de Finalizado :<br>', '',
+            function(evt, obs) {
+                input = idPedido + idEstampacion + unds + "&obs=" + obs;
+                finalizarEstampacion(input);
+            },
+            function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
+    }
+}
+//finalizar Pedido
+function finalizarEstampacion(datos) {
+    $.ajax({
+        type: "POST",
+        url: "php/finalizarEstampacion.php",
+        data: datos,
+        dataType: "json",
+        success: function(data) {
+            if (data == 1) {
+                $('.tablaestampacion').load('tablas/tablaEstampacion.php');
+                alertify.success('Pedido Finalizado Correctamente');
+            } else {
+                alertify.error('Error al Anular Pedido');
+            }
+
+        }
+    });
+}
+
+
+//SCRIPTS DE BORDADO
+//Ingresar datos aformulario editar Bordado
+function formEditarBordado(datos) {
+    d = datos.split('||');
+    $('.idPedido').val(d[0]);
+    $('.nroPedido').val(d[1]);
+    $('.cliente').val(d[2]);
+    $('.asesor').val(d[3]);
+    $('.nroPedido').html("<b>Nro Pedido:</b> " + d[1]);
+    $('.cliente').html("<b>Cliente:</b> " + d[2]);
+    $('.asesor').html("<b>Asesor:</b> " + d[3] + " (" + d[15] + ")");
+    $('.inicio').html("<b>Fecha Inicio:</b> " + d[4]);
+    $('.correoAsesor').html("<b>Correo Asesor:</b> " + d[16]);
+    $('.fin').html("<b>Fecha Entrega:</b> " + d[5]);
+    $('.procesos').html("<b>Procesos:</b> " + d[7]);
+    $('.unds').html("<b>Unds:</b> " + d[8]);
+    $('.idBordado').val(d[10]);
+    $('.obs_bordado').val(d[11]);
+    $('.parcial').val(d[12]);
+    $('.idNovedad').val(d[13]);
+    $('.novedad').val(d[14]);
+
+
+}
+//Editar Bordado
+function editarBordado() {
+    $.ajax({
+        type: "POST",
+        url: "php/editarBordado.php",
+        data: $("#formEditarBordado").serialize(),
+        datatype: "json",
+        success: function(r) {
+            console.log(r);
+            if (r == 1) {
+                $('.tablabordado').load('tablas/tablaBordado.php');
+                alertify.success("Pedido Editado Correctamente");
+            } else {
+                alertify.error('Error al Editar Pedido');
+            }
+        }
+    });
+}
+//novedad Bordado
+function novedadBordado() {
+
+    $.ajax({
+        type: "POST",
+        url: "php/novedadBordado.php",
+        data: $("#formNovedadBordado").serialize(),
+        datatype: "json",
+        success: function(r) {
+            if (r == 1) {
+                $('.tablabordado').load('tablas/tablaBordado.php');
+                alertify.success("Novedad Generada Correctamente. Se ha enviado copia al Comercial");
+            } else {
+                alertify.error('Error al generar Novedad');
+            }
+        }
+    });
+} //confirmar finalizado
+function confirmarFinalizarBordado(datos) {
+    d = datos.split('||');
+    idPedido = "idPedido=" + d[0];
+    idBordado = "&idBordado=" + d[10];
+    unds = "&unds=" + d[8];
+    if (d[13] != 0) {
+        alertify.alert('Finalizar Novedad', '<center>Este pedido contiene una novedad que no ha sido solucionada. <br>Por favor darle trámite para finalizar Pedido.</center>');
+    } else {
+        alertify.prompt('Finalizar Bordado', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br><b>Asesor: </b>' + d[3] + " (" + d[15] + ")" + '<br><b>Unds: </b>' + d[8] + '<br><b>Procesos: </b>' + d[7] + '<br><br>Observaciones de Finalizado :<br>', '',
+            function(evt, obs) {
+                input = idPedido + idBordado + unds + "&obs=" + obs;
+                finalizarBordado(input);
+            },
+            function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
+    }
+}
+//finalizar Pedido
+function finalizarBordado(datos) {
+    $.ajax({
+        type: "POST",
+        url: "php/finalizarBordado.php",
+        data: datos,
+        dataType: "json",
+        success: function(data) {
+            if (data == 1) {
+                $('.tablabordado').load('tablas/tablaBordado.php');
+                alertify.success('Pedido Finalizado Correctamente');
+            } else {
+                alertify.error('Error al Anular Pedido');
+            }
+
+        }
+    });
+}
+
+
+//SCRIPTS DE TERMINACION
+//Ingresar datos aformulario editar Terminacion
+function formEditarTerminacion(datos) {
+    d = datos.split('||');
+    $('.idPedido').val(d[0]);
+    $('.nroPedido').val(d[1]);
+    $('.cliente').val(d[2]);
+    $('.asesor').val(d[3]);
+    $('.nroPedido').html("<b>Nro Pedido:</b> " + d[1]);
+    $('.cliente').html("<b>Cliente:</b> " + d[2]);
+    $('.correoCliente').html("<b>Correo Cliente:</b> " + d[17]);
+    $('.asesor').html("<b>Asesor:</b> " + d[3] + " (" + d[15] + ")");
+    $('.inicio').html("<b>Fecha Inicio:</b> " + d[4]);
+    $('.correoAsesor').html("<b>Correo Asesor:</b> " + d[16]);
+    $('.fin').html("<b>Fecha Entrega:</b> " + d[5]);
+    $('.procesos').html("<b>Procesos:</b> " + d[7]);
+    $('.unds').html("<b>Unds:</b> " + d[8]);
+    $('.idTerminacion').val(d[10]);
+    $('.obs_terminacion').val(d[11]);
+    $('.parcial').val(d[12]);
+    $('.idNovedad').val(d[13]);
+    $('.novedad').val(d[14]);
+    $('.correoCliente').val(d[17]);
+}
+//Editar Terminacion
+function editarTerminacion() {
+    $.ajax({
+        type: "POST",
+        url: "php/editarTerminacion.php",
+        data: $("#formEditarTerminacion").serialize(),
+        datatype: "json",
+        success: function(r) {
+            console.log(r);
+            if (r == 1) {
+                $('.tablaterminacion').load('tablas/tablaTerminacion.php');
+                alertify.success("Pedido Editado Correctamente");
+            } else {
+                alertify.error('Error al Editar Pedido');
+            }
+        }
+    });
+}
+//novedad Terminacion
+function novedadTerminacion() {
+
+    $.ajax({
+        type: "POST",
+        url: "php/novedadTerminacion.php",
+        data: $("#formNovedadTerminacion").serialize(),
+        datatype: "json",
+        success: function(r) {
+            if (r == 1) {
+                $('.tablaterminacion').load('tablas/tablaTerminacion.php');
+                alertify.success("Novedad Generada Correctamente. Se ha enviado copia al Comercial");
+            } else {
+                alertify.error('Error al generar Novedad');
+            }
+        }
+    });
+} //confirmar finalizado
+function confirmarFinalizarTerminacion(datos) {
+    d = datos.split('||');
+    idPedido = "idPedido=" + d[0];
+    idTerminacion = "&idTerminacion=" + d[10];
+    unds = "&unds=" + d[8];
+    correoAsesor = "&correoAsesor=" + d[16];
+    correoCliente = "&correoCliente=" + d[17];
+    nombreCliente = "&nombreCliente=" + d[2];
+    nombreAsesor = "&nombreAsesor=" + d[15];
+    nroPedido = "&nroPedido=" + d[1];
+
+    if (d[17] != '') {
+        if (d[13] != 0) {
+            alertify.alert('Finalizar Novedad', '<center>Este pedido contiene una novedad que no ha sido solucionada. <br>Por favor darle trámite para finalizar Pedido.</center>');
+        } else {
+            alertify.prompt('Finalizar Terminacion', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br> <b> Correo Cliente: </b>' + d[17] + ' <br> <b> Asesor: </b> ' + d[3] + " (" + d[15] + ")" + ' <br> <b> Unds: </b> ' + d[8] + ' <br> <b> Procesos: </b> ' + d[7] + ' <br> <br> Observaciones de Finalizado: <br> ', '',
+                function(evt, obs) {
+                    input = idPedido + idTerminacion + unds + "&obs=" + obs + correoAsesor + correoCliente + nombreCliente + nombreAsesor + nroPedido;
+                    finalizarTerminacion(input);
+                },
+                function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
+        }
+    } else {
+        alertify.alert('Ingresar Correo al Cliente', '<center>El Cliente no tiene correo, por favor hablar con el comercial para actualizar datos del clientes.</center>');
+    }
+
+}
+//finalizar Pedido
+function finalizarTerminacion(datos) {
+    console.log(datos)
+    $.ajax({
+        type: "POST",
+        url: "php/finalizarTerminacion.php",
+        data: datos,
+        dataType: "json",
+        success: function(data) {
+            console.log(data);
+            if (data == 1) {
+                $('.tablaterminacion').load('tablas/tablaTerminacion.php');
+                alertify.success('Pedido Finalizado Correctamente');
+            } else {
+                alertify.error('Error al Anular Pedido');
+            }
+        }
+    });
+    //enviar correo al cliente
+    $.ajax({
+        type: "POST",
+        url: "php/correoCliente.php",
+        data: datos,
+        dataType: "json",
+        success: function(data) {
+            console.log(data);
+            if (data == 1) {
+                alertify.success('Se ha enviado correo al Cliente y al Comercial');
+            } else if (data == 2) {
+                alertify.warning('El correo no se envía hasta que todo quede terminado');
+            } else {
+                alertify.error('Error al procesar datos');
+            }
         }
     });
 }

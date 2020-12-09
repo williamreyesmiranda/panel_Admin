@@ -2,7 +2,9 @@
 <html lang="es">
 
 <?php
-session_start();
+session_start([
+    'cookie_lifetime' => 86400,
+]);
 include("../db/Conexion.php");
 include("php/funcionFecha.php");
 date_default_timezone_set('America/Bogota');

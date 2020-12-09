@@ -19,8 +19,8 @@ if (empty($_SESSION['active'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>LISTA BODEGA</title>
-    <link rel="shortcut icon" href="images/icono.png" />
+    <title>LISTA BORDADO</title>
+    <link rel="shortcut icon" href="images/icono.png"/>
     <?php include("includes/scriptUp.php") ?>
 </head>
 
@@ -33,30 +33,30 @@ if (empty($_SESSION['active'])) {
             <div class="container-fluid">
                 <ol class="breadcrumb mb-3 mt-3">
                     <li class="breadcrumb-item "><a class="a-text-kmisetas" href="index.php">Inicio</a></li>
-                    <li class="breadcrumb-item "><a class="a-text-kmisetas" href="reporteBodega.php">Reporte Bodega</a></li>
-                    <li class="breadcrumb-item active">Lista Bodega</li>
+                    <li class="breadcrumb-item "><a class="a-text-kmisetas" href="reporteBordado.php">Reporte Bordado</a></li>
+                    <li class="breadcrumb-item active">Lista Bordado</li>
                 </ol>
 
                 <!-- tabla -->
                 <div class="card mb-4">
                     <div class="card-header ">
-                        <i class="fas fa-table mr-1"></i> Lista de Pedidos Para Bodega
+                        <i class="fas fa-table mr-1"></i> Lista de Pedidos Para Bordado
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <div class="tablabodega"></div>
+                            <div class="tablabordado"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- MODALES -->
-            <!-- modal editar Bodega -->
-            <div class="modal fade" id="editarBodega" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+            <!-- modal editar bordado -->
+            <div class="modal fade" id="editarBordado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">
                     <div class="modal-content ">
                         <div class="modal-header">
-                            <h2 class="modal-title mx-auto">Editar Bodega</h2>
+                            <h2 class="modal-title mx-auto">Editar Sublimación</h2>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span class="salirModal" aria-hidden="true">&times;</span>
                             </button>
@@ -74,32 +74,32 @@ if (empty($_SESSION['active'])) {
                             <div class=" mx-auto d-block border border-dark rounded col-md-9">
                                 <h3 class="mx-auto d-block mt-2 p-1 text-center"><span></span></h3>
 
-                                <form id="formEditarBodega" class="" method="POST" novalidate>
+                                <form id="formEditarBordado" class="" method="POST" novalidate>
                                     <input type="hidden" name="idPedido" class="idPedido">
-                                    <input type="hidden" name="idBodega" class="idBodega">
+                                    <input type="hidden" name="idBordado" class="idBordado">
                                     <div class="form-group text-center col-md-5 mx-auto">
                                         <label for="parcial">Parcial:</label>
                                         <input type="number" name="parcial" id="parcial" class="form-control parcial" aria-describedby="helpId">
                                     </div>
                                     <div class="form-group text-center ">
-                                        <label for="obs_bodega">Parcial:</label>
-                                        <textarea name="obs_bodega" id="obs_bodega" class="form-control obs_bodega" rows="5"></textarea>
+                                        <label for="obs_bordado">Observación:</label>
+                                        <textarea name="obs_bordado" id="obs_bordado" class="form-control obs_bordado" rows="5"></textarea>
                                     </div>
-
+                                    
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-dark" name="btnEditarBodega" data-dismiss="modal" id="modalEditarBodega" onclick="editarBodega();">Editar Pedido</button>
-                                <button type="button" class="btn btn-danger salirModal" data-dismiss="modal" id="salirModal">Cancelar</button>
+                            <button type="button" class="btn btn-dark" name="btnEditarBordado"data-dismiss="modal" id="modalEditarBordado" onclick="editarBordado();">Editar Pedido</button>
+                            <button type="button" class="btn btn-danger salirModal" data-dismiss="modal" id="salirModal">Cancelar</button>
 
-                            </div>
                         </div>
-
+                        </div>
+                        
                     </div>
                 </div>
             </div>
-            <!-- modal novedad Bodega -->
-            <div class="modal fade" id="novedadBodega" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+            <!-- modal novedad Bordado -->
+            <div class="modal fade" id="novedadBordado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">
                     <div class="modal-content ">
                         <div class="modal-header">
@@ -118,12 +118,12 @@ if (empty($_SESSION['active'])) {
                                 <div class="fin"></div>
                                 <div class="procesos"></div>
                                 <div class="unds"></div>
-
+                               
                             </div>
                             <div class=" mx-auto d-block border border-dark rounded col-md-9">
                                 <h3 class="mx-auto d-block mt-2 p-1 text-center"><span>Escribe la Novedad!!</span></h3>
 
-                                <form id="formNovedadBodega" class="formFinalizarNovedad" method="POST" novalidate>
+                                <form id="formNovedadBordado" class="formFinalizarNovedad" method="POST" novalidate>
                                     <input type="hidden" name="idPedido" class="idPedido">
                                     <input type="hidden" name="idNovedad" class="idNovedad">
                                     <input type="hidden" name="asesor" class="asesor">
@@ -137,8 +137,8 @@ if (empty($_SESSION['active'])) {
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="novedadBodega();">Reportar Novedad</button>
-                            <button type="button" class="btn btn-success" data-dismiss="modal" onclick="finalizarNovedad();">Finalizar Novedad</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal"  onclick="novedadBordado();">Reportar Novedad</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal"  onclick="finalizarNovedad();">Finalizar Novedad</button>
                             <button type="button" class="btn btn-danger salirModal" data-dismiss="modal" id="salirModal">Cancelar</button>
 
                         </div>
@@ -155,11 +155,8 @@ if (empty($_SESSION['active'])) {
     <!-- alerta al cancelar modal -->
     <script>
         $(document).ready(function() {
-            $('.tablabodega').load('tablas/tablaBodega.php');
-
-
-
-        });
+            $('.tablabordado').load('tablas/tablaBordado.php');
+});
     </script>
 
 </body>

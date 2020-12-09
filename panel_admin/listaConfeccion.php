@@ -2,7 +2,9 @@
 <html lang="es">
 
 <?php
-session_start();
+session_start([
+    'cookie_lifetime' => 86400,
+]);
 include("../db/Conexion.php");
 if (empty($_SESSION['active'])) {
     header('location: ../');
@@ -29,9 +31,10 @@ if (empty($_SESSION['active'])) {
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                <ol class="breadcrumb mb-3 mt-3">
+            <ol class="breadcrumb mb-3 mt-3">
                     <li class="breadcrumb-item "><a class="a-text-kmisetas" href="index.php">Inicio</a></li>
-                    <li class="breadcrumb-item active">Lista Pedidos</li>
+                    <li class="breadcrumb-item "><a class="a-text-kmisetas" href="reporteConfeccion.php">Reporte Confección</a></li>
+                    <li class="breadcrumb-item active">Lista Confección</li>
                 </ol>
 
                 <!-- tabla -->
@@ -48,67 +51,6 @@ if (empty($_SESSION['active'])) {
             </div>
 
             <!-- MODALES -->
-            <!-- modal ver pedido  -->
-            <div class="modal fade" id="verPedido" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
-                    <div class="modal-content ">
-                        <div class="modal-header">
-                            <h2 class="modal-title text-center">Información Detallada del Pedido</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class=" mx-auto d-block border border-dark rounded col-md-9">
-                                <h3 class="mx-auto d-block mt-2 p-1 text-center"><span></span></h3>
-
-
-                                <div class="form-group">
-                                    <input type="text" class="form-control input-sm nroPedido" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control cliente" readonly>
-
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control asesor" readonly>
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="text" class="form-control input-sm inicio" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control input-sm fin" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control input-sm dias" type="text " readonly>
-
-                                </div>
-                                <div class="form-group ">
-                                    <input type="text" class="form-control input-sm unds" readonly>
-                                </div>
-
-                                <div class="form-group ">
-                                    <input type="text" class="form-control input-sm procesos" readonly>
-                                </div>
-                                <div class="form-group ">
-                                    <input type="text" class="form-control input-sm estadoPedido" readonly>
-                                </div>
-
-
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-
-                            <button type="button" class="btn btn-dark " data-dismiss="modal" id="">Aceptar</button>
-
-                        </div>
-                    </div>
-                </div>
-
-
-
-            </div>
             <!-- modal editar Confeccion -->
             <div class="modal fade" id="editarConfeccion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">

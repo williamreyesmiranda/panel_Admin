@@ -2,7 +2,9 @@
 <html lang="es">
 
 <?php
-session_start();
+session_start([
+    'cookie_lifetime' => 86400,
+]);
 include("../db/Conexion.php");
 if (empty($_SESSION['active'])) {
     header('location: ../');
@@ -31,7 +33,8 @@ if (empty($_SESSION['active'])) {
             <div class="container-fluid">
                 <ol class="breadcrumb mb-3 mt-3">
                     <li class="breadcrumb-item "><a class="a-text-kmisetas" href="index.php">Inicio</a></li>
-                    <li class="breadcrumb-item active">Lista Pedidos</li>
+                    <li class="breadcrumb-item "><a class="a-text-kmisetas" href="reporteCorte.php">Reporte Corte</a></li>
+                    <li class="breadcrumb-item active">Lista Corte</li>
                 </ol>
 
                 <!-- tabla -->
@@ -48,67 +51,6 @@ if (empty($_SESSION['active'])) {
             </div>
 
             <!-- MODALES -->
-            <!-- modal ver pedido  -->
-            <div class="modal fade" id="verPedido" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
-                    <div class="modal-content ">
-                        <div class="modal-header">
-                            <h2 class="modal-title text-center">Información Detallada del Pedido</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class=" mx-auto d-block border border-dark rounded col-md-9">
-                                <h3 class="mx-auto d-block mt-2 p-1 text-center"><span></span></h3>
-
-
-                                <div class="form-group">
-                                    <input type="text" class="form-control input-sm nroPedido" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control cliente" readonly>
-
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control asesor" readonly>
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="text" class="form-control input-sm inicio" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control input-sm fin" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control input-sm dias" type="text " readonly>
-
-                                </div>
-                                <div class="form-group ">
-                                    <input type="text" class="form-control input-sm unds" readonly>
-                                </div>
-
-                                <div class="form-group ">
-                                    <input type="text" class="form-control input-sm procesos" readonly>
-                                </div>
-                                <div class="form-group ">
-                                    <input type="text" class="form-control input-sm estadoPedido" readonly>
-                                </div>
-
-
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-
-                            <button type="button" class="btn btn-dark " data-dismiss="modal" id="">Aceptar</button>
-
-                        </div>
-                    </div>
-                </div>
-
-
-
-            </div>
             <!-- modal editar corte -->
             <div class="modal fade" id="editarCorte" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">
@@ -143,21 +85,21 @@ if (empty($_SESSION['active'])) {
                                         <label for="oc">OC:</label>
                                         <input type="text" name="oc" id="oc" class="form-control oc" aria-describedby="helpId">
                                     </div>
-                                    
+
                                     <div class="form-group text-center ">
                                         <label for="obs_corte">Observación:</label>
                                         <textarea name="obs_corte" id="obs_corte" class="form-control obs_corte" rows="5"></textarea>
                                     </div>
-                                    
+
                                 </form>
                             </div>
                             <div class="modal-footer">
-                            <button type="button" class="btn btn-dark" name="btnEditarCorte"data-dismiss="modal" id="modalEditarCorte" onclick="editarCorte();">Editar Pedido</button>
-                            <button type="button" class="btn btn-danger salirModal" data-dismiss="modal" id="salirModal">Cancelar</button>
+                                <button type="button" class="btn btn-dark" name="btnEditarCorte" data-dismiss="modal" id="modalEditarCorte" onclick="editarCorte();">Editar Pedido</button>
+                                <button type="button" class="btn btn-danger salirModal" data-dismiss="modal" id="salirModal">Cancelar</button>
 
+                            </div>
                         </div>
-                        </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -181,7 +123,7 @@ if (empty($_SESSION['active'])) {
                                 <div class="fin"></div>
                                 <div class="procesos"></div>
                                 <div class="unds"></div>
-                               
+
                             </div>
                             <div class=" mx-auto d-block border border-dark rounded col-md-9">
                                 <h3 class="mx-auto d-block mt-2 p-1 text-center"><span>Escribe la Novedad!!</span></h3>
@@ -200,8 +142,8 @@ if (empty($_SESSION['active'])) {
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-warning" data-dismiss="modal"  onclick="novedadCorte();">Reportar Novedad</button>
-                            <button type="button" class="btn btn-success" data-dismiss="modal"  onclick="finalizarNovedad();">Finalizar Novedad</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="novedadCorte();">Reportar Novedad</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal" onclick="finalizarNovedad();">Finalizar Novedad</button>
                             <button type="button" class="btn btn-danger salirModal" data-dismiss="modal" id="salirModal">Cancelar</button>
 
                         </div>
@@ -219,7 +161,7 @@ if (empty($_SESSION['active'])) {
     <script>
         $(document).ready(function() {
             $('.tablacorte').load('tablas/tablaCorte.php');
-});
+        });
     </script>
 
 </body>

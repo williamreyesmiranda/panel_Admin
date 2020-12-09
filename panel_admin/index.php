@@ -2,7 +2,9 @@
 <html lang="es">
 
 <?php
-session_start();
+session_start([
+    'cookie_lifetime' => 86400,
+]);
 include("../db/Conexion.php");
 include("php/funcionFecha.php");
 date_default_timezone_set('America/Bogota');
@@ -49,7 +51,7 @@ if (empty($_SESSION['active'])) {
                     <div class="breadcrumb mb-3 mt-3 px-0 h-100">
 
                         <div class="col-xl-3 col-md-6 ">
-                            <div class="card btn-outline-danger border-danger mb-1 ">
+                            <div class="card h-100 btn-outline-danger border-danger mb-1 ">
                                 <?php
                                 $conexion = new Conexion();
                                 $consultaSQL = "SELECT count(unds) as 'contar', sum(unds) as 'unds'  FROM pedidos 
@@ -67,7 +69,7 @@ if (empty($_SESSION['active'])) {
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
-                            <div class="card btn-outline-warning border-warning mb-1">
+                            <div class="card h-100 btn-outline-warning border-warning mb-1">
                                 <?php
                                 $conexion = new Conexion();
                                 $consultaSQL = "SELECT count(unds) as 'contar', sum(unds) as 'unds'  FROM pedidos 
@@ -85,7 +87,7 @@ if (empty($_SESSION['active'])) {
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
-                            <div class="card btn-outline-success border-success mb-1">
+                            <div class="card h-100 btn-outline-success border-success mb-1">
                                 <?php
                                 $conexion = new Conexion();
                                 $consultaSQL = "SELECT count(unds) as 'contar', sum(unds) as 'unds'  FROM pedidos 
@@ -103,7 +105,7 @@ if (empty($_SESSION['active'])) {
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
-                            <div class="card btn-outline-dark border-dark mb-1">
+                            <div class="card h-100 btn-outline-dark border-dark mb-1">
                                 <?php
                                 $conexion = new Conexion();
                                 $consultaSQL = "SELECT count(unds) as 'contar', sum(unds) as 'unds'  FROM pedidos 
@@ -143,6 +145,12 @@ if (empty($_SESSION['active'])) {
                                                         <th scope="col">Unds</th>
                                                         <th scope="col">Fecha Entrega</th>
                                                         <th scope="col">Procesos</th>
+                                                        <th scope="col">B</th>
+                                                        <th scope="col">Ct</th>
+                                                        <th scope="col">Cf</th>
+                                                        <th scope="col">S</th>
+                                                        <th scope="col">E</th>
+                                                        <th scope="col">V</th>
                                                         <th scope="col">Estado</th>
                                                     </tr>
                                                 </thead>
@@ -170,6 +178,12 @@ if (empty($_SESSION['active'])) {
                                                             <td><?php echo ($pedido['unds']) ?></td>
                                                             <td><?php echo ($pedido['fecha_fin']) ?></td>
                                                             <td><?php echo ($pedido['siglas']) ?></td>
+                                                            <td><?php echo ($pedido['estBodega']) ?></td>
+                                                            <td><?php echo ($pedido['estCorte']) ?></td>
+                                                            <td><?php echo ($pedido['estConfeccion']) ?></td>
+                                                            <td><?php echo ($pedido['estSublimacion']) ?></td>
+                                                            <td><?php echo ($pedido['estEstampacion']) ?></td>
+                                                            <td><?php echo ($pedido['estBordado']) ?></td>
                                                             <td><?php echo ($pedido['estado']) ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
@@ -211,6 +225,12 @@ if (empty($_SESSION['active'])) {
                                                         <th scope="col">Unds</th>
                                                         <th scope="col">Fecha Entrega</th>
                                                         <th scope="col">Procesos</th>
+                                                        <th scope="col">B</th>
+                                                        <th scope="col">Ct</th>
+                                                        <th scope="col">Cf</th>
+                                                        <th scope="col">S</th>
+                                                        <th scope="col">E</th>
+                                                        <th scope="col">V</th>
                                                         <th scope="col">Estado</th>
                                                     </tr>
                                                 </thead>
@@ -238,6 +258,12 @@ if (empty($_SESSION['active'])) {
                                                             <td><?php echo ($pedido['unds']) ?></td>
                                                             <td><?php echo ($pedido['fecha_fin']) ?></td>
                                                             <td><?php echo ($pedido['siglas']) ?></td>
+                                                            <td><?php echo ($pedido['estBodega']) ?></td>
+                                                            <td><?php echo ($pedido['estCorte']) ?></td>
+                                                            <td><?php echo ($pedido['estConfeccion']) ?></td>
+                                                            <td><?php echo ($pedido['estSublimacion']) ?></td>
+                                                            <td><?php echo ($pedido['estEstampacion']) ?></td>
+                                                            <td><?php echo ($pedido['estBordado']) ?></td>
                                                             <td><?php echo ($pedido['estado']) ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
@@ -279,6 +305,12 @@ if (empty($_SESSION['active'])) {
                                                         <th scope="col">Unds</th>
                                                         <th scope="col">Fecha Entrega</th>
                                                         <th scope="col">Procesos</th>
+                                                        <th scope="col">B</th>
+                                                        <th scope="col">Ct</th>
+                                                        <th scope="col">Cf</th>
+                                                        <th scope="col">S</th>
+                                                        <th scope="col">E</th>
+                                                        <th scope="col">V</th>
                                                         <th scope="col">Estado</th>
                                                     </tr>
                                                 </thead>
@@ -306,6 +338,12 @@ if (empty($_SESSION['active'])) {
                                                             <td><?php echo ($pedido['unds']) ?></td>
                                                             <td><?php echo ($pedido['fecha_fin']) ?></td>
                                                             <td><?php echo ($pedido['siglas']) ?></td>
+                                                            <td><?php echo ($pedido['estBodega']) ?></td>
+                                                            <td><?php echo ($pedido['estCorte']) ?></td>
+                                                            <td><?php echo ($pedido['estConfeccion']) ?></td>
+                                                            <td><?php echo ($pedido['estSublimacion']) ?></td>
+                                                            <td><?php echo ($pedido['estEstampacion']) ?></td>
+                                                            <td><?php echo ($pedido['estBordado']) ?></td>
                                                             <td><?php echo ($pedido['estado']) ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
@@ -423,6 +461,13 @@ if (empty($_SESSION['active'])) {
                                                                             <th scope="col">Cliente</th>
                                                                             <th scope="col">Unds</th>
                                                                             <th>Pro</th>
+                                                                            <th scope="col">B</th>
+                                                                            <th scope="col">Ct</th>
+                                                                            <th scope="col">Cf</th>
+                                                                            <th scope="col">S</th>
+                                                                            <th scope="col">E</th>
+                                                                            <th scope="col">V</th>
+
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -446,6 +491,12 @@ if (empty($_SESSION['active'])) {
                                                                                     <?php echo ($pedido['cliente']) ?></td>
                                                                                 <td><?php echo ($pedido['unds']) ?></td>
                                                                                 <td><?php echo ($pedido['siglas']) ?></td>
+                                                                                <td><?php echo ($pedido['estBodega']) ?></td>
+                                                                                <td><?php echo ($pedido['estCorte']) ?></td>
+                                                                                <td><?php echo ($pedido['estConfeccion']) ?></td>
+                                                                                <td><?php echo ($pedido['estSublimacion']) ?></td>
+                                                                                <td><?php echo ($pedido['estEstampacion']) ?></td>
+                                                                                <td><?php echo ($pedido['estBordado']) ?></td>
                                                                             </tr>
                                                                         <?php endforeach; ?>
                                                                     </tbody>
@@ -513,7 +564,7 @@ if (empty($_SESSION['active'])) {
                                     $conexion = new Conexion();
                                     $consultaSQL = "SELECT * FROM novedades nov
                                                     INNER JOIN pedidos pe ON nov.idPedido=pe.idpedido
-                                                    INNER JOIN usuario usu ON usu.idusuario=nov.usuario";
+                                                    INNER JOIN usuario usu ON usu.idusuario=nov.usuario order by idNovedad desc";
                                     $novedades = $conexion->consultarDatos($consultaSQL);
                                     foreach ($novedades as $novedad) :
                                     ?>
@@ -558,7 +609,11 @@ if (empty($_SESSION['active'])) {
                 buttons: [
                     'copyHtml5',
                     'excelHtml5',
-                    'pdfHtml5',
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL'
+                    },
                     'print'
                 ],
                 responsive: true,
@@ -575,7 +630,11 @@ if (empty($_SESSION['active'])) {
                 buttons: [
                     'copyHtml5',
                     'excelHtml5',
-                    'pdfHtml5',
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        /*  pageSize: 'LEGAL' */
+                    },
                     'print'
                 ],
                 responsive: true,

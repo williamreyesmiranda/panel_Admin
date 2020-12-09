@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+session_start([
+    'cookie_lifetime' => 86400,
+]);
 
 include("../db/Conexion.php");
 include("php/funcionFecha.php");
@@ -98,7 +100,7 @@ if (empty($_SESSION['active'])) {
             $inicio5 = dayToFecha($final4, 1);
             $final5 = dayToFecha($inicio5, $dias5 - 1);
             if ($dato5 != '') {
-                $consultaSQL = "INSERT INTO $dato5(pedido, iniciofecha, finfecha, dias) VALUES ('$maxPedido','$inicio3','$final5', $dias5)";
+                $consultaSQL = "INSERT INTO $dato5(pedido, iniciofecha, finfecha, dias) VALUES ('$maxPedido','$inicio5','$final5', $dias5)";
                 $insert5 = $conexion->agregarDatos($consultaSQL);
                 if ($insert5 == 1) {
                     $alert .= "<script> alertify.success('Ingresado a " . $dato5 . "'); </script>";
@@ -114,7 +116,7 @@ if (empty($_SESSION['active'])) {
             $inicio6 = dayToFecha($final5, 1);
             $final6 = dayToFecha($inicio6, $dias6 - 1);
             if ($dato6 != '') {
-                $consultaSQL = "INSERT INTO $dato3(pedido, iniciofecha, finfecha, dias) VALUES ('$maxPedido','$inicio6','$final6', $dias6)";
+                $consultaSQL = "INSERT INTO $dato6(pedido, iniciofecha, finfecha, dias) VALUES ('$maxPedido','$inicio6','$final6', $dias6)";
                 $insert6 = $conexion->agregarDatos($consultaSQL);
                 if ($insert6 == 1) {
                     $alert .= "<script> alertify.success('Ingresado a " . $dato6 . "'); </script>";
@@ -125,6 +127,8 @@ if (empty($_SESSION['active'])) {
         } else {
             $alert .= "<script> alertify.error('Error al registrar pedido'); </script>";
         }
+        $consultaSQL = "UPDATE terminacion SET finfecha='$fechaFin' WHERE pedido='$maxPedido'";
+        $fechaTerminacion = $conexion->editarDatos($consultaSQL);
     }
 }
 ?>

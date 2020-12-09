@@ -42,7 +42,7 @@ if (empty($_SESSION['active'])) {
 
 
         $conexion = new Conexion();
-        $consultaSQL = "SELECT * FROM clientes";
+        $consultaSQL = "SELECT * FROM clientes order by nombre asc";
         $clientes = $conexion->consultarDatos($consultaSQL);
         foreach ($clientes as $cliente) :
             $datos = $cliente['id_cliente'] . "||" . $cliente['documento'] . "||" . $cliente['nombre'] .

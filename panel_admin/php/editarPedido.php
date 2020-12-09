@@ -84,6 +84,9 @@ if ($result == 1) {
         $consultaSQL = "UPDATE $dato6 SET iniciofecha='$inicio6', finfecha='$final6', dias='$dias6' WHERE pedido='$idPedido'";
         $insert5 = $conexion->editarDatos($consultaSQL);
       }
+
+      $consultaSQL = "UPDATE terminacion SET finfecha='$fechaFin' WHERE pedido='$idPedido'";
+        $fechaTerminacion = $conexion->editarDatos($consultaSQL);
   }
 
 ?>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <?php
 session_start([
     'cookie_lifetime' => 86400,
@@ -12,15 +11,13 @@ if (empty($_SESSION['active'])) {
 }
 ?>
 
-
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>REPORTE CONFECCION</title>
+    <title>REPORTE BORDADO</title>
     <link rel="shortcut icon" href="images/icono.png" />
     <?php include("includes/scriptUp.php") ?>
 </head>
@@ -34,8 +31,8 @@ if (empty($_SESSION['active'])) {
             <div class="container-fluid">
                 <ol class="breadcrumb mb-3 mt-3">
                     <li class="breadcrumb-item "><a class="a-text-kmisetas" href="index.php">Inicio</a></li>
-                    <li class="breadcrumb-item "><a class="a-text-kmisetas" href="listaConfeccion.php">Lista Confección</a></li>
-                    <li class="breadcrumb-item active">Reporte Confección</li>
+                    <li class="breadcrumb-item "><a class="a-text-kmisetas" href="listaBordado.php">Lista Bordado</a></li>
+                    <li class="breadcrumb-item active">Reporte Bordado</li>
                 </ol>
                 <?php
                 $hoy = date('Y-m-d');
@@ -45,14 +42,14 @@ if (empty($_SESSION['active'])) {
                 <div class="accordion" id="accordionExample">
                     <!-- botones para acordeon -->
                     <div class="alert alert-secondary">
-                        <h1 class="text-center">INFORME DE CONFECCIÓN</h1>
+                        <h1 class="text-center">INFORME DE BORDADO</h1>
                     </div>
                     <div class="breadcrumb mb-3 mt-3 px-0 h-100">
 
                         <div class="col-xl-3 col-md-6 mb-2">
                             <div class="card h-100 bg-danger text-white mb-1 ">
                                 <?php
-                                $consultaSQL = "SELECT count(bo.idconfeccion) as 'contar', sum(pe.unds) as 'unds', sum(bo.parcial) as 'parcial'  FROM confeccion bo
+                                $consultaSQL = "SELECT count(bo.idbordado) as 'contar', sum(pe.unds) as 'unds', sum(bo.parcial) as 'parcial'  FROM bordado bo
                                 INNER JOIN pedidos pe ON pe.idpedido=bo.pedido
                                 WHERE bo.estado<3 AND bo.finfecha < '$hoy'";
                                 $pedidos = $conexion->consultarDatos($consultaSQL);
@@ -60,8 +57,25 @@ if (empty($_SESSION['active'])) {
                                 $unds = $pedidos[0]['unds'];
                                 $parcial = $pedidos[0]['parcial'];
                                 $falta = $unds - $parcial;
+                                //contar si confeccion y bodega tiene producto
+                                $producto = 0;
+                                $consultaSQL = "SELECT * FROM bordado WHERE estado<3 AND finfecha < '$hoy'";
+                                $pedidos = $conexion->consultarDatos($consultaSQL);
+                                foreach ($pedidos as $pedido) {
+                                    $idPedido = $pedido['pedido'];
+                                    $consultaSQL = "SELECT * FROM bodega WHERE pedido=$idPedido AND entrega<>''";
+                                    $prod_bodega = $conexion->consultarDatos($consultaSQL);
+                                    if ($prod_bodega) {
+                                        $producto++;
+                                    }
+                                    $consultaSQL = "SELECT * FROM confeccion WHERE pedido=$idPedido AND entrega<>''";
+                                    $prod_confeccion = $conexion->consultarDatos($consultaSQL);
+                                    if ($prod_confeccion) {
+                                        $producto++;
+                                    }
+                                }
                                 ?>
-                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $unds . " unds). <br> Unds Listas: " . $parcial . ". <br> Unds Faltantes: " . $falta; ?>
+                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $producto . " con producto). <br> Unds Totales:" . $unds . " (" . $parcial . " unds Listas). <br> Unds Faltantes: " . $falta; ?>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" data-toggle="collapse" href="#pedidosAtrasados" role="button" aria-expanded="false" aria-controls="pedidosAtrasados">Ver detalle</a>
@@ -72,7 +86,7 @@ if (empty($_SESSION['active'])) {
                         <div class="col-xl-3 col-md-6 mb-2">
                             <div class="card h-100 bg-warning text-dark mb-1">
                                 <?php
-                                $consultaSQL = "SELECT count(bo.idconfeccion) as 'contar', sum(pe.unds) as 'unds', sum(bo.parcial) as 'parcial'  FROM confeccion bo
+                                $consultaSQL = "SELECT count(bo.idbordado) as 'contar', sum(pe.unds) as 'unds', sum(bo.parcial) as 'parcial'  FROM bordado bo
                                 INNER JOIN pedidos pe ON pe.idpedido=bo.pedido
                                 WHERE bo.estado<3 AND bo.finfecha BETWEEN '$hoy' AND '$tresDias'";
                                 $pedidos = $conexion->consultarDatos($consultaSQL);
@@ -80,8 +94,25 @@ if (empty($_SESSION['active'])) {
                                 $unds = $pedidos[0]['unds'];
                                 $parcial = $pedidos[0]['parcial'];
                                 $falta = $unds - $parcial;
+                                //contar si confeccion y bodega tiene producto
+                                $producto = 0;
+                                $consultaSQL = "SELECT * FROM bordado WHERE estado<3 AND finfecha BETWEEN '$hoy' AND '$tresDias'";
+                                $pedidos = $conexion->consultarDatos($consultaSQL);
+                                foreach ($pedidos as $pedido) {
+                                    $idPedido = $pedido['pedido'];
+                                    $consultaSQL = "SELECT * FROM bodega WHERE pedido=$idPedido AND entrega<>''";
+                                    $prod_bodega = $conexion->consultarDatos($consultaSQL);
+                                    if ($prod_bodega) {
+                                        $producto++;
+                                    }
+                                    $consultaSQL = "SELECT * FROM confeccion WHERE pedido=$idPedido AND entrega<>''";
+                                    $prod_confeccion = $conexion->consultarDatos($consultaSQL);
+                                    if ($prod_confeccion) {
+                                        $producto++;
+                                    }
+                                }
                                 ?>
-                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $unds . " unds). <br> Unds Listas: " . $parcial . ". <br> Unds Faltantes: " . $falta; ?>
+                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $producto . " con producto). <br> Unds Totales:" . $unds . " (" . $parcial . " unds Listas). <br> Unds Faltantes: " . $falta; ?>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-dark stretched-link" data-toggle="collapse" href="#pedidosTresDias" role="button" aria-expanded="false" aria-controls="pedidosTresDias">Ver detalle</a>
@@ -92,7 +123,7 @@ if (empty($_SESSION['active'])) {
                         <div class="col-xl-3 col-md-6 mb-2">
                             <div class="card h-100 bg-success text-white mb-1">
                                 <?php
-                                $consultaSQL = "SELECT count(bo.idconfeccion) as 'contar', sum(pe.unds) as 'unds', sum(bo.parcial) as 'parcial'  FROM confeccion bo
+                                $consultaSQL = "SELECT count(bo.idbordado) as 'contar', sum(pe.unds) as 'unds', sum(bo.parcial) as 'parcial'  FROM bordado bo
                                 INNER JOIN pedidos pe ON pe.idpedido=bo.pedido
                                 WHERE bo.estado<3 AND bo.finfecha>'$tresDias'";
                                 $pedidos = $conexion->consultarDatos($consultaSQL);
@@ -100,8 +131,25 @@ if (empty($_SESSION['active'])) {
                                 $unds = $pedidos[0]['unds'];
                                 $parcial = $pedidos[0]['parcial'];
                                 $falta = $unds - $parcial;
+                                //contar si confeccion y bodega tiene producto
+                                $producto = 0;
+                                $consultaSQL = "SELECT * FROM bordado WHERE estado<3 AND finfecha > '$tresDias'";
+                                $pedidos = $conexion->consultarDatos($consultaSQL);
+                                foreach ($pedidos as $pedido) {
+                                    $idPedido = $pedido['pedido'];
+                                    $consultaSQL = "SELECT * FROM bodega WHERE pedido=$idPedido AND entrega<>''";
+                                    $prod_bodega = $conexion->consultarDatos($consultaSQL);
+                                    if ($prod_bodega) {
+                                        $producto++;
+                                    }
+                                    $consultaSQL = "SELECT * FROM confeccion WHERE pedido=$idPedido AND entrega<>''";
+                                    $prod_confeccion = $conexion->consultarDatos($consultaSQL);
+                                    if ($prod_confeccion) {
+                                        $producto++;
+                                    }
+                                }
                                 ?>
-                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $unds . " unds). <br> Unds Listas: " . $parcial . ". <br> Unds Faltantes: " . $falta; ?>
+                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $producto . " con producto). <br> Unds Totales:" . $unds . " (" . $parcial . " unds Listas). <br> Unds Faltantes: " . $falta; ?>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" data-toggle="collapse" href="#pedidosCuatroDias" role="button" aria-expanded="false" aria-controls="pedidosCuatroDias">Ver detalle</a>
@@ -112,7 +160,7 @@ if (empty($_SESSION['active'])) {
                         <div class="col-xl-3 col-md-6 mb-2">
                             <div class="card h-100 bg-dark text-white mb-1">
                                 <?php
-                                $consultaSQL = "SELECT count(bo.idconfeccion) as 'contar', sum(pe.unds) as 'unds', sum(bo.parcial) as 'parcial'  FROM confeccion bo
+                                $consultaSQL = "SELECT count(bo.idbordado) as 'contar', sum(pe.unds) as 'unds', sum(bo.parcial) as 'parcial'  FROM bordado bo
                                 INNER JOIN pedidos pe ON pe.idpedido=bo.pedido
                                 WHERE bo.estado<3 ";
                                 $pedidos = $conexion->consultarDatos($consultaSQL);
@@ -120,8 +168,25 @@ if (empty($_SESSION['active'])) {
                                 $unds = $pedidos[0]['unds'];
                                 $parcial = $pedidos[0]['parcial'];
                                 $falta = $unds - $parcial;
+                                //contar si confeccion y bodega tiene producto
+                                $producto = 0;
+                                $consultaSQL = "SELECT * FROM bordado WHERE estado<3 ";
+                                $pedidos = $conexion->consultarDatos($consultaSQL);
+                                foreach ($pedidos as $pedido) {
+                                    $idPedido = $pedido['pedido'];
+                                    $consultaSQL = "SELECT * FROM bodega WHERE pedido=$idPedido AND entrega<>''";
+                                    $prod_bodega = $conexion->consultarDatos($consultaSQL);
+                                    if ($prod_bodega) {
+                                        $producto++;
+                                    }
+                                    $consultaSQL = "SELECT * FROM confeccion WHERE pedido=$idPedido AND entrega<>''";
+                                    $prod_confeccion = $conexion->consultarDatos($consultaSQL);
+                                    if ($prod_confeccion) {
+                                        $producto++;
+                                    }
+                                }
                                 ?>
-                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $unds . " unds). <br> Unds Listas: " . $parcial . ". <br> Unds Faltantes: " . $falta; ?>
+                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $producto . " con producto). <br> Unds Totales:" . $unds . " (" . $parcial . " unds Listas). <br> Unds Faltantes: " . $falta; ?>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" data-toggle="collapse" href="#calendarioPedidos" role="button" aria-expanded="false" aria-controls="calendarioPedidos">Ver Calendario</a>
@@ -146,13 +211,12 @@ if (empty($_SESSION['active'])) {
                                                         <th scope="col">Pedido</th>
                                                         <th scope="col">Cliente</th>
                                                         <th scope="col">Procesos</th>
+                                                        <th scope="col">Prod</th>
                                                         <th scope="col">Unds Total</th>
                                                         <th scope="col">Unds Parcial</th>
                                                         <th scope="col">Unds Falta</th>
                                                         <th scope="col">Fecha Entrega</th>
                                                         <th scope="col">Observaciones</th>
-                                                        <th scope="col">OC</th>
-                                                        <th scope="col">Unds Corte</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -161,7 +225,7 @@ if (empty($_SESSION['active'])) {
                                                     $undsParcial = 0;
                                                     $undsFalta = 0;
                                                     $countPedido = 0;
-                                                    $consultaSQL = "SELECT bo.pedido, pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_confeccion, bo.numNovedad FROM confeccion bo
+                                                    $consultaSQL = "SELECT bo.pedido, pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_bordado, bo.numNovedad FROM bordado bo
                                                     INNER JOIN pedidos pe ON bo.pedido=pe.idpedido
                                                     INNER JOIN procesos pro ON pe.procesos=pro.idproceso
                                                     
@@ -175,32 +239,31 @@ if (empty($_SESSION['active'])) {
                                                         $undsTotal = $undsTotal + $pedido['unds'];
                                                         $undsParcial = $undsParcial + $pedido['parcial'];
                                                         $countPedido++;
-                                                        //consulta de corte para confeccion
+                                                        //consultar el producto de bodega y confeccion
                                                         $idPedido = $pedido['pedido'];
-                                                        $unds = $pedido['unds'];
-                                                        $consultaSQL = "SELECT * FROM corte WHERE pedido='$idPedido'";
+                                                        $consultaSQL = "SELECT * FROM confeccion WHERE pedido='$idPedido'";
                                                         $result = $conexion->consultarDatos($consultaSQL);
-                                                        $oc = @$result[0]['oc'];
-                                                        $unds_corte = @$result[0]['parcial'];
-                                                        if ($unds == $unds_corte) {
-                                                            $unds_corte = "OK";
-                                                        }
+                                                        $prodConfeccion = @$result[0]['entrega'];
+                                                        $consultaSQL = "SELECT * FROM bodega WHERE pedido='$idPedido'";
+                                                        $result = $conexion->consultarDatos($consultaSQL);
+                                                        $prodBodega = @$result[0]['entrega'];
+
+
                                                     ?>
 
                                                         <tr>
                                                             <th scope="row"><?php echo ($pedido['num_pedido']) ?></th>
                                                             <td class="text-uppercase"><?php echo ($pedido['cliente']) ?></td>
                                                             <td><?php echo ($pedido['siglas']) ?></td>
+                                                            <td><?php echo ($prodConfeccion . $prodBodega); ?></td>
                                                             <td><?php echo ($pedido['unds']) ?></td>
                                                             <td><?php echo ($pedido['parcial']) ?></td>
                                                             <td><?php echo ($pedido['unds'] - $pedido['parcial']) ?></td>
                                                             <td><?php echo ($pedido['finfecha']) ?></td>
-                                                            <td><?php echo ($pedido['obs_confeccion']);
+                                                            <td><?php echo ($pedido['obs_bordado']);
                                                                 if ($pedido['numNovedad'] > 0) {
                                                                     echo ("<br><b>Novedad:</b>" . $novedad);
                                                                 } ?></td>
-                                                            <td><?php echo ($oc) ?></td>
-                                                            <td><?php echo ($unds_corte) ?></td>
 
                                                         </tr>
                                                     <?php endforeach; ?>
@@ -241,13 +304,12 @@ if (empty($_SESSION['active'])) {
                                                         <th scope="col">Pedido</th>
                                                         <th scope="col">Cliente</th>
                                                         <th scope="col">Procesos</th>
+                                                        <th scope="col">Prod</th>
                                                         <th scope="col">Unds Total</th>
                                                         <th scope="col">Unds Parcial</th>
                                                         <th scope="col">Unds Falta</th>
                                                         <th scope="col">Fecha Entrega</th>
                                                         <th scope="col">Observaciones</th>
-                                                        <th scope="col">OC</th>
-                                                        <th scope="col">Unds Corte</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -256,7 +318,7 @@ if (empty($_SESSION['active'])) {
                                                     $undsParcial = 0;
                                                     $undsFalta = 0;
                                                     $countPedido = 0;
-                                                    $consultaSQL = "SELECT bo.pedido, pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_confeccion, bo.numNovedad FROM confeccion bo
+                                                    $consultaSQL = "SELECT bo.pedido, pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_bordado, bo.numNovedad FROM bordado bo
                                                     INNER JOIN pedidos pe ON bo.pedido=pe.idpedido
                                                     INNER JOIN procesos pro ON pe.procesos=pro.idproceso
                                                     WHERE bo.finfecha BETWEEN '$hoy' AND '$tresDias' and bo.estado<3 order by bo.finfecha ASC";
@@ -269,32 +331,29 @@ if (empty($_SESSION['active'])) {
                                                         $undsTotal = $undsTotal + $pedido['unds'];
                                                         $undsParcial = $undsParcial + $pedido['parcial'];
                                                         $countPedido++;
-                                                        //consulta de corte para confeccion
+                                                        //consultar el producto de bodega y confeccion
                                                         $idPedido = $pedido['pedido'];
-                                                        $unds = $pedido['unds'];
-                                                        $consultaSQL = "SELECT * FROM corte WHERE pedido='$idPedido'";
+                                                        $consultaSQL = "SELECT * FROM confeccion WHERE pedido='$idPedido'";
                                                         $result = $conexion->consultarDatos($consultaSQL);
-                                                        $oc = @$result[0]['oc'];
-                                                        $unds_corte = @$result[0]['parcial'];
-                                                        if ($unds == $unds_corte) {
-                                                            $unds_corte = "OK";
-                                                        }
+                                                        $prodConfeccion = @$result[0]['entrega'];
+                                                        $consultaSQL = "SELECT * FROM bodega WHERE pedido='$idPedido'";
+                                                        $result = $conexion->consultarDatos($consultaSQL);
+                                                        $prodBodega = @$result[0]['entrega'];
                                                     ?>
 
                                                         <tr>
                                                             <th scope="row"><?php echo ($pedido['num_pedido']) ?></th>
                                                             <td class="text-uppercase"><?php echo ($pedido['cliente']) ?></td>
                                                             <td><?php echo ($pedido['siglas']) ?></td>
+                                                            <td><?php echo ($prodConfeccion . $prodBodega); ?></td>
                                                             <td><?php echo ($pedido['unds']) ?></td>
                                                             <td><?php echo ($pedido['parcial']) ?></td>
                                                             <td><?php echo ($pedido['unds'] - $pedido['parcial']) ?></td>
                                                             <td><?php echo ($pedido['finfecha']) ?></td>
-                                                            <td><?php echo ($pedido['obs_confeccion']);
+                                                            <td><?php echo ($pedido['obs_bordado']);
                                                                 if ($pedido['numNovedad'] > 0) {
                                                                     echo ("<br><b>Novedad:</b>" . $novedad);
                                                                 } ?></td>
-                                                            <td><?php echo ($oc) ?></td>
-                                                            <td><?php echo ($unds_corte) ?></td>
 
                                                         </tr>
                                                     <?php endforeach; ?>
@@ -335,13 +394,12 @@ if (empty($_SESSION['active'])) {
                                                         <th scope="col">Pedido</th>
                                                         <th scope="col">Cliente</th>
                                                         <th scope="col">Procesos</th>
+                                                        <th scope="col">Prod</th>
                                                         <th scope="col">Unds Total</th>
                                                         <th scope="col">Unds Parcial</th>
                                                         <th scope="col">Unds Falta</th>
                                                         <th scope="col">Fecha Entrega</th>
                                                         <th scope="col">Observaciones</th>
-                                                        <th scope="col">OC</th>
-                                                        <th scope="col">Unds Corte</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -350,7 +408,7 @@ if (empty($_SESSION['active'])) {
                                                     $undsParcial = 0;
                                                     $undsFalta = 0;
                                                     $countPedido = 0;
-                                                    $consultaSQL = "SELECT bo.pedido, pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_confeccion, bo.numNovedad FROM confeccion bo
+                                                    $consultaSQL = "SELECT bo.pedido, pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_bordado, bo.numNovedad FROM bordado bo
                                                     INNER JOIN pedidos pe ON bo.pedido=pe.idpedido
                                                     INNER JOIN procesos pro ON pe.procesos=pro.idproceso
                                                     WHERE bo.finfecha >'$tresDias' and bo.estado<3 order by bo.finfecha ASC";
@@ -363,33 +421,28 @@ if (empty($_SESSION['active'])) {
                                                         $undsTotal = $undsTotal + $pedido['unds'];
                                                         $undsParcial = $undsParcial + $pedido['parcial'];
                                                         $countPedido++;
-                                                        //consulta de corte para confeccion
+                                                        //consultar el producto de bodega y confeccion
                                                         $idPedido = $pedido['pedido'];
-                                                        $unds = $pedido['unds'];
-                                                        $consultaSQL = "SELECT * FROM corte WHERE pedido='$idPedido'";
+                                                        $consultaSQL = "SELECT * FROM confeccion WHERE pedido='$idPedido'";
                                                         $result = $conexion->consultarDatos($consultaSQL);
-                                                        $oc = @$result[0]['oc'];
-                                                        $unds_corte = @$result[0]['parcial'];
-                                                        if ($unds == $unds_corte) {
-                                                            $unds_corte = "OK";
-                                                        }
+                                                        $prodConfeccion = @$result[0]['entrega'];
+                                                        $consultaSQL = "SELECT * FROM bodega WHERE pedido='$idPedido'";
+                                                        $result = $conexion->consultarDatos($consultaSQL);
+                                                        $prodBodega = @$result[0]['entrega'];
                                                     ?>
-
                                                         <tr>
                                                             <th scope="row"><?php echo ($pedido['num_pedido']) ?></th>
                                                             <td class="text-uppercase"><?php echo ($pedido['cliente']) ?></td>
                                                             <td><?php echo ($pedido['siglas']) ?></td>
+                                                            <td><?php echo ($prodConfeccion . $prodBodega); ?></td>
                                                             <td><?php echo ($pedido['unds']) ?></td>
                                                             <td><?php echo ($pedido['parcial']) ?></td>
                                                             <td><?php echo ($pedido['unds'] - $pedido['parcial']) ?></td>
                                                             <td><?php echo ($pedido['finfecha']) ?></td>
-                                                            <td><?php echo ($pedido['obs_confeccion']);
+                                                            <td><?php echo ($pedido['obs_bordado']);
                                                                 if ($pedido['numNovedad'] > 0) {
                                                                     echo ("<br><b>Novedad:</b>" . $novedad);
                                                                 } ?></td>
-                                                            <td><?php echo ($oc) ?></td>
-                                                            <td><?php echo ($unds_corte) ?></td>
-
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
@@ -509,12 +562,11 @@ if (empty($_SESSION['active'])) {
                                                                             <th scope="col">Pedido</th>
                                                                             <th scope="col">Cliente</th>
                                                                             <th scope="col">Procesos</th>
+                                                                            <th scope="col">Prod</th>
                                                                             <th scope="col">Unds Total</th>
                                                                             <th scope="col">Unds Parcial</th>
                                                                             <th scope="col">Unds Falta</th>
                                                                             <th scope="col">Observaciones</th>
-                                                                            <th scope="col">OC</th>
-                                                                            <th scope="col">Unds Corte</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -523,10 +575,10 @@ if (empty($_SESSION['active'])) {
                                                                         $undsParcial = 0;
                                                                         $undsFalta = 0;
                                                                         $countPedido = 0;
-                                                                        $consultaSQL = "SELECT bo.pedido, pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_confeccion, bo.numNovedad FROM confeccion bo
-                                                    INNER JOIN pedidos pe ON bo.pedido=pe.idpedido
-                                                    INNER JOIN procesos pro ON pe.procesos=pro.idproceso
-                                                    WHERE bo.finfecha ='$dia' and bo.estado<3 order by bo.finfecha ASC";
+                                                                        $consultaSQL = "SELECT pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_bordado, bo.numNovedad, bo.pedido FROM bordado bo
+                                                                                        INNER JOIN pedidos pe ON bo.pedido=pe.idpedido
+                                                                                        INNER JOIN procesos pro ON pe.procesos=pro.idproceso
+                                                                                        WHERE bo.finfecha ='$dia' and bo.estado<3 order by bo.finfecha ASC";
                                                                         $pedidos = $conexion->consultarDatos($consultaSQL);
                                                                         foreach ($pedidos as $pedido) :
                                                                             $numNovedad = $pedido['numNovedad'];
@@ -536,31 +588,28 @@ if (empty($_SESSION['active'])) {
                                                                             $undsTotal = $undsTotal + $pedido['unds'];
                                                                             $undsParcial = $undsParcial + $pedido['parcial'];
                                                                             $countPedido++;
-                                                                            //consulta de corte para confeccion
+                                                                            //consultar el producto de bodega y confeccion
                                                                             $idPedido = $pedido['pedido'];
-                                                                            $unds = $pedido['unds'];
-                                                                            $consultaSQL = "SELECT * FROM corte WHERE pedido='$idPedido'";
+                                                                            $consultaSQL = "SELECT * FROM confeccion WHERE pedido='$idPedido'";
                                                                             $result = $conexion->consultarDatos($consultaSQL);
-                                                                            $oc = @$result[0]['oc'];
-                                                                            $unds_corte = @$result[0]['parcial'];
-                                                                            if ($unds == $unds_corte) {
-                                                                                $unds_corte = "OK";
-                                                                            }
+                                                                            $prodConfeccion = @$result[0]['entrega'];
+                                                                            $consultaSQL = "SELECT * FROM bodega WHERE pedido='$idPedido'";
+                                                                            $result = $conexion->consultarDatos($consultaSQL);
+                                                                            $prodBodega = @$result[0]['entrega'];
                                                                         ?>
 
                                                                             <tr>
                                                                                 <th scope="row"><?php echo ($pedido['num_pedido']) ?></th>
                                                                                 <td class="text-uppercase"><?php echo ($pedido['cliente']) ?></td>
                                                                                 <td><?php echo ($pedido['siglas']) ?></td>
+                                                                                <td><?php echo ($prodConfeccion . $prodBodega); ?></td>
                                                                                 <td><?php echo ($pedido['unds']) ?></td>
                                                                                 <td><?php echo ($pedido['parcial']) ?></td>
                                                                                 <td><?php echo ($pedido['unds'] - $pedido['parcial']) ?></td>
-                                                                                <td><?php echo ($pedido['obs_confeccion']);
+                                                                                <td><?php echo ($pedido['obs_bordado']);
                                                                                     if ($pedido['numNovedad'] > 0) {
                                                                                         echo ("<br><b>Novedad:</b>" . $novedad);
                                                                                     } ?></td>
-                                                                                <td><?php echo ($oc) ?></td>
-                                                                                <td><?php echo ($unds_corte) ?></td>
 
                                                                             </tr>
                                                                         <?php endforeach; ?>
