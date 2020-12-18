@@ -59,8 +59,23 @@ if (empty($_SESSION['active'])) {
                                 $unds = $pedidos[0]['unds'];
                                 $parcial = $pedidos[0]['parcial'];
                                 $falta = $unds - $parcial;
+                                //Consulta de horas totales
+                                $horas = 0;
+                                $consultaSQL = "SELECT * FROM terminacion WHERE estado<3 AND finfecha < '$hoy'";
+                                $pedidos = $conexion->consultarDatos($consultaSQL);
+                                foreach ($pedidos as $pedido) {
+                                    $idPedido = $pedido['pedido'];
+                                    $consultaSQL = "SELECT * FROM pedidos WHERE idpedido=$idPedido";
+                                    $consulta = $conexion->consultarDatos($consultaSQL);
+                                    $undsPedido = $consulta[0]['unds'];
+                                    $faltaPedido = $undsPedido - $pedido['parcial'];
+                                    $horas = $horas + round($faltaPedido * $pedido['tiempo'] / 60, 2);
+                                }
+                                $turnos = round($horas / 9, 2);
+
                                 ?>
-                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $unds . " unds). <br> Unds Listas: " . $parcial . ". <br> Unds Faltantes: " . $falta; ?>
+                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $unds . " unds). <br> Unds Listas: " . $parcial .
+                                                                ". <br> Unds Faltantes: " . $falta . "<br> Horas: " . $horas . "<br> Turnos (9hrs): " . $turnos; ?>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" data-toggle="collapse" href="#pedidosAtrasados" role="button" aria-expanded="false" aria-controls="pedidosAtrasados">Ver detalle</a>
@@ -79,8 +94,23 @@ if (empty($_SESSION['active'])) {
                                 $unds = $pedidos[0]['unds'];
                                 $parcial = $pedidos[0]['parcial'];
                                 $falta = $unds - $parcial;
+                                //Consulta de horas totales
+                                $horas = 0;
+                                $consultaSQL = "SELECT * FROM terminacion WHERE estado<3 AND finfecha BETWEEN '$hoy' AND '$tresDias'";
+                                $pedidos = $conexion->consultarDatos($consultaSQL);
+                                foreach ($pedidos as $pedido) {
+                                    $idPedido = $pedido['pedido'];
+                                    $consultaSQL = "SELECT * FROM pedidos WHERE idpedido=$idPedido";
+                                    $consulta = $conexion->consultarDatos($consultaSQL);
+                                    $undsPedido = $consulta[0]['unds'];
+                                    $faltaPedido = $undsPedido - $pedido['parcial'];
+                                    $horas = $horas + round($faltaPedido * $pedido['tiempo'] / 60, 2);
+                                }
+                                $turnos = round($horas / 9, 2);
+
                                 ?>
-                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $unds . " unds). <br> Unds Listas: " . $parcial . ". <br> Unds Faltantes: " . $falta; ?>
+                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $unds . " unds). <br> Unds Listas: " . $parcial .
+                                                                ". <br> Unds Faltantes: " . $falta . "<br> Horas: " . $horas . "<br> Turnos (9hrs): " . $turnos; ?>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-dark stretched-link" data-toggle="collapse" href="#pedidosTresDias" role="button" aria-expanded="false" aria-controls="pedidosTresDias">Ver detalle</a>
@@ -99,8 +129,23 @@ if (empty($_SESSION['active'])) {
                                 $unds = $pedidos[0]['unds'];
                                 $parcial = $pedidos[0]['parcial'];
                                 $falta = $unds - $parcial;
+                                //Consulta de horas totales
+                                $horas = 0;
+                                $consultaSQL = "SELECT * FROM terminacion WHERE estado<3 AND finfecha>'$tresDias'";
+                                $pedidos = $conexion->consultarDatos($consultaSQL);
+                                foreach ($pedidos as $pedido) {
+                                    $idPedido = $pedido['pedido'];
+                                    $consultaSQL = "SELECT * FROM pedidos WHERE idpedido=$idPedido";
+                                    $consulta = $conexion->consultarDatos($consultaSQL);
+                                    $undsPedido = $consulta[0]['unds'];
+                                    $faltaPedido = $undsPedido - $pedido['parcial'];
+                                    $horas = $horas + round($faltaPedido * $pedido['tiempo'] / 60, 2);
+                                }
+                                $turnos = round($horas / 9, 2);
+
                                 ?>
-                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $unds . " unds). <br> Unds Listas: " . $parcial . ". <br> Unds Faltantes: " . $falta; ?>
+                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $unds . " unds). <br> Unds Listas: " . $parcial .
+                                                                ". <br> Unds Faltantes: " . $falta . "<br> Horas: " . $horas . "<br> Turnos (9hrs): " . $turnos; ?>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" data-toggle="collapse" href="#pedidosCuatroDias" role="button" aria-expanded="false" aria-controls="pedidosCuatroDias">Ver detalle</a>
@@ -119,8 +164,23 @@ if (empty($_SESSION['active'])) {
                                 $unds = $pedidos[0]['unds'];
                                 $parcial = $pedidos[0]['parcial'];
                                 $falta = $unds - $parcial;
+                                //Consulta de horas totales
+                                $horas = 0;
+                                $consultaSQL = "SELECT * FROM terminacion WHERE estado<3 ";
+                                $pedidos = $conexion->consultarDatos($consultaSQL);
+                                foreach ($pedidos as $pedido) {
+                                    $idPedido = $pedido['pedido'];
+                                    $consultaSQL = "SELECT * FROM pedidos WHERE idpedido=$idPedido";
+                                    $consulta = $conexion->consultarDatos($consultaSQL);
+                                    $undsPedido = $consulta[0]['unds'];
+                                    $faltaPedido = $undsPedido - $pedido['parcial'];
+                                    $horas = $horas + round($faltaPedido * $pedido['tiempo'] / 60, 2);
+                                }
+                                $turnos = round($horas / 9, 2);
+
                                 ?>
-                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $unds . " unds). <br> Unds Listas: " . $parcial . ". <br> Unds Faltantes: " . $falta; ?>
+                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $unds . " unds). <br> Unds Listas: " . $parcial .
+                                                                ". <br> Unds Faltantes: " . $falta . "<br> Horas: " . $horas . "<br> Turnos (9hrs): " . $turnos; ?>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" data-toggle="collapse" href="#calendarioPedidos" role="button" aria-expanded="false" aria-controls="calendarioPedidos">Ver Calendario</a>
@@ -145,9 +205,16 @@ if (empty($_SESSION['active'])) {
                                                         <th scope="col">Pedido</th>
                                                         <th scope="col">Cliente</th>
                                                         <th scope="col">Procesos</th>
+                                                        <th scope="col">B</th>
+                                                        <th scope="col">Ct</th>
+                                                        <th scope="col">Cf</th>
+                                                        <th scope="col">S</th>
+                                                        <th scope="col">E</th>
+                                                        <th scope="col">V</th>
                                                         <th scope="col">Unds Total</th>
                                                         <th scope="col">Unds Parcial</th>
                                                         <th scope="col">Unds Falta</th>
+                                                        <th scope="col">Horas</th>
                                                         <th scope="col">Fecha Entrega</th>
                                                         <th scope="col">Observaciones</th>
                                                     </tr>
@@ -158,10 +225,11 @@ if (empty($_SESSION['active'])) {
                                                     $undsParcial = 0;
                                                     $undsFalta = 0;
                                                     $countPedido = 0;
-                                                    $consultaSQL = "SELECT pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_terminacion, bo.numNovedad FROM terminacion bo
+                                                    $consultaSQL = "SELECT pe.num_pedido, pe.cliente, pe.estBodega, pe.estCorte, pe.estConfeccion, pe.estEstampacion, 
+                                                    pe.estSublimacion, pe.estBordado, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_terminacion, bo.numNovedad, bo.tiempo 
+                                                    FROM terminacion bo
                                                     INNER JOIN pedidos pe ON bo.pedido=pe.idpedido
                                                     INNER JOIN procesos pro ON pe.procesos=pro.idproceso
-                                                    
                                                     WHERE bo.finfecha<'$hoy' and bo.estado<3 order by bo.finfecha ASC";
                                                     $pedidos = $conexion->consultarDatos($consultaSQL);
                                                     foreach ($pedidos as $pedido) :
@@ -178,9 +246,16 @@ if (empty($_SESSION['active'])) {
                                                             <th scope="row"><?php echo ($pedido['num_pedido']) ?></th>
                                                             <td class="text-uppercase"><?php echo ($pedido['cliente']) ?></td>
                                                             <td><?php echo ($pedido['siglas']) ?></td>
+                                                            <td><?php echo ($pedido['estBodega']) ?></td>
+                                                            <td><?php echo ($pedido['estCorte']) ?></td>
+                                                            <td><?php echo ($pedido['estConfeccion']) ?></td>
+                                                            <td><?php echo ($pedido['estSublimacion']) ?></td>
+                                                            <td><?php echo ($pedido['estEstampacion']) ?></td>
+                                                            <td><?php echo ($pedido['estBordado']) ?></td>
                                                             <td><?php echo ($pedido['unds']) ?></td>
                                                             <td><?php echo ($pedido['parcial']) ?></td>
                                                             <td><?php echo ($pedido['unds'] - $pedido['parcial']) ?></td>
+                                                            <td><?php echo (round(($pedido['unds'] - $pedido['parcial']) * $pedido['tiempo'] / 60, 2)) ?></td>
                                                             <td><?php echo ($pedido['finfecha']) ?></td>
                                                             <td><?php echo ($pedido['obs_terminacion']);
                                                                 if ($pedido['numNovedad'] > 0) {
@@ -226,9 +301,16 @@ if (empty($_SESSION['active'])) {
                                                         <th scope="col">Pedido</th>
                                                         <th scope="col">Cliente</th>
                                                         <th scope="col">Procesos</th>
+                                                        <th scope="col">B</th>
+                                                        <th scope="col">Ct</th>
+                                                        <th scope="col">Cf</th>
+                                                        <th scope="col">S</th>
+                                                        <th scope="col">E</th>
+                                                        <th scope="col">V</th>
                                                         <th scope="col">Unds Total</th>
                                                         <th scope="col">Unds Parcial</th>
                                                         <th scope="col">Unds Falta</th>
+                                                        <th scope="col">Horas</th>
                                                         <th scope="col">Fecha Entrega</th>
                                                         <th scope="col">Observaciones</th>
                                                     </tr>
@@ -239,7 +321,9 @@ if (empty($_SESSION['active'])) {
                                                     $undsParcial = 0;
                                                     $undsFalta = 0;
                                                     $countPedido = 0;
-                                                    $consultaSQL = "SELECT pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_terminacion, bo.numNovedad FROM terminacion bo
+                                                    $consultaSQL = "SELECT pe.num_pedido, pe.cliente, pe.estBodega, pe.estCorte, pe.estConfeccion, pe.estEstampacion, 
+                                                    pe.estSublimacion, pe.estBordado, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_terminacion, bo.numNovedad, bo.tiempo 
+                                                    FROM terminacion bo
                                                     INNER JOIN pedidos pe ON bo.pedido=pe.idpedido
                                                     INNER JOIN procesos pro ON pe.procesos=pro.idproceso
                                                     WHERE bo.finfecha BETWEEN '$hoy' AND '$tresDias' and bo.estado<3 order by bo.finfecha ASC";
@@ -258,9 +342,16 @@ if (empty($_SESSION['active'])) {
                                                             <th scope="row"><?php echo ($pedido['num_pedido']) ?></th>
                                                             <td class="text-uppercase"><?php echo ($pedido['cliente']) ?></td>
                                                             <td><?php echo ($pedido['siglas']) ?></td>
+                                                            <td><?php echo ($pedido['estBodega']) ?></td>
+                                                            <td><?php echo ($pedido['estCorte']) ?></td>
+                                                            <td><?php echo ($pedido['estConfeccion']) ?></td>
+                                                            <td><?php echo ($pedido['estSublimacion']) ?></td>
+                                                            <td><?php echo ($pedido['estEstampacion']) ?></td>
+                                                            <td><?php echo ($pedido['estBordado']) ?></td>
                                                             <td><?php echo ($pedido['unds']) ?></td>
                                                             <td><?php echo ($pedido['parcial']) ?></td>
                                                             <td><?php echo ($pedido['unds'] - $pedido['parcial']) ?></td>
+                                                            <td><?php echo (round(($pedido['unds'] - $pedido['parcial']) * $pedido['tiempo'] / 60, 2)) ?></td>
                                                             <td><?php echo ($pedido['finfecha']) ?></td>
                                                             <td><?php echo ($pedido['obs_terminacion']);
                                                                 if ($pedido['numNovedad'] > 0) {
@@ -306,9 +397,16 @@ if (empty($_SESSION['active'])) {
                                                         <th scope="col">Pedido</th>
                                                         <th scope="col">Cliente</th>
                                                         <th scope="col">Procesos</th>
+                                                        <th scope="col">B</th>
+                                                        <th scope="col">Ct</th>
+                                                        <th scope="col">Cf</th>
+                                                        <th scope="col">S</th>
+                                                        <th scope="col">E</th>
+                                                        <th scope="col">V</th>
                                                         <th scope="col">Unds Total</th>
                                                         <th scope="col">Unds Parcial</th>
                                                         <th scope="col">Unds Falta</th>
+                                                        <th scope="col">Horas</th>
                                                         <th scope="col">Fecha Entrega</th>
                                                         <th scope="col">Observaciones</th>
                                                     </tr>
@@ -319,7 +417,9 @@ if (empty($_SESSION['active'])) {
                                                     $undsParcial = 0;
                                                     $undsFalta = 0;
                                                     $countPedido = 0;
-                                                    $consultaSQL = "SELECT pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_terminacion, bo.numNovedad FROM terminacion bo
+                                                    $consultaSQL = "SELECT pe.num_pedido, pe.cliente, pe.estBodega, pe.estCorte, pe.estConfeccion, pe.estEstampacion, 
+                                                    pe.estSublimacion, pe.estBordado, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_terminacion, bo.numNovedad, bo.tiempo 
+                                                    FROM terminacion bo
                                                     INNER JOIN pedidos pe ON bo.pedido=pe.idpedido
                                                     INNER JOIN procesos pro ON pe.procesos=pro.idproceso
                                                     WHERE bo.finfecha >'$tresDias' and bo.estado<3 order by bo.finfecha ASC";
@@ -338,9 +438,16 @@ if (empty($_SESSION['active'])) {
                                                             <th scope="row"><?php echo ($pedido['num_pedido']) ?></th>
                                                             <td class="text-uppercase"><?php echo ($pedido['cliente']) ?></td>
                                                             <td><?php echo ($pedido['siglas']) ?></td>
+                                                            <td><?php echo ($pedido['estBodega']) ?></td>
+                                                            <td><?php echo ($pedido['estCorte']) ?></td>
+                                                            <td><?php echo ($pedido['estConfeccion']) ?></td>
+                                                            <td><?php echo ($pedido['estSublimacion']) ?></td>
+                                                            <td><?php echo ($pedido['estEstampacion']) ?></td>
+                                                            <td><?php echo ($pedido['estBordado']) ?></td>
                                                             <td><?php echo ($pedido['unds']) ?></td>
                                                             <td><?php echo ($pedido['parcial']) ?></td>
                                                             <td><?php echo ($pedido['unds'] - $pedido['parcial']) ?></td>
+                                                            <td><?php echo (round(($pedido['unds'] - $pedido['parcial']) * $pedido['tiempo'] / 60, 2)) ?></td>
                                                             <td><?php echo ($pedido['finfecha']) ?></td>
                                                             <td><?php echo ($pedido['obs_terminacion']);
                                                                 if ($pedido['numNovedad'] > 0) {
@@ -466,9 +573,16 @@ if (empty($_SESSION['active'])) {
                                                                             <th scope="col">Pedido</th>
                                                                             <th scope="col">Cliente</th>
                                                                             <th scope="col">Procesos</th>
+                                                                            <th scope="col">B</th>
+                                                                            <th scope="col">Ct</th>
+                                                                            <th scope="col">Cf</th>
+                                                                            <th scope="col">S</th>
+                                                                            <th scope="col">E</th>
+                                                                            <th scope="col">V</th>
                                                                             <th scope="col">Unds Total</th>
                                                                             <th scope="col">Unds Parcial</th>
                                                                             <th scope="col">Unds Falta</th>
+                                                                            <th scope="col">Horas</th>
                                                                             <th scope="col">Observaciones</th>
                                                                         </tr>
                                                                     </thead>
@@ -478,10 +592,13 @@ if (empty($_SESSION['active'])) {
                                                                         $undsParcial = 0;
                                                                         $undsFalta = 0;
                                                                         $countPedido = 0;
-                                                                        $consultaSQL = "SELECT pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_terminacion, bo.numNovedad FROM terminacion bo
-                                                    INNER JOIN pedidos pe ON bo.pedido=pe.idpedido
-                                                    INNER JOIN procesos pro ON pe.procesos=pro.idproceso
-                                                    WHERE bo.finfecha ='$dia' and bo.estado<3 order by bo.finfecha ASC";
+                                                                        $horas=0;
+                                                                        $consultaSQL = "SELECT pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_terminacion, 
+                                                                        bo.numNovedad,pe.estBodega, pe.estCorte, pe.estConfeccion, pe.estEstampacion, bo.tiempo,
+                                                                        pe.estSublimacion, pe.estBordado FROM terminacion bo
+                                                                                        INNER JOIN pedidos pe ON bo.pedido=pe.idpedido
+                                                                                        INNER JOIN procesos pro ON pe.procesos=pro.idproceso
+                                                                                        WHERE bo.finfecha ='$dia' and bo.estado<3 order by bo.finfecha ASC";
                                                                         $pedidos = $conexion->consultarDatos($consultaSQL);
                                                                         foreach ($pedidos as $pedido) :
                                                                             $numNovedad = $pedido['numNovedad'];
@@ -491,15 +608,23 @@ if (empty($_SESSION['active'])) {
                                                                             $undsTotal = $undsTotal + $pedido['unds'];
                                                                             $undsParcial = $undsParcial + $pedido['parcial'];
                                                                             $countPedido++;
+                                                                            $horas=$horas+round(($pedido['unds'] - $pedido['parcial']) * $pedido['tiempo'] / 60, 2);
                                                                         ?>
 
                                                                             <tr>
                                                                                 <th scope="row"><?php echo ($pedido['num_pedido']) ?></th>
                                                                                 <td class="text-uppercase"><?php echo ($pedido['cliente']) ?></td>
                                                                                 <td><?php echo ($pedido['siglas']) ?></td>
+                                                                                <td><?php echo ($pedido['estBodega']) ?></td>
+                                                                                <td><?php echo ($pedido['estCorte']) ?></td>
+                                                                                <td><?php echo ($pedido['estConfeccion']) ?></td>
+                                                                                <td><?php echo ($pedido['estSublimacion']) ?></td>
+                                                                                <td><?php echo ($pedido['estEstampacion']) ?></td>
+                                                                                <td><?php echo ($pedido['estBordado']) ?></td>
                                                                                 <td><?php echo ($pedido['unds']) ?></td>
                                                                                 <td><?php echo ($pedido['parcial']) ?></td>
                                                                                 <td><?php echo ($pedido['unds'] - $pedido['parcial']) ?></td>
+                                                                                <td><?php echo (round(($pedido['unds'] - $pedido['parcial']) * $pedido['tiempo'] / 60, 2)) ?></td>
                                                                                 <td><?php echo ($pedido['obs_terminacion']);
                                                                                     if ($pedido['numNovedad'] > 0) {
                                                                                         echo ("<br><b>Novedad:</b>" . $novedad);
@@ -512,12 +637,14 @@ if (empty($_SESSION['active'])) {
                                                             </div>
                                                             <div class="card-footer text-uppercase font-weight-bold text-center">
                                                                 <span class="text-left"><?php echo ($countPedido) ?>
-                                                                    Pedidos</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                    Pedidos</span>&nbsp;&nbsp;&nbsp;
                                                                 <span class="text-right"><?php echo ($undsTotal) ?> Unds Totales</span>
-                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                &nbsp;&nbsp;&nbsp;
                                                                 <span class="text-right"><?php echo ($undsParcial) ?> Unds Parcial</span>
-                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                &nbsp;&nbsp;&nbsp;
                                                                 <span class="text-right"><?php echo ($undsTotal - $undsParcial) ?> Unds Falta</span>
+                                                                &nbsp;&nbsp;&nbsp;
+                                                                <span class="text-right"><?php echo ($horas) ?> Horas</span>
                                                             </div>
 
                                                         </div>

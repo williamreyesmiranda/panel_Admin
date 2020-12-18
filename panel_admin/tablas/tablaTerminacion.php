@@ -3,13 +3,16 @@ session_start();
 if (empty($_SESSION['active'])) {
     header('location: ../');
 }
+include("../../db/Conexion.php");
+include("../php/funcionFecha.php");
+$conexion = new Conexion();
 ?>
 <div class="table-container">
     <table class="table table-hover table-condensed table-bordered tablaDinamica" style="width:1700px !important;" id="" cellspacing="0">
         <thead>
             <tr>
                 <th class="alert-info text-center" colspan="6">Info Pedido</th>
-                <th class="alert-secondary text-center" colspan="9">Info Terminación</th>
+                <th class="alert-secondary text-center" colspan="16">Info Terminación</th>
             </tr>
             <tr class="text-center">
                 <th class="sticky-top">Pedido</th>
@@ -22,8 +25,15 @@ if (empty($_SESSION['active'])) {
                 <th class="sticky-top">Fecha Entrega</th>
                 <th class="sticky-top">Días Háb</th>
                 <th class="sticky-top">Días Falta</th>
+                <th class="sticky-top">B</th>
+                <th class="sticky-top">Ct</th>
+                <th class="sticky-top">Cf</th>
+                <th class="sticky-top">S</th>
+                <th class="sticky-top">E</th>
+                <th class="sticky-top">V</th>
                 <th class="sticky-top">Unds Parcial</th>
                 <th class="sticky-top">Unds Falta</th>
+                <th class="sticky-top">Tiempo (hrs)</th>
                 <th class="sticky-top">Observaciones</th>
                 <th class="sticky-top">Estado</th>
                 <th class="sticky-top">Acciones</th>
@@ -42,8 +52,15 @@ if (empty($_SESSION['active'])) {
                 <th>Fecha Entrega</th>
                 <th>Días Háb</th>
                 <th>Días Falta</th>
+                <th>B</th>
+                <th>Ct</th>
+                <th>Cf</th>
+                <th>S</th>
+                <th>E</th>
+                <th>V</th>
                 <th>Unds Parcial</th>
                 <th>Unds Falta</th>
+                <th>Tiempo (hrs)</th>
                 <th>Observaciones</th>
                 <th>Estado</th>
                 <th>Acciones</th>
@@ -52,14 +69,13 @@ if (empty($_SESSION['active'])) {
         </tfoot>
         <tbody>
 
-            <?php include("../../db/Conexion.php");
-            include("../php/funcionFecha.php");
+            <?php
 
 
-            $conexion = new Conexion();
+
             $consultaSQL = "SELECT pe.idpedido, pe.num_pedido, pe.cliente, pe.asesor, pe.fecha_inicio as 'iniciopedido', 
-        pe.fecha_fin as 'finpedido', pe.dias_habiles as 'diaspedido', pe.unds, pe.fecha_ingreso, pe.usuario,
-        bo.idterminacion, bo.iniciofecha as 'inicioterminacion', bo.finfecha as 'finterminacion', bo.dias as 'diasterminacion',
+        pe.fecha_fin as 'finpedido', pe.dias_habiles as 'diaspedido', pe.unds, pe.fecha_ingreso, pe.usuario, pe.estBodega, pe.estCorte, pe.estConfeccion, pe.estEstampacion, pe.estSublimacion, pe.estBordado,
+        bo.idterminacion, bo.iniciofecha as 'inicioterminacion', bo.finfecha as 'finterminacion', bo.dias as 'diasterminacion', bo.tiempo,
         bo.inicioprocesofecha, bo.finprocesofecha, bo.parcial, us.usuario, bo.obs_terminacion, bo.numNovedad, pr.siglas, es.estado, est.estado as 'estadopedido'
         FROM pedidos pe 
         
@@ -69,12 +85,13 @@ if (empty($_SESSION['active'])) {
         INNER JOIN estado es ON bo.estado=es.id_estado
         INNER JOIN estado est ON pe.estado=est.id_estado
         
-        WHERE bo.estado<3";
+        WHERE bo.estado<3 ORDER BY bo.finfecha ASC";
             $pedidos = $conexion->consultarDatos($consultaSQL);
             foreach ($pedidos as $pedido) :
                 $unds = $pedido['unds'];
                 $parcial = $pedido['parcial'];
                 $falta = $unds - $parcial;
+                $tiempo = round($falta * $pedido['tiempo'] / 60, 2);
                 $hoy = date('Y-m-d');
                 $diapedido = $pedido['finpedido'];
                 $diaterminacion = $pedido['finterminacion'];
@@ -135,8 +152,15 @@ if (empty($_SESSION['active'])) {
                     } else {
                         echo "<td class=\"alert-danger\">" . $diafaltaterminacion . "</td>";
                     } ?>
+                    <td><?php echo ($pedido['estBodega']) ?></td>
+                    <td><?php echo ($pedido['estCorte']) ?></td>
+                    <td><?php echo ($pedido['estConfeccion']) ?></td>
+                    <td><?php echo ($pedido['estSublimacion']) ?></td>
+                    <td><?php echo ($pedido['estEstampacion']) ?></td>
+                    <td><?php echo ($pedido['estBordado']) ?></td>
                     <td><?php echo ($parcial); ?></td>
                     <td><?php echo ($falta); ?></td>
+                    <td><?php echo($tiempo);?></td>
                     <td><?php echo ($pedido['obs_terminacion']);
                         if ($pedido['numNovedad'] > 0) {
                             echo ("<br><b>Novedad:</b>" . $novedad);
