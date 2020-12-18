@@ -5,7 +5,7 @@ if (empty($_SESSION['active'])) {
 }
 ?>
 <div class="table-container">
-    <table class="table table-hover table-condensed table-bordered tablaDinamica" style="width:1700px !important;"id="" cellspacing="0">
+    <table class="table table-hover table-condensed table-bordered tablaDinamica" style="width:1700px !important;" id="" cellspacing="0">
         <thead>
             <tr>
                 <th class="alert-info text-center" colspan="6">Info Pedido</th>
@@ -88,25 +88,25 @@ if (empty($_SESSION['active'])) {
                     $diafaltaterminacion =  - (fechaToDays($diaterminacion, $hoy) - 1);
                 }
                 //consulta de la novedad por medio del idNovedad
-                $numNovedad=$pedido['numNovedad'];
-                $consultaSQL="SELECT * FROM novedades WHERE idNovedad='$numNovedad'";
-                $result=$conexion->consultarDatos($consultaSQL);
-                $novedad=@$result[0]['novedad'];
+                $numNovedad = $pedido['numNovedad'];
+                $consultaSQL = "SELECT * FROM novedades WHERE idNovedad='$numNovedad'";
+                $result = $conexion->consultarDatos($consultaSQL);
+                $novedad = @$result[0]['novedad'];
                 //consulta del nombre del asesor por medio del usuario
-                $asesor=$pedido['asesor'];
-                $consultaSQL="SELECT * FROM asesor WHERE usuario='$asesor'";
-                $result=$conexion->consultarDatos($consultaSQL);
-                $nombreAsesor=@$result[0]['nombre'];
-                $correoAsesor=@$result[0]['correo'];
+                $asesor = $pedido['asesor'];
+                $consultaSQL = "SELECT * FROM asesor WHERE usuario='$asesor'";
+                $result = $conexion->consultarDatos($consultaSQL);
+                $nombreAsesor = @$result[0]['nombre'];
+                $correoAsesor = @$result[0]['correo'];
                 //consulta correo del cliente
-                $cliente=$pedido['cliente'];
-                $consultaSQL="SELECT * FROM clientes WHERE nombre='$cliente'";
-                $result=$conexion->consultarDatos($consultaSQL);
-                $correoCliente=@$result[0]['correo'];
+                $cliente = $pedido['cliente'];
+                $consultaSQL = "SELECT * FROM clientes WHERE nombre='$cliente'";
+                $result = $conexion->consultarDatos($consultaSQL);
+                $correoCliente = @$result[0]['correo'];
 
                 $datos = $pedido['idpedido'] . "||" . $pedido['num_pedido'] . "||" . $pedido['cliente'] . "||" . $pedido['asesor'] . "||" . $pedido['iniciopedido'] . "||" .
-                    $pedido['finpedido'] . "||" . $pedido['diaspedido'] . "||" . $pedido['siglas'] . "||" . $pedido['unds'] . "||" . $pedido['estadopedido'] . "||" . $pedido['idterminacion'] .
-                     "||" . $pedido['obs_terminacion'] . "||" . $pedido['parcial']. "||" . $pedido['numNovedad']. "||" .$novedad. "||" .$nombreAsesor. "||" .$correoAsesor."||".$correoCliente;
+                    $pedido['finpedido'] . "||" . $pedido['siglas'] . "||" . $pedido['unds'] . "||" . $pedido['diaspedido'] . "||" . $pedido['estadopedido'] . "||" . $pedido['idterminacion'] .
+                    "||" . $pedido['obs_terminacion'] . "||" . $pedido['parcial'] . "||" . $pedido['numNovedad'] . "||" . $novedad . "||" . $nombreAsesor . "||" . $correoAsesor . "||" . $correoCliente;
 
 
             ?>
@@ -125,26 +125,28 @@ if (empty($_SESSION['active'])) {
                     ?>
                     <td><?php echo ($pedido['siglas']); ?></td>
                     <td><?php echo ($pedido['unds']); ?></td>
-                    <td><?php echo ($pedido['inicioterminacion']);?></td>
-                    <td><?php echo ($pedido['finterminacion']);?></td>
-                    <td><?php echo ($pedido['diasterminacion']);?></td>
-                    <?php if($diafaltaterminacion>3){
-                        echo "<td class=\"alert-success\">".$diafaltaterminacion."</td>";
-                     }elseif($diafaltaterminacion>=0){
-                         echo "<td class=\"alert-warning\">".$diafaltaterminacion."</td>";  
-                     }else{
-                         echo "<td class=\"alert-danger\">".$diafaltaterminacion."</td>"; 
-                     }?>
-                    <td><?php echo ($parcial);?></td>
-                    <td><?php echo ($falta);?></td>
-                    <td><?php echo ($pedido['obs_terminacion']); if($pedido['numNovedad']>0){echo ("<br><b>Novedad:</b>".$novedad);}?></td>
-                    <td><?php echo ($pedido['estado']);?></td>
+                    <td><?php echo ($pedido['inicioterminacion']); ?></td>
+                    <td><?php echo ($pedido['finterminacion']); ?></td>
+                    <td><?php echo ($pedido['diasterminacion']); ?></td>
+                    <?php if ($diafaltaterminacion > 3) {
+                        echo "<td class=\"alert-success\">" . $diafaltaterminacion . "</td>";
+                    } elseif ($diafaltaterminacion >= 0) {
+                        echo "<td class=\"alert-warning\">" . $diafaltaterminacion . "</td>";
+                    } else {
+                        echo "<td class=\"alert-danger\">" . $diafaltaterminacion . "</td>";
+                    } ?>
+                    <td><?php echo ($parcial); ?></td>
+                    <td><?php echo ($falta); ?></td>
+                    <td><?php echo ($pedido['obs_terminacion']);
+                        if ($pedido['numNovedad'] > 0) {
+                            echo ("<br><b>Novedad:</b>" . $novedad);
+                        } ?></td>
+                    <td><?php echo ($pedido['estado']); ?></td>
                     <td>
-                        <h5>
-                            <a class="my-auto" title=" Editar Terminacion" data-toggle="modal" data-target="#editarTerminacion"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarTerminacion('<?php echo ($datos); ?>')"></i></a>
-                            <a class="my-auto" title="Reportar Novedad" data-toggle="modal" data-target="#novedadTerminacion"><i class="fas fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarTerminacion('<?php echo ($datos); ?>')"></i></a>
-                            <a class="my-auto" title="Finalizar" onclick="confirmarFinalizarTerminacion('<?php echo ($datos); ?>')" id="finalizarTerminacion"><i class="fas fa-check-circle a-text-kmisetas my-auto"></i></a>
-                        </h5>
+                        <a class="my-auto" title=" Editar Terminacion" data-toggle="modal" data-target="#editarTerminacion"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarTerminacion('<?php echo ($datos); ?>')"></i></a>
+                        <a class="my-auto" title="Reportar Novedad" data-toggle="modal" data-target="#novedadTerminacion"><i class="fas fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarTerminacion('<?php echo ($datos); ?>')"></i></a>
+                        <a class="my-auto" title="Finalizar" onclick="confirmarFinalizarTerminacion('<?php echo ($datos); ?>')" id="finalizarTerminacion"><i class="fas fa-check-circle a-text-kmisetas my-auto"></i></a>
+                        <a class="my-auto" title="Anular" onclick="confirmarAnuladoPedido('<?php echo ($datos); ?>')" id="anularPedido"><i class="fas fa-minus-circle a-text-kmisetas my-auto"></i></a>
                     </td>
                 </tr>
 
@@ -166,11 +168,11 @@ if (empty($_SESSION['active'])) {
                 'copyHtml5',
                 'excelHtml5',
                 {
-                extend: 'pdfHtml5',
-                orientation: 'landscape',
-               /*  pageSize: 'LEGAL' */
-            },
-            'print'
+                    extend: 'pdfHtml5',
+                    orientation: 'landscape',
+                    /*  pageSize: 'LEGAL' */
+                },
+                'print'
             ],
             responsive: true,
             "order": [

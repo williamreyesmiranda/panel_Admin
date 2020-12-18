@@ -1,21 +1,21 @@
-<nav class="sb-topnav navbar navbar-expand navbar-dark sb-sidenav-dark ">
-    <a class="navbar-brand" href="index.php"><img src="images/logo_kamisetas.png" style="width:100px; height:50px" alt=""></a>
+<nav class="sb-topnav navbar navbar-dark navbar-expand " style="background: #00a8a8; z-index:1 !important;">
+    <a class="navbar-brand" href="index.php"></a>
     <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
 
     <!-- Navbar-->
     <ul class="navbar-nav  ml-auto mr-0 mr-md-3 my-2 my-md-0">
-        <p class="text-kmisetas mx-auto"><?php
-                                            include("functions.php");
-                                            /* echo fechaC(); */ ?> </p>&nbsp;&nbsp;
+        <p class=" mx-auto"><?php
+                            include("functions.php");
+                            /* echo fechaC(); */ ?> </p>&nbsp;&nbsp;
 
-        <h5 class="text-kmisetas mx-auto"><?php
-                                            date_default_timezone_set('America/Bogota');
-                                            echo "  |  " . ($_SESSION['nombre']) . "  (  " . ($_SESSION['rol']) . "  )" ?></h5>
-        <li class="nav-item dropdown ml-3">
-            <a class="text-kmisetas-hover dropdown-toggle" href="#" data-toggle="dropdown" data-target="#salir" aria-expanded="false" aria-controls="collapseLayouts">
-                <i class="fas fa-user fa-fw"></i></a>
-            <div class="dropdown-menu dropdown-menu-right" id="salir">
-                <nav class="sb-sidenav-menu-nested nav">
+        <h5 class=" mx-auto"><?php
+                                date_default_timezone_set('America/Bogota');
+                                echo "  |  " . ($_SESSION['nombre']) . "  (  " . ($_SESSION['rol']) . "  )" ?></h5>
+        <li class="nav-item dropdown ml-3 ">
+            <a class=" dropdown-toggle text-dark" href="#" data-toggle="dropdown" data-target="#salir" aria-expanded="false" aria-controls="collapseLayouts">
+                <i class="fas fa-user fa-fw "></i></a>
+            <div class="dropdown-menu dropdown-menu-right " id="salir">
+                <nav class="sb-sidenav-menu-nested nav ">
                     <a class="dropdown-item" href="#">Configuración</a>
                     <a class="dropdown-item" href="#">Actividades</a>
                     <hr>
@@ -27,14 +27,11 @@
 </nav>
 <div id="layoutSidenav">
     <div id="layoutSidenav_nav">
-        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion" style=" z-index: 200 !important; background:#000000;">
+            <a class="navbar-brand" href="index.php"><img src="images/logo_kamisetas.png" style="width:100px; height:50px; position:fixed; top:20px; margin:0% 20%" alt=""></a>
             <div class="sb-sidenav-menu">
                 <div class="nav">
-                    <!--  <div class="sb-sidenav-menu-heading">Core</div> -->
-                    <!-- <a class="nav-link text-kmisetas-hover" href="index.php">
-                        <div class="sb-nav-link-icon text-kmisetas-hover"><i class="fas fa-home"></i></div>
-                        Inicio
-                    </a> -->
+
                     <div class="sb-sidenav-menu-heading">Interface</div>
                     <a class="nav-link collapsed text-kmisetas-hover" href="#" data-toggle="collapse" data-target="#administracion" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon text-kmisetas-hover"><i class="fas fa-asterisk"></i></div>
@@ -178,9 +175,9 @@
                     </nav>
                 </div>
                 <div class="sb-sidenav-menu-heading">Cartera</div>
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="calendario.php">
                     <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                    Nomina
+                    Permisos
                 </a>
                 <a class="nav-link" href="#">
                     <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
@@ -190,9 +187,11 @@
             </div>
             <div class="sb-sidenav-footer">
                 <div class="small">Creado Por:</div>
-                Willy
+                WRMSoftware
             </div>
         </nav>
+
+
     </div>
 
     <!-- modal ver pedido  -->

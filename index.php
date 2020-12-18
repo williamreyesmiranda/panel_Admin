@@ -1,4 +1,5 @@
 <?php
+session_set_cookie_params(60 * 60 * 24);
 session_start();
 if (!empty($_SESSION['active'])){
     header('location: panel_admin/');
@@ -19,24 +20,21 @@ if (!empty($_SESSION['active'])){
    <link rel="shortcut icon" href="images/icono.png" />
 </head>
 
-<body>
+<body style="background: url(images/<?php echo $aleatorio=(rand(4, 6));?>.png); background-size: cover; width 100%;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
     
-    <div class="container-scroller d-flex ">
-        <div class="container-fluid page-body-wrapper full-page-wrapper d-flex">
-            <div class="content-wrapper d-flex align-items-stretch auth auth-img-bg">
-                <div class="row flex-grow">
-                    <div class="col-lg-6 d-flex align-items-center justify-content-center bg-dark">
-                        <div  class="auth-form-transparent text-left p-3 ">
+    <div class="">
+               
+            
+                    <div class="col-lg-4 " style="background:#000000cd; position:fixed ; right: 0%; height:100vh;">
+                        <div  class="auth-form-transparent text-center p-3 mx-auto">
                             <div class="brand-logo">
-                                <img style="width:300px" src="images/logo_kamisetas.png" alt="logo">
+                                <img style="width:300px; margin-bottom:50px;" src="images/logo_kamisetas.png" alt="logo">
                             </div>
-                            <h1 style="width:300px" class="text-white py-5 text-center">Bienvenidos!</h1>
-                            <h6 class="font-weight-light text-white">Inicio de sesión.</h6>
-                            <form style="width:300px" action="" class="pt-3 " method="POST" id="formLogin">
+                            <form  action="" class="pt-3 " method="POST" id="formLogin">
                                 <div class="form-group mb-5 ">
                                     <div class="input-group rounded">
                                         <div class="input-group-prepend bg-transparent ">
-                                            <span class="input-group-text bg-transparent border-right-0">
+                                            <span class="input-group-text bg-transparent border-right-0 "  style="font-size:25px; padding:10px ">
                                                 <i class="mdi mdi-account-outline  text-kmisetas"></i>
                                             </span>
                                         </div>
@@ -46,39 +44,41 @@ if (!empty($_SESSION['active'])){
                                 <div class="form-group ">
                                     <div class="input-group">
                                         <div class="input-group-prepend ">
-                                            <span class="input-group-text bg-transparent border-right-0 ">
+                                            <span class="input-group-text bg-transparent border-right-0 " style="font-size:25px; padding:10px ">
                                                 <i class="mdi mdi-lock-outline text-kmisetas"></i>
                                             </span>
                                         </div>
-                                        <input type="password" class="form-control form-control-lg border-left-0 text-kmisetas" id="password" name="password" placeholder="Contraseña">
+                                        <input type="password" class="form-control form-control-lg  bg-transparent border-left-0 text-kmisetas" id="password" name="password" placeholder="Contraseña">
                                     </div>
                                 </div>
-                                <a href="recuperar.php" class="auth-link text-kmisetas">Recuperar Usuario y Contraseña</a>
+                                <p style="text-align: right;"> <a href="recuperar.php" class="auth-link text-kmisetas">¿Olvidaste tus datos?</a></p>
 
-                                <div class="my-3">
-                                    <button type="submit" name="submit" id="submit"class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn rounded">Ingresar</button>
+                                <div style="margin-top: 30px;">
+                                    <button type="submit" name="submit" id="submit" style="background-color:  #00a8a8; padding:15px 50px 15px 50px; border-radius:50px; font-weight:600;">Ingresar    </button>
 
                                 </div>
 
 
                             </form>
 
+                        </div >
+                        <div style="position:absolute; bottom:0%; margin:0% 20%">
+                        <p class="text-white font-weight-medium" >Copyright &copy; 2020 K-misetas y K-misetas S.A.S.</p>
                         </div>
-
+                        
                     </div>
                     
-                    <div style="background: url(images/<?php echo $aleatorio=(rand(1, 3));?>.png); background-size: contain;" class="col-lg-6 d-none d-lg-flex flex-row">
+                    
 
-                        <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy; 2020 K-misetas y K-misetas SAS.</p>
+                        
 
-                    </div>
+                   
 
                 </div>
 
-            </div>
-
+            
             <!-- content-wrapper ends -->
-        </div>
+       
         <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
@@ -90,7 +90,7 @@ if (!empty($_SESSION['active'])){
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="popper/popper.min.js"></script>
     <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
-    <script src="js/ajaxx.js"></script>
+    <script src="js/ajax.js"></script>
     <script src="js/off-canvas.js"></script>
     <script src="js/hoverable-collapse.js"></script>
     <script src="js/template.js"></script>

@@ -9,7 +9,7 @@ if (empty($_SESSION['active'])) {
         <thead>
             <tr>
                 <th class="alert-info text-center" colspan="6">Info Pedido</th>
-                <th class="alert-secondary text-center" colspan="9">Info Sublimación</th>
+                <th class="alert-secondary text-center" colspan="18">Info Sublimación</th>
             </tr>
             <tr class="text-center">
                 <th class="sticky-top">Pedido</th>
@@ -22,7 +22,15 @@ if (empty($_SESSION['active'])) {
                 <th class="sticky-top">Fecha Entrega</th>
                 <th class="sticky-top">Días Háb</th>
                 <th class="sticky-top">Días Falta</th>
-                <th class="sticky-top">Prod</th>
+                <th class="sticky-top">Pd</th>
+                <th class="sticky-top">Dño</th>
+                <th class="sticky-top">Mu</th>
+                <th class="sticky-top">Logo</th>
+                <th class="sticky-top">Num Bord</th>
+                <th class="sticky-top">Tot Bord</th>
+                <th class="sticky-top">Punt X Und</th>
+                <th class="sticky-top">Total Punt</th>
+                <th class="sticky-top">Hor Est</th>
                 <th class="sticky-top">Unds Parcial</th>
                 <th class="sticky-top">Unds Falta</th>
                 <th class="sticky-top">Observaciones</th>
@@ -43,7 +51,15 @@ if (empty($_SESSION['active'])) {
                 <th>Fecha Entrega</th>
                 <th>Días Háb</th>
                 <th>Días Falta</th>
-                <th>Prod</th>
+                <th>Pd</th>
+                <th>Dño</th>
+                <th>Mu</th>
+                <th>Logo</th>
+                <th>Num Bord</th>
+                <th>Tot Bord</th>
+                <th>Punt X Und</th>
+                <th>Total Punt</th>
+                <th>Hor Est</th>
                 <th>Unds Parcial</th>
                 <th>Unds Falta</th>
                 <th>Observaciones</th>
@@ -62,9 +78,9 @@ if (empty($_SESSION['active'])) {
             $consultaSQL = "SELECT pe.idpedido, pe.num_pedido, pe.cliente, pe.asesor, pe.fecha_inicio as 'iniciopedido', 
         pe.fecha_fin as 'finpedido', pe.dias_habiles as 'diaspedido', pe.unds, pe.fecha_ingreso, pe.usuario,
         bo.idbordado, bo.iniciofecha as 'iniciobordado', bo.finfecha as 'finbordado', bo.dias as 'diasbordado',
-        bo.inicioprocesofecha, bo.finprocesofecha, bo.parcial, us.usuario, bo.obs_bordado, bo.numNovedad, pr.siglas, es.estado, est.estado as 'estadopedido'
+        bo.inicioprocesofecha, bo.finprocesofecha, bo.parcial, us.usuario, bo.obs_bordado, bo.numNovedad, pr.siglas, 
+        es.estado, est.estado as 'estadopedido', bo.logo, bo.pte_diseno, bo.num_bordado, bo.muestra, bo.punt_unidad
         FROM pedidos pe 
-        
         INNER JOIN procesos pr ON pe.procesos=pr.idproceso
         INNER JOIN bordado bo ON pe.idpedido=bo.pedido
         INNER JOIN usuario us on pe.usuario=us.idusuario
@@ -74,13 +90,21 @@ if (empty($_SESSION['active'])) {
         WHERE bo.estado<3";
             $pedidos = $conexion->consultarDatos($consultaSQL);
             foreach ($pedidos as $pedido) :
-                $idPedido=$pedido['idpedido'];
+                $idPedido = $pedido['idpedido'];
                 $unds = $pedido['unds'];
                 $parcial = $pedido['parcial'];
                 $falta = $unds - $parcial;
                 $hoy = date('Y-m-d');
                 $diapedido = $pedido['finpedido'];
                 $diabordado = $pedido['finbordado'];
+                $logo = $pedido['logo'];
+                $pte_diseno = $pedido['pte_diseno'];
+                $muestra = $pedido['muestra'];
+                $num_bordado = $pedido['num_bordado'];
+                $punt_unidad = $pedido['punt_unidad'];
+                $total_bordados = $falta * $num_bordado;
+                $total_puntadas = $falta * $punt_unidad;
+                $horas_estimadas = round($total_puntadas / 66600, 2);
                 $diafaltapedido =  fechaToDays($hoy, $diapedido) - 1;
                 if ($diafaltapedido < 0) {
                     $diafaltapedido =  - (fechaToDays($diapedido, $hoy) - 1);
@@ -91,28 +115,29 @@ if (empty($_SESSION['active'])) {
                     $diafaltabordado =  - (fechaToDays($diabordado, $hoy) - 1);
                 }
                 //consulta de la novedad por medio del idNovedad
-                $numNovedad=$pedido['numNovedad'];
-                $consultaSQL="SELECT * FROM novedades WHERE idNovedad='$numNovedad'";
-                $result=$conexion->consultarDatos($consultaSQL);
-                $novedad=@$result[0]['novedad'];
+                $numNovedad = $pedido['numNovedad'];
+                $consultaSQL = "SELECT * FROM novedades WHERE idNovedad='$numNovedad'";
+                $result = $conexion->consultarDatos($consultaSQL);
+                $novedad = @$result[0]['novedad'];
                 //consulta del nombre del asesor por medio del usuario
-                $asesor=$pedido['asesor'];
-                $consultaSQL="SELECT * FROM asesor WHERE usuario='$asesor'";
-                $result=$conexion->consultarDatos($consultaSQL);
-                $nombreAsesor=@$result[0]['nombre'];
-                $correoAsesor=@$result[0]['correo'];
+                $asesor = $pedido['asesor'];
+                $consultaSQL = "SELECT * FROM asesor WHERE usuario='$asesor'";
+                $result = $conexion->consultarDatos($consultaSQL);
+                $nombreAsesor = @$result[0]['nombre'];
+                $correoAsesor = @$result[0]['correo'];
                 //consultar el producto de bodega y confeccion
-                $consultaSQL="SELECT * FROM confeccion WHERE pedido='$idPedido'";
-                $result=$conexion->consultarDatos($consultaSQL);
-                $prodConfeccion=@$result[0]['entrega'];
-                $consultaSQL="SELECT * FROM bodega WHERE pedido='$idPedido'";
-                $result=$conexion->consultarDatos($consultaSQL);
-                $prodBodega=@$result[0]['entrega'];
+                $consultaSQL = "SELECT * FROM confeccion WHERE pedido='$idPedido'";
+                $result = $conexion->consultarDatos($consultaSQL);
+                $prodConfeccion = @$result[0]['entrega'];
+                $consultaSQL = "SELECT * FROM bodega WHERE pedido='$idPedido'";
+                $result = $conexion->consultarDatos($consultaSQL);
+                $prodBodega = @$result[0]['entrega'];
 
 
                 $datos = $pedido['idpedido'] . "||" . $pedido['num_pedido'] . "||" . $pedido['cliente'] . "||" . $pedido['asesor'] . "||" . $pedido['iniciopedido'] . "||" .
                     $pedido['finpedido'] . "||" . $pedido['diaspedido'] . "||" . $pedido['siglas'] . "||" . $pedido['unds'] . "||" . $pedido['estadopedido'] . "||" . $pedido['idbordado'] .
-                     "||" . $pedido['obs_bordado'] . "||" . $pedido['parcial']. "||" . $pedido['numNovedad']. "||" .$novedad. "||" .$nombreAsesor. "||" .$correoAsesor;
+                    "||" . $pedido['obs_bordado'] . "||" . $pedido['parcial'] . "||" . $pedido['numNovedad'] . "||" . $novedad . "||" . $nombreAsesor . "||" . $correoAsesor . "||" . $logo  .
+                    "||" . $pte_diseno . "||" . $num_bordado . "||" . $muestra . "||" . $punt_unidad;
 
 
             ?>
@@ -131,21 +156,32 @@ if (empty($_SESSION['active'])) {
                     ?>
                     <td><?php echo ($pedido['siglas']); ?></td>
                     <td><?php echo ($pedido['unds']); ?></td>
-                    <td><?php echo ($pedido['iniciobordado']);?></td>
-                    <td><?php echo ($pedido['finbordado']);?></td>
-                    <td><?php echo ($pedido['diasbordado']);?></td>
-                    <?php if($diafaltabordado>3){
-                        echo "<td class=\"alert-success\">".$diafaltabordado."</td>";
-                     }elseif($diafaltabordado>=0){
-                         echo "<td class=\"alert-warning\">".$diafaltabordado."</td>";  
-                     }else{
-                         echo "<td class=\"alert-danger\">".$diafaltabordado."</td>"; 
-                     }?>
-                     <td><?php echo ($prodConfeccion.$prodBodega);?></td>
-                     <td><?php echo ($parcial);?></td>
-                    <td><?php echo ($falta);?></td>
-                    <td><?php echo ($pedido['obs_bordado']); if($pedido['numNovedad']>0){echo ("<br><b>Novedad:</b>".$novedad);}?></td>
-                    <td><?php echo ($pedido['estado']);?></td>
+                    <td><?php echo ($pedido['iniciobordado']); ?></td>
+                    <td><?php echo ($pedido['finbordado']); ?></td>
+                    <td><?php echo ($pedido['diasbordado']); ?></td>
+                    <?php if ($diafaltabordado > 3) {
+                        echo "<td class=\"alert-success\">" . $diafaltabordado . "</td>";
+                    } elseif ($diafaltabordado >= 0) {
+                        echo "<td class=\"alert-warning\">" . $diafaltabordado . "</td>";
+                    } else {
+                        echo "<td class=\"alert-danger\">" . $diafaltabordado . "</td>";
+                    } ?>
+                    <td><?php echo ($prodConfeccion . $prodBodega); ?></td>
+                    <td><?php echo ($pte_diseno); ?></td>
+                    <td><?php echo ($muestra); ?></td>
+                    <td><?php echo ($logo); ?></td>
+                    <td><?php echo ($num_bordado); ?></td>
+                    <td><?php echo ($total_bordados); ?></td><!-- En este se da el total de bordados -->
+                    <td><?php echo ($punt_unidad); ?></td>
+                    <td><?php echo ($total_puntadas); ?></td><!-- total puntadas -->
+                    <td><?php echo ($horas_estimadas); ?></td><!-- horas totales -->
+                    <td><?php echo ($parcial); ?></td>
+                    <td><?php echo ($falta); ?></td>
+                    <td><?php echo ($pedido['obs_bordado']);
+                        if ($pedido['numNovedad'] > 0) {
+                            echo ("<br><b>Novedad:</b>" . $novedad);
+                        } ?></td>
+                    <td><?php echo ($pedido['estado']); ?></td>
                     <td>
                         <h5>
                             <a class="my-auto" title=" Editar Bordado" data-toggle="modal" data-target="#editarBordado"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarBordado('<?php echo ($datos); ?>')"></i></a>

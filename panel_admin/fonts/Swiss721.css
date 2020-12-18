@@ -1,0 +1,9 @@
+
+@font-face {
+    font-family: 'Swiss721';
+    src: url('Swiss721.eot?#iefix') format('embedded-opentype'),  url('Swiss721.otf')  format('opentype'),
+           url('Swiss721.woff') format('woff'), url('Swiss721.ttf')  format('truetype'), url('Swiss721.svg#Swiss721') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+  

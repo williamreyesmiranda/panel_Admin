@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <?php
-session_start([
-    'cookie_lifetime' => 86400,
-]);
+session_set_cookie_params(60 * 60 * 24);
+session_start();
 include("../db/Conexion.php");
 include("php/funcionFecha.php");
 if (empty($_SESSION['active'])) {
@@ -44,7 +43,7 @@ if (empty($_SESSION['active'])) {
                     <div class="alert alert-secondary">
                         <h1 class="text-center">INFORME DE BORDADO</h1>
                     </div>
-                    <div class="breadcrumb mb-3 mt-3 px-0 h-100">
+                    <div class="row mb-3 mt-3 px-0 h-100">
 
                         <div class="col-xl-3 col-md-6 mb-2">
                             <div class="card h-100 bg-danger text-white mb-1 ">
@@ -59,6 +58,7 @@ if (empty($_SESSION['active'])) {
                                 $falta = $unds - $parcial;
                                 //contar si confeccion y bodega tiene producto
                                 $producto = 0;
+                                $horas = 0;
                                 $consultaSQL = "SELECT * FROM bordado WHERE estado<3 AND finfecha < '$hoy'";
                                 $pedidos = $conexion->consultarDatos($consultaSQL);
                                 foreach ($pedidos as $pedido) {
@@ -73,9 +73,17 @@ if (empty($_SESSION['active'])) {
                                     if ($prod_confeccion) {
                                         $producto++;
                                     }
+                                    //sumar tiempos
+                                    $consultaSQL = "SELECT * FROM pedidos WHERE idpedido=$idPedido";
+                                    $consulta = $conexion->consultarDatos($consultaSQL);
+                                    $undsBordado = $consulta[0]['unds'];
+                                    $falta = $undsBordado - $pedido['parcial'];
+                                    $horas = $horas + round($falta * $pedido['punt_unidad'] / 66600, 2);
                                 }
+                                $turnos = round($horas / 8.25, 2);
                                 ?>
-                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $producto . " con producto). <br> Unds Totales:" . $unds . " (" . $parcial . " unds Listas). <br> Unds Faltantes: " . $falta; ?>
+                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $producto . " con producto). <br> Unds Totales:" .
+                                                                $unds . " (" . $parcial . " unds Listas). <br> Unds Faltantes: " . $falta . "<br> Horas Totales: " . $horas . "<br> Total Turnos: " . $turnos; ?>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" data-toggle="collapse" href="#pedidosAtrasados" role="button" aria-expanded="false" aria-controls="pedidosAtrasados">Ver detalle</a>
@@ -96,6 +104,7 @@ if (empty($_SESSION['active'])) {
                                 $falta = $unds - $parcial;
                                 //contar si confeccion y bodega tiene producto
                                 $producto = 0;
+                                $horas = 0;
                                 $consultaSQL = "SELECT * FROM bordado WHERE estado<3 AND finfecha BETWEEN '$hoy' AND '$tresDias'";
                                 $pedidos = $conexion->consultarDatos($consultaSQL);
                                 foreach ($pedidos as $pedido) {
@@ -110,9 +119,17 @@ if (empty($_SESSION['active'])) {
                                     if ($prod_confeccion) {
                                         $producto++;
                                     }
+                                    //sumar tiempos
+                                    $consultaSQL = "SELECT * FROM pedidos WHERE idpedido=$idPedido";
+                                    $consulta = $conexion->consultarDatos($consultaSQL);
+                                    $undsBordado = $consulta[0]['unds'];
+                                    $falta = $undsBordado - $pedido['parcial'];
+                                    $horas = $horas + round($falta * $pedido['punt_unidad'] / 66600, 2);
                                 }
+                                $turnos = round($horas / 8.25, 2);
                                 ?>
-                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $producto . " con producto). <br> Unds Totales:" . $unds . " (" . $parcial . " unds Listas). <br> Unds Faltantes: " . $falta; ?>
+                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $producto . " con producto). <br> Unds Totales:" .
+                                                                $unds . " (" . $parcial . " unds Listas). <br> Unds Faltantes: " . $falta . "<br> Horas Totales: " . $horas . "<br> Total Turnos: " . $turnos; ?>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-dark stretched-link" data-toggle="collapse" href="#pedidosTresDias" role="button" aria-expanded="false" aria-controls="pedidosTresDias">Ver detalle</a>
@@ -133,6 +150,7 @@ if (empty($_SESSION['active'])) {
                                 $falta = $unds - $parcial;
                                 //contar si confeccion y bodega tiene producto
                                 $producto = 0;
+                                $horas = 0;
                                 $consultaSQL = "SELECT * FROM bordado WHERE estado<3 AND finfecha > '$tresDias'";
                                 $pedidos = $conexion->consultarDatos($consultaSQL);
                                 foreach ($pedidos as $pedido) {
@@ -147,9 +165,17 @@ if (empty($_SESSION['active'])) {
                                     if ($prod_confeccion) {
                                         $producto++;
                                     }
+                                    //sumar tiempos
+                                    $consultaSQL = "SELECT * FROM pedidos WHERE idpedido=$idPedido";
+                                    $consulta = $conexion->consultarDatos($consultaSQL);
+                                    $undsBordado = $consulta[0]['unds'];
+                                    $falta = $undsBordado - $pedido['parcial'];
+                                    $horas = $horas + round($falta * $pedido['punt_unidad'] / 66600, 2);
                                 }
+                                $turnos = round($horas / 8.25, 2);
                                 ?>
-                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $producto . " con producto). <br> Unds Totales:" . $unds . " (" . $parcial . " unds Listas). <br> Unds Faltantes: " . $falta; ?>
+                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $producto . " con producto). <br> Unds Totales:" .
+                                                                $unds . " (" . $parcial . " unds Listas). <br> Unds Faltantes: " . $falta . "<br> Horas Totales: " . $horas . "<br> Total Turnos: " . $turnos; ?>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" data-toggle="collapse" href="#pedidosCuatroDias" role="button" aria-expanded="false" aria-controls="pedidosCuatroDias">Ver detalle</a>
@@ -170,6 +196,7 @@ if (empty($_SESSION['active'])) {
                                 $falta = $unds - $parcial;
                                 //contar si confeccion y bodega tiene producto
                                 $producto = 0;
+                                $horas = 0;
                                 $consultaSQL = "SELECT * FROM bordado WHERE estado<3 ";
                                 $pedidos = $conexion->consultarDatos($consultaSQL);
                                 foreach ($pedidos as $pedido) {
@@ -184,9 +211,17 @@ if (empty($_SESSION['active'])) {
                                     if ($prod_confeccion) {
                                         $producto++;
                                     }
+                                    //sumar tiempos
+                                    $consultaSQL = "SELECT * FROM pedidos WHERE idpedido=$idPedido";
+                                    $consulta = $conexion->consultarDatos($consultaSQL);
+                                    $undsBordado = $consulta[0]['unds'];
+                                    $falta = $undsBordado - $pedido['parcial'];
+                                    $horas = $horas + round($falta * $pedido['punt_unidad'] / 66600, 2);
                                 }
+                                $turnos = round($horas / 8.25, 2);
                                 ?>
-                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $producto . " con producto). <br> Unds Totales:" . $unds . " (" . $parcial . " unds Listas). <br> Unds Faltantes: " . $falta; ?>
+                                <div class="card-header"><?php echo $contar . " pedidos.  (" . $producto . " con producto). <br> Unds Totales:" .
+                                                                $unds . " (" . $parcial . " unds Listas). <br> Unds Faltantes: " . $falta . "<br> Horas Totales: " . $horas . "<br> Total Turnos: " . $turnos; ?>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" data-toggle="collapse" href="#calendarioPedidos" role="button" aria-expanded="false" aria-controls="calendarioPedidos">Ver Calendario</a>
@@ -212,6 +247,8 @@ if (empty($_SESSION['active'])) {
                                                         <th scope="col">Cliente</th>
                                                         <th scope="col">Procesos</th>
                                                         <th scope="col">Prod</th>
+                                                        <th scope="col">Tot Punt</th>
+                                                        <th scope="col">Tot Horas</th>
                                                         <th scope="col">Unds Total</th>
                                                         <th scope="col">Unds Parcial</th>
                                                         <th scope="col">Unds Falta</th>
@@ -225,7 +262,7 @@ if (empty($_SESSION['active'])) {
                                                     $undsParcial = 0;
                                                     $undsFalta = 0;
                                                     $countPedido = 0;
-                                                    $consultaSQL = "SELECT bo.pedido, pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_bordado, bo.numNovedad FROM bordado bo
+                                                    $consultaSQL = "SELECT bo.pedido, pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_bordado, bo.numNovedad, bo.punt_unidad FROM bordado bo
                                                     INNER JOIN pedidos pe ON bo.pedido=pe.idpedido
                                                     INNER JOIN procesos pro ON pe.procesos=pro.idproceso
                                                     
@@ -247,8 +284,11 @@ if (empty($_SESSION['active'])) {
                                                         $consultaSQL = "SELECT * FROM bodega WHERE pedido='$idPedido'";
                                                         $result = $conexion->consultarDatos($consultaSQL);
                                                         $prodBodega = @$result[0]['entrega'];
-
-
+                                                        //tiempos
+                                                        $falta = $pedido['unds'] - $pedido['parcial'];
+                                                        $punt_unidad = $pedido['punt_unidad'];
+                                                        $total_puntadas = $falta * $punt_unidad;
+                                                        $horas_estimadas = round($total_puntadas / 66600, 2);
                                                     ?>
 
                                                         <tr>
@@ -256,6 +296,8 @@ if (empty($_SESSION['active'])) {
                                                             <td class="text-uppercase"><?php echo ($pedido['cliente']) ?></td>
                                                             <td><?php echo ($pedido['siglas']) ?></td>
                                                             <td><?php echo ($prodConfeccion . $prodBodega); ?></td>
+                                                            <td><?php echo ($total_puntadas); ?></td>
+                                                            <td><?php echo ($horas_estimadas); ?></td>
                                                             <td><?php echo ($pedido['unds']) ?></td>
                                                             <td><?php echo ($pedido['parcial']) ?></td>
                                                             <td><?php echo ($pedido['unds'] - $pedido['parcial']) ?></td>
@@ -305,6 +347,8 @@ if (empty($_SESSION['active'])) {
                                                         <th scope="col">Cliente</th>
                                                         <th scope="col">Procesos</th>
                                                         <th scope="col">Prod</th>
+                                                        <th scope="col">Tot Punt</th>
+                                                        <th scope="col">Tot Horas</th>
                                                         <th scope="col">Unds Total</th>
                                                         <th scope="col">Unds Parcial</th>
                                                         <th scope="col">Unds Falta</th>
@@ -318,7 +362,7 @@ if (empty($_SESSION['active'])) {
                                                     $undsParcial = 0;
                                                     $undsFalta = 0;
                                                     $countPedido = 0;
-                                                    $consultaSQL = "SELECT bo.pedido, pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_bordado, bo.numNovedad FROM bordado bo
+                                                    $consultaSQL = "SELECT bo.pedido, pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_bordado, bo.numNovedad, bo.punt_unidad FROM bordado bo
                                                     INNER JOIN pedidos pe ON bo.pedido=pe.idpedido
                                                     INNER JOIN procesos pro ON pe.procesos=pro.idproceso
                                                     WHERE bo.finfecha BETWEEN '$hoy' AND '$tresDias' and bo.estado<3 order by bo.finfecha ASC";
@@ -339,6 +383,11 @@ if (empty($_SESSION['active'])) {
                                                         $consultaSQL = "SELECT * FROM bodega WHERE pedido='$idPedido'";
                                                         $result = $conexion->consultarDatos($consultaSQL);
                                                         $prodBodega = @$result[0]['entrega'];
+                                                        //tiempos
+                                                        $falta = $pedido['unds'] - $pedido['parcial'];
+                                                        $punt_unidad = $pedido['punt_unidad'];
+                                                        $total_puntadas = $falta * $punt_unidad;
+                                                        $horas_estimadas = round($total_puntadas / 66600, 2);
                                                     ?>
 
                                                         <tr>
@@ -346,6 +395,8 @@ if (empty($_SESSION['active'])) {
                                                             <td class="text-uppercase"><?php echo ($pedido['cliente']) ?></td>
                                                             <td><?php echo ($pedido['siglas']) ?></td>
                                                             <td><?php echo ($prodConfeccion . $prodBodega); ?></td>
+                                                            <td><?php echo ($total_puntadas); ?></td>
+                                                            <td><?php echo ($horas_estimadas); ?></td>
                                                             <td><?php echo ($pedido['unds']) ?></td>
                                                             <td><?php echo ($pedido['parcial']) ?></td>
                                                             <td><?php echo ($pedido['unds'] - $pedido['parcial']) ?></td>
@@ -395,6 +446,8 @@ if (empty($_SESSION['active'])) {
                                                         <th scope="col">Cliente</th>
                                                         <th scope="col">Procesos</th>
                                                         <th scope="col">Prod</th>
+                                                        <th scope="col">Tot Punt</th>
+                                                        <th scope="col">Tot Horas</th>
                                                         <th scope="col">Unds Total</th>
                                                         <th scope="col">Unds Parcial</th>
                                                         <th scope="col">Unds Falta</th>
@@ -408,7 +461,7 @@ if (empty($_SESSION['active'])) {
                                                     $undsParcial = 0;
                                                     $undsFalta = 0;
                                                     $countPedido = 0;
-                                                    $consultaSQL = "SELECT bo.pedido, pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_bordado, bo.numNovedad FROM bordado bo
+                                                    $consultaSQL = "SELECT bo.pedido, pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_bordado, bo.numNovedad, bo.punt_unidad FROM bordado bo
                                                     INNER JOIN pedidos pe ON bo.pedido=pe.idpedido
                                                     INNER JOIN procesos pro ON pe.procesos=pro.idproceso
                                                     WHERE bo.finfecha >'$tresDias' and bo.estado<3 order by bo.finfecha ASC";
@@ -429,12 +482,19 @@ if (empty($_SESSION['active'])) {
                                                         $consultaSQL = "SELECT * FROM bodega WHERE pedido='$idPedido'";
                                                         $result = $conexion->consultarDatos($consultaSQL);
                                                         $prodBodega = @$result[0]['entrega'];
+                                                        //tiempos
+                                                        $falta = $pedido['unds'] - $pedido['parcial'];
+                                                        $punt_unidad = $pedido['punt_unidad'];
+                                                        $total_puntadas = $falta * $punt_unidad;
+                                                        $horas_estimadas = round($total_puntadas / 66600, 2);
                                                     ?>
                                                         <tr>
                                                             <th scope="row"><?php echo ($pedido['num_pedido']) ?></th>
                                                             <td class="text-uppercase"><?php echo ($pedido['cliente']) ?></td>
                                                             <td><?php echo ($pedido['siglas']) ?></td>
                                                             <td><?php echo ($prodConfeccion . $prodBodega); ?></td>
+                                                            <td><?php echo ($total_puntadas); ?></td>
+                                                            <td><?php echo ($horas_estimadas); ?></td>
                                                             <td><?php echo ($pedido['unds']) ?></td>
                                                             <td><?php echo ($pedido['parcial']) ?></td>
                                                             <td><?php echo ($pedido['unds'] - $pedido['parcial']) ?></td>
@@ -563,9 +623,12 @@ if (empty($_SESSION['active'])) {
                                                                             <th scope="col">Cliente</th>
                                                                             <th scope="col">Procesos</th>
                                                                             <th scope="col">Prod</th>
+                                                                            <th scope="col">Tot Punt</th>
+                                                                            <th scope="col">Tot Horas</th>
                                                                             <th scope="col">Unds Total</th>
                                                                             <th scope="col">Unds Parcial</th>
                                                                             <th scope="col">Unds Falta</th>
+                                                                            <th scope="col">Fecha Entrega</th>
                                                                             <th scope="col">Observaciones</th>
                                                                         </tr>
                                                                     </thead>
@@ -575,7 +638,8 @@ if (empty($_SESSION['active'])) {
                                                                         $undsParcial = 0;
                                                                         $undsFalta = 0;
                                                                         $countPedido = 0;
-                                                                        $consultaSQL = "SELECT pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_bordado, bo.numNovedad, bo.pedido FROM bordado bo
+                                                                        $horas = 0;
+                                                                        $consultaSQL = "SELECT pe.num_pedido, pe.cliente, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_bordado, bo.numNovedad, bo.pedido, bo.punt_unidad FROM bordado bo
                                                                                         INNER JOIN pedidos pe ON bo.pedido=pe.idpedido
                                                                                         INNER JOIN procesos pro ON pe.procesos=pro.idproceso
                                                                                         WHERE bo.finfecha ='$dia' and bo.estado<3 order by bo.finfecha ASC";
@@ -596,6 +660,12 @@ if (empty($_SESSION['active'])) {
                                                                             $consultaSQL = "SELECT * FROM bodega WHERE pedido='$idPedido'";
                                                                             $result = $conexion->consultarDatos($consultaSQL);
                                                                             $prodBodega = @$result[0]['entrega'];
+                                                                            //tiempos
+                                                                            $falta = $pedido['unds'] - $pedido['parcial'];
+                                                                            $punt_unidad = $pedido['punt_unidad'];
+                                                                            $total_puntadas = $falta * $punt_unidad;
+                                                                            $horas_estimadas = round($total_puntadas / 66600, 2);
+                                                                            $horas=$horas+$horas_estimadas;
                                                                         ?>
 
                                                                             <tr>
@@ -603,6 +673,8 @@ if (empty($_SESSION['active'])) {
                                                                                 <td class="text-uppercase"><?php echo ($pedido['cliente']) ?></td>
                                                                                 <td><?php echo ($pedido['siglas']) ?></td>
                                                                                 <td><?php echo ($prodConfeccion . $prodBodega); ?></td>
+                                                                                <td><?php echo ($total_puntadas); ?></td>
+                                                                                <td><?php echo ($horas_estimadas); ?></td>
                                                                                 <td><?php echo ($pedido['unds']) ?></td>
                                                                                 <td><?php echo ($pedido['parcial']) ?></td>
                                                                                 <td><?php echo ($pedido['unds'] - $pedido['parcial']) ?></td>
@@ -612,18 +684,23 @@ if (empty($_SESSION['active'])) {
                                                                                     } ?></td>
 
                                                                             </tr>
-                                                                        <?php endforeach; ?>
+                                                                        <?php endforeach; 
+                                                                        $turnos = round($horas / 8.25, 2);?>
                                                                     </tbody>
                                                                 </table>
                                                             </div>
                                                             <div class="card-footer text-uppercase font-weight-bold text-center">
                                                                 <span class="text-left"><?php echo ($countPedido) ?>
-                                                                    Pedidos</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                    Pedidos</span>&nbsp;&nbsp;&nbsp;
                                                                 <span class="text-right"><?php echo ($undsTotal) ?> Unds Totales</span>
-                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                &nbsp;&nbsp;&nbsp;
                                                                 <span class="text-right"><?php echo ($undsParcial) ?> Unds Parcial</span>
-                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                &nbsp;&nbsp;&nbsp;
                                                                 <span class="text-right"><?php echo ($undsTotal - $undsParcial) ?> Unds Falta</span>
+                                                                &nbsp;&nbsp;&nbsp;
+                                                                <span class="text-right"><?php echo ($horas) ?> Horas</span>
+                                                                &nbsp;&nbsp;&nbsp;
+                                                                <span class="text-right"><?php echo ($turnos) ?> Turnos</span>
                                                             </div>
 
                                                         </div>

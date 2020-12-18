@@ -2,9 +2,8 @@
 <html lang="es">
 
 <?php
-session_start([
-    'cookie_lifetime' => 86400,
-]);
+session_set_cookie_params(60 * 60 * 24);
+session_start();
 include("../db/Conexion.php");
 if (empty($_SESSION['active'])) {
     header('location: ../');
@@ -20,7 +19,7 @@ if (empty($_SESSION['active'])) {
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>LISTA BORDADO</title>
-    <link rel="shortcut icon" href="images/icono.png"/>
+    <link rel="shortcut icon" href="images/icono.png" />
     <?php include("includes/scriptUp.php") ?>
 </head>
 
@@ -56,7 +55,7 @@ if (empty($_SESSION['active'])) {
                 <div class="modal-dialog">
                     <div class="modal-content ">
                         <div class="modal-header">
-                            <h2 class="modal-title mx-auto">Editar Sublimación</h2>
+                            <h2 class="modal-title mx-auto">Editar Bordado</h2>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span class="salirModal" aria-hidden="true">&times;</span>
                             </button>
@@ -77,6 +76,48 @@ if (empty($_SESSION['active'])) {
                                 <form id="formEditarBordado" class="" method="POST" novalidate>
                                     <input type="hidden" name="idPedido" class="idPedido">
                                     <input type="hidden" name="idBordado" class="idBordado">
+                                    <div class="row ">
+                                        <div class="form-group col-md-6 ">
+                                            <label for="pte_diseno">Diseño:</label>
+                                            <select name="pte_diseno" id="pte_diseno" class="custom-select pte_diseno">
+                                                <option value=""></option>
+                                                <option value="X">X</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6 ">
+                                            <label for="muestra">Muestra:</label>
+                                            <select name="muestra" id="muestra" class="custom-select muestra">
+                                                <option value=""></option>
+                                                <option value="X">X</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for=" logo">Logo:</label>
+                                        <input type="text" name=" logo" id=" logo" class="form-control logo" placeholder="" aria-describedby="helpId">
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 ">
+                                            <label for="num_bordado">N° Bord:</label>
+                                            <select name="num_bordado" id="num_bordado" class="custom-select num_bordado">
+                                                <option value="0"></option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-7">
+                                            <label for="punt_unidad">Punt X und:</label>
+                                            <input type="number" name="punt_unidad" id="punt_unidad" class="form-control punt_unidad" placeholder="" aria-describedby="helpId">
+                                        </div>
+                                    </div>
                                     <div class="form-group text-center col-md-5 mx-auto">
                                         <label for="parcial">Parcial:</label>
                                         <input type="number" name="parcial" id="parcial" class="form-control parcial" aria-describedby="helpId">
@@ -85,16 +126,16 @@ if (empty($_SESSION['active'])) {
                                         <label for="obs_bordado">Observación:</label>
                                         <textarea name="obs_bordado" id="obs_bordado" class="form-control obs_bordado" rows="5"></textarea>
                                     </div>
-                                    
+
                                 </form>
                             </div>
                             <div class="modal-footer">
-                            <button type="button" class="btn btn-dark" name="btnEditarBordado"data-dismiss="modal" id="modalEditarBordado" onclick="editarBordado();">Editar Pedido</button>
-                            <button type="button" class="btn btn-danger salirModal" data-dismiss="modal" id="salirModal">Cancelar</button>
+                                <button type="button" class="btn btn-dark" name="btnEditarBordado" data-dismiss="modal" id="modalEditarBordado" onclick="editarBordado();">Editar Pedido</button>
+                                <button type="button" class="btn btn-danger salirModal" data-dismiss="modal" id="salirModal">Cancelar</button>
 
+                            </div>
                         </div>
-                        </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -118,7 +159,7 @@ if (empty($_SESSION['active'])) {
                                 <div class="fin"></div>
                                 <div class="procesos"></div>
                                 <div class="unds"></div>
-                               
+
                             </div>
                             <div class=" mx-auto d-block border border-dark rounded col-md-9">
                                 <h3 class="mx-auto d-block mt-2 p-1 text-center"><span>Escribe la Novedad!!</span></h3>
@@ -137,8 +178,8 @@ if (empty($_SESSION['active'])) {
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-warning" data-dismiss="modal"  onclick="novedadBordado();">Reportar Novedad</button>
-                            <button type="button" class="btn btn-success" data-dismiss="modal"  onclick="finalizarNovedad();">Finalizar Novedad</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="novedadBordado();">Reportar Novedad</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal" onclick="finalizarNovedad();">Finalizar Novedad</button>
                             <button type="button" class="btn btn-danger salirModal" data-dismiss="modal" id="salirModal">Cancelar</button>
 
                         </div>
@@ -156,7 +197,7 @@ if (empty($_SESSION['active'])) {
     <script>
         $(document).ready(function() {
             $('.tablabordado').load('tablas/tablaBordado.php');
-});
+        });
     </script>
 
 </body>

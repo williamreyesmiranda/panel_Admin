@@ -72,11 +72,14 @@ if (isset($_POST['from']))
 <head>
         <meta charset="utf-8">
         <title>Calendario</title>
+       
         <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/calendar.css">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script type="text/javascript" src="js/es-ES.js"></script>
         <script src="js/jquery.min.js"></script>
+        
         <script src="js/moment.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/bootstrap-datetimepicker.js"></script>
@@ -86,7 +89,8 @@ if (isset($_POST['from']))
     </head>
 
 </head>
-<body class="sb-nav-fixed "">
+<body class="sb-nav-fixed ">
+   
         <div class="container" >
 
                 <div class="row">

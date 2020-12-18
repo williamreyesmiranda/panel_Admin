@@ -28,12 +28,13 @@ if($undsPedido==$undsTerminadas){
         <body> 
         <h1 style=\" text-transform: uppercase;\">Querido(a) ".$nombreCliente."</h1> 
         <p> 
-        <b>Te informamos que tu pedido ya se encuentra finalizado y listo para entrega!!!!</b>. <br><br>
+        <h2>Genial!!!!!</h2>
+        <b>Te informamos que tu pedido ya se encuentra finalizado y listo para entrega</b>. <br><br>
         Información del pedido <br>
         Pedido: ".$nroPedido."<br>
         Unds: ".$undsTerminadas."<br>
-        Comercial Responsable: ".$nombreAsesor."<br><br>
-        Cualquier duda sobre su pedido puede responder este mensaje. <br>
+        Asesor Responsable: ".$nombreAsesor."<br><br>
+        Cualquier duda sobre su pedido, puede contactarse con su asesor respondiendo este correo. <br>
         
         </p> 
         </body> 
@@ -45,13 +46,13 @@ if($undsPedido==$undsTerminadas){
         $headers .= "Content-type: text/html; charset=iso-8859-1\r\n"; 
         
         //dirección del remitente 
-        $headers .= "From: K-misetas.com.co <noreply@intranetk-misetas.com>\r\n"; 
+        $headers .= "From: No Responder <noreply@intranetk-misetas.com>\r\n"; 
         
         //dirección de respuesta, si queremos que sea distinta que la del remitente 
         $headers .= "Reply-To:".$correoAsesor."\r\n"; 
         
         //ruta del mensaje desde origen a destino 
-        $headers .= "Return-path:".$correoCliente."\r\n"; 
+        /* $headers .= "Return-path:".$correoCliente."\r\n";  */
         
         //direcciones que recibián copia 
         $headers .= "Cc:".$correoAsesor."\r\n"; 
@@ -60,7 +61,12 @@ if($undsPedido==$undsTerminadas){
         /* $headers .= "Bcc: pepe@pepe.com,juan@juan.com\r\n";  */
         
         $mail=@mail($destinatario,$asunto,$cuerpo,$headers);
+       if($mail){
         $respuesta=1;
+       }else{
+        $respuesta="error";
+       }
+       
 }else{
     $respuesta=2;
 }

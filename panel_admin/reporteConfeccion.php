@@ -2,9 +2,8 @@
 <html lang="es">
 
 <?php
-session_start([
-    'cookie_lifetime' => 86400,
-]);
+session_set_cookie_params(60 * 60 * 24);
+session_start();
 include("../db/Conexion.php");
 include("php/funcionFecha.php");
 if (empty($_SESSION['active'])) {

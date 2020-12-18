@@ -2,9 +2,8 @@
 <html lang="es">
 
 <?php
-session_start([
-    'cookie_lifetime' => 86400,
-]);
+session_set_cookie_params(60 * 60 * 24);
+session_start();
 include("../db/Conexion.php");
 include("php/funcionFecha.php");
 date_default_timezone_set('America/Bogota');
@@ -41,7 +40,7 @@ if (empty($_SESSION['active'])) {
                     <li class="breadcrumb-item active">Permisos</li>
                 </ol>
 
- 
+<?php include "calendario.php" ?>
 
             </div>
 

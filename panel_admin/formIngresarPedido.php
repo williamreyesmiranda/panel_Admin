@@ -1,8 +1,7 @@
 <?php
 
-session_start([
-    'cookie_lifetime' => 86400,
-]);
+session_set_cookie_params(60 * 60 * 24);
+session_start();
 
 include("../db/Conexion.php");
 include("php/funcionFecha.php");
@@ -36,7 +35,7 @@ if (empty($_SESSION['active'])) {
             //consulta procesos implicados
             $consultaSQL = "SELECT * FROM procesos WHERE idproceso =$procesos";
             $result = $conexion->consultarDatos($consultaSQL);
-
+            $tiemmpoTerminacion=$result[0]['tiempo_terminacion'];
             #comparacion celda1
             $dato1 = strtolower($result[0]['1']);
             $tiempo1 = $result[0]['tiempo1'];
@@ -127,7 +126,7 @@ if (empty($_SESSION['active'])) {
         } else {
             $alert .= "<script> alertify.error('Error al registrar pedido'); </script>";
         }
-        $consultaSQL = "UPDATE terminacion SET finfecha='$fechaFin' WHERE pedido='$maxPedido'";
+        $consultaSQL = "UPDATE terminacion SET finfecha='$fechaFin', tiempo='$tiemmpoTerminacion' WHERE pedido='$maxPedido'";
         $fechaTerminacion = $conexion->editarDatos($consultaSQL);
     }
 }
