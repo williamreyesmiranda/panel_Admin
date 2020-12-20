@@ -43,145 +43,155 @@
                             <a class="nav-link text-kmisetas-hover" href="listaAsesores.php">Asesores</a>
                         </nav>
                     </div>
-                    <a class="nav-link collapsed text-kmisetas-hover" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                        <?php if ($_SESSION['idrol'] == 3 || $_SESSION['idrol'] == 4 || $_SESSION['idrol'] == 1) : ?>
+                    <?php if ($_SESSION['idrol'] == 3 || $_SESSION['idrol'] == 4 || $_SESSION['idrol'] == 1) : ?>
+                        <a class="nav-link collapsed text-kmisetas-hover" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon text-kmisetas-hover"><i class="far fa-calendar-alt"></i></div>
                             Pedidos
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-kmisetas-hover"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link text-kmisetas-hover" href="formIngresarPedido.php">Ingreso Pedidos</a>
+                                <a class="nav-link text-kmisetas-hover" href="listaPedidos.php">Lista Pedidos</a>
+                            </nav>
+                        </div>
+                    <?php endif; ?>
+                    <a class="nav-link collapsed text-kmisetas-hover" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                        <div class="sb-nav-link-icon"><i class="fas fa-book-open text-kmisetas-hover"></i></div>
+                        Áreas
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-kmisetas-hover"></i></div>
                     </a>
-                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link text-kmisetas-hover" href="formIngresarPedido.php">Ingreso Pedidos</a>
-                            <a class="nav-link text-kmisetas-hover" href="listaPedidos.php">Lista Pedidos</a>
+                    <!-- bodega -->
+                    <?php if ($_SESSION['idrol'] == 4 || $_SESSION['idrol'] == 1) : ?>
+                        <div class="collapse" id="collapsePages" aria-labelledby="heading1" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link collapsed text-kmisetas-hover" href="#" data-toggle="collapse" data-target="#pagesCollapseBodega" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                    Bodega
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-kmisetas-hover"></i></div>
+                                </a>
+                                <div class="collapse" id="pagesCollapseBodega" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link text-kmisetas-hover" href="listaBodega.php">Lista Pedidos</a>
+                                        <a class="nav-link text-kmisetas-hover" href="reporteBodega.php">Reporte</a>
+                                    </nav>
+                                </div>
+
+                            </nav>
+                        </div>
+                    <?php endif; ?>
+                    <!-- corte -->
+                    <?php if ($_SESSION['idrol'] == 3 || $_SESSION['idrol'] == 1) : ?>
+                        <div class="collapse" id="collapsePages" aria-labelledby="heading2" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link collapsed text-kmisetas-hover" href="#" data-toggle="collapse" data-target="#pagesCollapseCorte" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                    Corte
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-kmisetas-hover"></i></div>
+                                </a>
+                                <div class="collapse" id="pagesCollapseCorte" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link text-kmisetas-hover" href="listaCorte.php">Lista Pedidos</a>
+                                        <a class="nav-link text-kmisetas-hover" href="reporteCorte.php">Reporte</a>
+                                    </nav>
+                                </div>
+
+                            </nav>
+                        </div>
+                    <?php endif; ?>
+                    <!-- confeccion -->
+                    <?php if ($_SESSION['idrol'] == 2 || $_SESSION['idrol'] == 1) : ?>
+                        <div class="collapse" id="collapsePages" aria-labelledby="heading3" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link collapsed text-kmisetas-hover" href="#" data-toggle="collapse" data-target="#pagesCollapseConfeccion" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                    Confección
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-kmisetas-hover"></i></div>
+                                </a>
+                                <div class="collapse" id="pagesCollapseConfeccion" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link text-kmisetas-hover" href="listaConfeccion.php">Lista Pedidos</a>
+                                        <a class="nav-link text-kmisetas-hover" href="reporteConfeccion.php">Reporte</a>
+                                    </nav>
+                                </div>
+
+                            </nav>
+                        </div>
+                    <?php endif; ?>
+                    <!-- Sublimacion -->
+                    <?php if ($_SESSION['idrol'] == 5 || $_SESSION['idrol'] == 1) : ?>
+                        <div class="collapse" id="collapsePages" aria-labelledby="heading4" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link collapsed text-kmisetas-hover" href="#" data-toggle="collapse" data-target="#pagesCollapseSublimacion" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                    Sublimación
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-kmisetas-hover"></i></div>
+                                </a>
+                                <div class="collapse" id="pagesCollapseSublimacion" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link text-kmisetas-hover" href="listaSublimacion.php">Lista Pedidos</a>
+                                        <a class="nav-link text-kmisetas-hover" href="reporteSublimacion.php">Reporte</a>
+                                    </nav>
+                                </div>
+
+                            </nav>
+                        </div>
+                        <!-- estampacion -->
+                        <div class="collapse" id="collapsePages" aria-labelledby="heading5" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link collapsed text-kmisetas-hover" href="#" data-toggle="collapse" data-target="#pagesCollapseEstampacion" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                    Estampación
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-kmisetas-hover"></i></div>
+                                </a>
+                                <div class="collapse" id="pagesCollapseEstampacion" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link text-kmisetas-hover" href="listaEstampacion.php">Lista Pedidos</a>
+                                        <a class="nav-link text-kmisetas-hover" href="reporteEstampacion.php">Reporte</a>
+                                    </nav>
+                                </div>
+
+                            </nav>
+                        </div>
+                    <?php endif; ?>
+                    <!-- Bordado -->
+                    <?php if ($_SESSION['idrol'] == 6 || $_SESSION['idrol'] == 1) : ?>
+                        <div class="collapse" id="collapsePages" aria-labelledby="heading6" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link collapsed text-kmisetas-hover" href="#" data-toggle="collapse" data-target="#pagesCollapseBordado" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                    Bordado
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-kmisetas-hover"></i></div>
+                                </a>
+                                <div class="collapse" id="pagesCollapseBordado" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link text-kmisetas-hover" href="listaBordado.php">Lista Pedidos</a>
+                                        <a class="nav-link text-kmisetas-hover" href="reporteBordado.php">Reporte</a>
+                                    </nav>
+                                </div>
+
+                            </nav>
+                        </div>
+                    <?php endif; ?>
+                    <!-- Terminación -->
+                    <div class="collapse" id="collapsePages" aria-labelledby="heading7" data-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                            <a class="nav-link collapsed text-kmisetas-hover" href="#" data-toggle="collapse" data-target="#pagesCollapseTerminacion" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                Terminación
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-kmisetas-hover"></i></div>
+                            </a>
+                            <div class="collapse" id="pagesCollapseTerminacion" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link text-kmisetas-hover" href="listaTerminacion.php">Lista Pedidos</a>
+                                    <a class="nav-link text-kmisetas-hover" href="reporteTerminacion.php">Reporte</a>
+                                </nav>
+                            </div>
+
                         </nav>
                     </div>
-                <?php endif; ?>
-                <a class="nav-link collapsed text-kmisetas-hover" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                    <div class="sb-nav-link-icon"><i class="fas fa-book-open text-kmisetas-hover"></i></div>
-                    Áreas
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-kmisetas-hover"></i></div>
-                </a>
-                <!-- bodega -->
-                <div class="collapse" id="collapsePages" aria-labelledby="heading1" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseBodega" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                            Bodega
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="pagesCollapseBodega" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="listaBodega.php">Lista Pedidos</a>
-                                <a class="nav-link" href="reporteBodega.php">Reporte</a>
-                            </nav>
-                        </div>
-
-                    </nav>
-                </div>
-                <!-- corte -->
-                <div class="collapse" id="collapsePages" aria-labelledby="heading2" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseCorte" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                            Corte
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="pagesCollapseCorte" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="listaCorte.php">Lista Pedidos</a>
-                                <a class="nav-link" href="reporteCorte.php">Reporte</a>
-                            </nav>
-                        </div>
-
-                    </nav>
-                </div>
-                <!-- confeccion -->
-                <div class="collapse" id="collapsePages" aria-labelledby="heading3" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseConfeccion" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                            Confección
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="pagesCollapseConfeccion" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="listaConfeccion.php">Lista Pedidos</a>
-                                <a class="nav-link" href="reporteConfeccion.php">Reporte</a>
-                            </nav>
-                        </div>
-
-                    </nav>
-                </div>
-                <!-- Sublimacion -->
-                <div class="collapse" id="collapsePages" aria-labelledby="heading4" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseSublimacion" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                            Sublimación
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="pagesCollapseSublimacion" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="listaSublimacion.php">Lista Pedidos</a>
-                                <a class="nav-link" href="reporteSublimacion.php">Reporte</a>
-                            </nav>
-                        </div>
-
-                    </nav>
-                </div>
-                <!-- estampacion -->
-                <div class="collapse" id="collapsePages" aria-labelledby="heading5" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseEstampacion" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                            Estampación
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="pagesCollapseEstampacion" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="listaEstampacion.php">Lista Pedidos</a>
-                                <a class="nav-link" href="reporteEstampacion.php">Reporte</a>
-                            </nav>
-                        </div>
-
-                    </nav>
-                </div>
-                <!-- Bordado -->
-                <div class="collapse" id="collapsePages" aria-labelledby="heading6" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseBordado" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                            Bordado
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="pagesCollapseBordado" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="listaBordado.php">Lista Pedidos</a>
-                                <a class="nav-link" href="reporteBordado.php">Reporte</a>
-                            </nav>
-                        </div>
-
-                    </nav>
-                </div>
-                <!-- Terminación -->
-                <div class="collapse" id="collapsePages" aria-labelledby="heading7" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseTerminacion" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                            Terminación
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="pagesCollapseTerminacion" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="listaTerminacion.php">Lista Pedidos</a>
-                                <a class="nav-link" href="reporteTerminacion.php">Reporte</a>
-                            </nav>
-                        </div>
-
-                    </nav>
-                </div>
-                <div class="sb-sidenav-menu-heading">Cartera</div>
-                <a class="nav-link" href="calendario.php">
-                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                    Permisos
-                </a>
-                <a class="nav-link" href="#">
-                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                    Liquidaciones
-                </a>
+                    <div class="sb-sidenav-menu-heading">Gestion Humana</div>
+                    <a class="nav-link" href="calendario.php">
+                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                        Permisos
+                    </a>
+                    <a class="nav-link" href="#">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        Liquidaciones
+                    </a>
                 </div>
             </div>
             <div class="sb-sidenav-footer">
