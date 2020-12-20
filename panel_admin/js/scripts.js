@@ -991,7 +991,7 @@ function confirmarFinalizarTerminacion(datos) {
     nombreAsesor = "&nombreAsesor=" + d[15];
     nroPedido = "&nroPedido=" + d[1];
 
-    if (d[17] != '') {
+    
         if (d[13] != 0) {
             alertify.alert('Finalizar Novedad', '<center>Este pedido contiene una novedad que no ha sido solucionada. <br>Por favor darle trámite para finalizar Pedido.</center>');
         } else {
@@ -1002,11 +1002,7 @@ function confirmarFinalizarTerminacion(datos) {
                 },
                 function () { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
         }
-    } else {
-        alertify.alert('Ingresar Correo al Cliente', '<center>El Cliente no tiene correo, por favor hablar con el comercial para actualizar datos del clientes.</center>');
     }
-
-}
 //finalizar Pedido
 function finalizarTerminacion(datos) {
     console.log(datos)

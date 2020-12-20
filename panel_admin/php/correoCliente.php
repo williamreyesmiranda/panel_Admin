@@ -20,21 +20,20 @@ $result = $conexion->consultarDatos($consultaSQL);
 $undsTerminadas=$result[0]['undsPedido'];
 
 if($undsPedido==$undsTerminadas){
-    $destinatario = $correoCliente; 
+    $destinatario = $correoAsesor; 
         $asunto = "Pedido ".$nroPedido." terminado"; 
         $cuerpo = " 
         <html> 
         
         <body> 
-        <h1 style=\" text-transform: uppercase;\">Querido(a) ".$nombreCliente."</h1> 
+        <h1 style=\" text-transform: uppercase;\">".$nombreAsesor."</h1> 
         <p> 
-        <h2>Genial!!!!!</h2>
+        
         <b>Te informamos que tu pedido ya se encuentra finalizado y listo para entrega</b>. <br><br>
         Información del pedido <br>
         Pedido: ".$nroPedido."<br>
         Unds: ".$undsTerminadas."<br>
-        Asesor Responsable: ".$nombreAsesor."<br><br>
-        Cualquier duda sobre su pedido, puede contactarse con su asesor respondiendo este correo. <br>
+        
         
         </p> 
         </body> 
@@ -55,7 +54,7 @@ if($undsPedido==$undsTerminadas){
         /* $headers .= "Return-path:".$correoCliente."\r\n";  */
         
         //direcciones que recibián copia 
-        $headers .= "Cc:".$correoAsesor."\r\n"; 
+        //$headers .= "Cc:".$correoAsesor."\r\n"; 
         
         //direcciones que recibirán copia oculta 
         /* $headers .= "Bcc: pepe@pepe.com,juan@juan.com\r\n";  */
