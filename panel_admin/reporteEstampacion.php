@@ -238,7 +238,8 @@ if (empty($_SESSION['active'])) {
                                                         <th scope="col">Cliente</th>
                                                         <th scope="col">Procesos</th>
                                                         <th scope="col">P</th>
-                                                        <th scope="col">A</th>
+                                                        <th scope="col">AD</th>
+                                                        <th scope="col">AI</th>
                                                         <th scope="col">G</th>
                                                         <th scope="col">E</th>
                                                         <th scope="col">S</th>
@@ -255,7 +256,7 @@ if (empty($_SESSION['active'])) {
                                                     $undsParcial = 0;
                                                     $undsFalta = 0;
                                                     $countPedido = 0;
-                                                    $consultaSQL = "SELECT bo.pedido, pe.num_pedido, pe.cliente, bo.arte, bo.grabacion, bo.estampacion, bo.sublimacion, pro.siglas, 
+                                                    $consultaSQL = "SELECT bo.pedido, pe.num_pedido, pe.cliente, bo.arte_diseno, arte_impresion, bo.grabacion, bo.estampacion, bo.sublimacion, pro.siglas, 
                                                                     pe.unds, bo.parcial, bo.finfecha, bo.obs_estampacion, bo.numNovedad FROM estampacion bo
                                                                     INNER JOIN pedidos pe ON bo.pedido=pe.idpedido
                                                                     INNER JOIN procesos pro ON pe.procesos=pro.idproceso
@@ -287,7 +288,8 @@ if (empty($_SESSION['active'])) {
                                                             <td class="text-uppercase"><?php echo ($pedido['cliente']) ?></td>
                                                             <td><?php echo ($pedido['siglas']) ?></td>
                                                             <td><?php echo ($prodConfeccion . $prodBodega); ?></td>
-                                                            <td><?php echo ($pedido['arte']); ?></td>
+                                                            <td><?php echo ($pedido['arte_diseno']); ?></td>
+                                                            <td><?php echo ($pedido['arte_impresion']); ?></td>
                                                             <td><?php echo ($pedido['grabacion']); ?></td>
                                                             <td><?php echo ($pedido['estampacion']); ?></td>
                                                             <td><?php echo ($pedido['sublimacion']); ?></td>
@@ -339,7 +341,8 @@ if (empty($_SESSION['active'])) {
                                                         <th scope="col">Cliente</th>
                                                         <th scope="col">Procesos</th>
                                                         <th scope="col">P</th>
-                                                        <th scope="col">A</th>
+                                                        <th scope="col">AD</th>
+                                                        <th scope="col">AI</th>
                                                         <th scope="col">G</th>
                                                         <th scope="col">E</th>
                                                         <th scope="col">S</th>
@@ -356,7 +359,7 @@ if (empty($_SESSION['active'])) {
                                                     $undsParcial = 0;
                                                     $undsFalta = 0;
                                                     $countPedido = 0;
-                                                    $consultaSQL = "SELECT bo.pedido, pe.num_pedido, pe.cliente, bo.arte, bo.grabacion, bo.estampacion, bo.sublimacion, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_estampacion, bo.numNovedad FROM estampacion bo
+                                                    $consultaSQL = "SELECT bo.pedido, pe.num_pedido, pe.cliente, bo.arte_diseno, arte_impresion, bo.grabacion, bo.estampacion, bo.sublimacion, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_estampacion, bo.numNovedad FROM estampacion bo
                                                     INNER JOIN pedidos pe ON bo.pedido=pe.idpedido
                                                     INNER JOIN procesos pro ON pe.procesos=pro.idproceso
                                                     WHERE bo.finfecha BETWEEN '$hoy' AND '$tresDias' and bo.estado<3 order by bo.finfecha ASC";
@@ -384,7 +387,8 @@ if (empty($_SESSION['active'])) {
                                                             <td class="text-uppercase"><?php echo ($pedido['cliente']) ?></td>
                                                             <td><?php echo ($pedido['siglas']) ?></td>
                                                             <td><?php echo ($prodConfeccion . $prodBodega); ?></td>
-                                                            <td><?php echo ($pedido['arte']); ?></td>
+                                                            <td><?php echo ($pedido['arte_diseno']); ?></td>
+                                                            <td><?php echo ($pedido['arte_impresion']); ?></td>
                                                             <td><?php echo ($pedido['grabacion']); ?></td>
                                                             <td><?php echo ($pedido['estampacion']); ?></td>
                                                             <td><?php echo ($pedido['sublimacion']); ?></td>
@@ -437,7 +441,8 @@ if (empty($_SESSION['active'])) {
                                                         <th scope="col">Cliente</th>
                                                         <th scope="col">Procesos</th>
                                                         <th scope="col">P</th>
-                                                        <th scope="col">A</th>
+                                                        <th scope="col">AD</th>
+                                                        <th scope="col">AI</th
                                                         <th scope="col">G</th>
                                                         <th scope="col">E</th>
                                                         <th scope="col">S</th>
@@ -454,7 +459,7 @@ if (empty($_SESSION['active'])) {
                                                     $undsParcial = 0;
                                                     $undsFalta = 0;
                                                     $countPedido = 0;
-                                                    $consultaSQL = "SELECT bo.pedido, pe.num_pedido, pe.cliente, bo.arte, bo.grabacion, bo.estampacion, bo.sublimacion, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_estampacion, bo.numNovedad FROM estampacion bo
+                                                    $consultaSQL = "SELECT bo.pedido, pe.num_pedido, pe.cliente, bo.arte_diseno, arte_impresion, bo.grabacion, bo.estampacion, bo.sublimacion, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_estampacion, bo.numNovedad FROM estampacion bo
                                                     INNER JOIN pedidos pe ON bo.pedido=pe.idpedido
                                                     INNER JOIN procesos pro ON pe.procesos=pro.idproceso
                                                     WHERE bo.finfecha >'$tresDias' and bo.estado<3 order by bo.finfecha ASC";
@@ -481,7 +486,8 @@ if (empty($_SESSION['active'])) {
                                                             <td class="text-uppercase"><?php echo ($pedido['cliente']) ?></td>
                                                             <td><?php echo ($pedido['siglas']) ?></td>
                                                             <td><?php echo ($prodConfeccion . $prodBodega); ?></td>
-                                                            <td><?php echo ($pedido['arte']); ?></td>
+                                                            <td><?php echo ($pedido['arte_diseno']); ?></td>
+                                                            <td><?php echo ($pedido['arte_impresion']); ?></td>
                                                             <td><?php echo ($pedido['grabacion']); ?></td>
                                                             <td><?php echo ($pedido['estampacion']); ?></td>
                                                             <td><?php echo ($pedido['sublimacion']); ?></td>
@@ -613,7 +619,8 @@ if (empty($_SESSION['active'])) {
                                                                             <th scope="col">Cliente</th>
                                                                             <th scope="col">Procesos</th>
                                                                             <th scope="col">P</th>
-                                                                            <th scope="col">A</th>
+                                                                            <th scope="col">AD</th>
+                                                                            <th scope="col">AI</th>
                                                                             <th scope="col">G</th>
                                                                             <th scope="col">E</th>
                                                                             <th scope="col">S</th>
@@ -629,7 +636,7 @@ if (empty($_SESSION['active'])) {
                                                                         $undsParcial = 0;
                                                                         $undsFalta = 0;
                                                                         $countPedido = 0;
-                                                                        $consultaSQL = "SELECT pe.num_pedido, pe.cliente, bo.arte, bo.grabacion, bo.estampacion, bo.sublimacion, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_estampacion, bo.numNovedad, bo.pedido FROM estampacion bo
+                                                                        $consultaSQL = "SELECT pe.num_pedido, pe.cliente, bo.arte_diseno, arte_impresion, bo.grabacion, bo.estampacion, bo.sublimacion, pro.siglas, pe.unds, bo.parcial, bo.finfecha, bo.obs_estampacion, bo.numNovedad, bo.pedido FROM estampacion bo
                                                                                         INNER JOIN pedidos pe ON bo.pedido=pe.idpedido
                                                                                         INNER JOIN procesos pro ON pe.procesos=pro.idproceso
                                                                                         WHERE bo.finfecha ='$dia' and bo.estado<3 order by bo.finfecha ASC";
@@ -657,7 +664,8 @@ if (empty($_SESSION['active'])) {
                                                                                 <td class="text-uppercase"><?php echo ($pedido['cliente']) ?></td>
                                                                                 <td><?php echo ($pedido['siglas']) ?></td>
                                                                                 <td><?php echo ($prodConfeccion . $prodBodega); ?></td>
-                                                                                <td><?php echo ($pedido['arte']); ?></td>
+                                                                                <td><?php echo ($pedido['arte_diseno']); ?></td>
+                                                                                <td><?php echo ($pedido['arte_impresion']); ?></td>
                                                                                 <td><?php echo ($pedido['grabacion']); ?></td>
                                                                                 <td><?php echo ($pedido['estampacion']); ?></td>
                                                                                 <td><?php echo ($pedido['sublimacion']); ?></td>

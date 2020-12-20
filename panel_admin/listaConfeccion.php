@@ -8,6 +8,7 @@ include("../db/Conexion.php");
 if (empty($_SESSION['active'])) {
     header('location: ../');
 }
+$area="confeccion";
 ?>
 
 
@@ -39,7 +40,10 @@ if (empty($_SESSION['active'])) {
                 <!-- tabla -->
                 <div class="card mb-4">
                     <div class="card-header ">
-                        <i class="fas fa-table mr-1"></i> Lista de Pedidos Para Confección
+                    <div class="card-body d-flex justify-content-between align-items-center p-0">
+                            Lista de Pedidos Para Confección
+                            <a href="#" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#restaurarPedido">Restaurar Pedidos</a>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">

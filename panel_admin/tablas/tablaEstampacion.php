@@ -6,11 +6,11 @@ if (empty($_SESSION['active'])) {
 ?>
 <div class="table-container">
     <table class="table table-hover table-condensed table-bordered tablaDinamica" id="" cellspacing="0">
-        
+
         <thead>
-                       <tr>
+            <tr>
                 <th class="alert-info text-center" colspan="6">Info Pedido</th>
-                <th class="alert-secondary text-center" colspan="26">Info Estampación</th>
+                <th class="alert-secondary text-center" colspan="27">Info Estampación</th>
             </tr>
             <tr class="text-center">
                 <th class="sticky-top">Pedido</th>
@@ -24,7 +24,8 @@ if (empty($_SESSION['active'])) {
                 <th class="sticky-top">Días Háb</th>
                 <th class="sticky-top">Días Falta</th>
                 <th class="sticky-top">P</th>
-                <th class="sticky-top">A</th>
+                <th class="sticky-top">AD</th>
+                <th class="sticky-top">AI</th>
                 <th class="sticky-top">G</th>
                 <th class="sticky-top">E</th>
                 <th class="sticky-top">S</th>
@@ -61,7 +62,8 @@ if (empty($_SESSION['active'])) {
                 <th>Días Háb</th>
                 <th>Días Falta</th>
                 <th>P</th>
-                <th>A</th>
+                <th>AD</th>
+                <th>AI</th>
                 <th>G</th>
                 <th>E</th>
                 <th>S</th>
@@ -96,7 +98,7 @@ if (empty($_SESSION['active'])) {
         pe.fecha_fin as 'finpedido', pe.dias_habiles as 'diaspedido', pe.unds, pe.fecha_ingreso, pe.usuario,
         bo.idestampacion, bo.iniciofecha as 'inicioestampacion', bo.finfecha as 'finestampacion', bo.dias as 'diasestampacion',
         bo.inicioprocesofecha, bo.finprocesofecha, bo.parcial, us.usuario, bo.obs_estampacion, bo.numNovedad, 
-        bo.arte, bo.estampacion, bo.sublimacion, bo.grabacion, bo.tecnica, bo.nro_diseno, bo.posicion, bo.seda, bo.nro_plancha,
+        bo.arte_diseno, bo.arte_impresion, bo.estampacion, bo.sublimacion, bo.grabacion, bo.tecnica, bo.nro_diseno, bo.posicion, bo.seda, bo.nro_plancha,
         bo.fren, bo.esp, bo.otro, bo.prep, bo.est, bo.sub, pr.siglas, es.estado, est.estado as 'estadopedido'
         FROM pedidos pe 
         
@@ -109,7 +111,7 @@ if (empty($_SESSION['active'])) {
         WHERE bo.estado<3";
             $pedidos = $conexion->consultarDatos($consultaSQL);
             foreach ($pedidos as $pedido) :
-                $idPedido=$pedido['idpedido'];
+                $idPedido = $pedido['idpedido'];
                 $unds = $pedido['unds'];
                 $parcial = $pedido['parcial'];
                 $falta = $unds - $parcial;
@@ -126,30 +128,30 @@ if (empty($_SESSION['active'])) {
                     $diafaltaestampacion =  - (fechaToDays($diaestampacion, $hoy) - 1);
                 }
                 //consulta de la novedad por medio del idNovedad
-                $numNovedad=$pedido['numNovedad'];
-                $consultaSQL="SELECT * FROM novedades WHERE idNovedad='$numNovedad'";
-                $result=$conexion->consultarDatos($consultaSQL);
-                $novedad=@$result[0]['novedad'];
+                $numNovedad = $pedido['numNovedad'];
+                $consultaSQL = "SELECT * FROM novedades WHERE idNovedad='$numNovedad'";
+                $result = $conexion->consultarDatos($consultaSQL);
+                $novedad = @$result[0]['novedad'];
                 //consulta del nombre del asesor por medio del usuario
-                $asesor=$pedido['asesor'];
-                $consultaSQL="SELECT * FROM asesor WHERE usuario='$asesor'";
-                $result=$conexion->consultarDatos($consultaSQL);
-                $nombreAsesor=@$result[0]['nombre'];
-                $correoAsesor=@$result[0]['correo'];
+                $asesor = $pedido['asesor'];
+                $consultaSQL = "SELECT * FROM asesor WHERE usuario='$asesor'";
+                $result = $conexion->consultarDatos($consultaSQL);
+                $nombreAsesor = @$result[0]['nombre'];
+                $correoAsesor = @$result[0]['correo'];
                 //consultar el producto de bodega y confeccion
-                $consultaSQL="SELECT * FROM confeccion WHERE pedido='$idPedido'";
-                $result=$conexion->consultarDatos($consultaSQL);
-                $prodConfeccion=@$result[0]['entrega'];
-                $consultaSQL="SELECT * FROM bodega WHERE pedido='$idPedido'";
-                $result=$conexion->consultarDatos($consultaSQL);
-                $prodBodega=@$result[0]['entrega'];
+                $consultaSQL = "SELECT * FROM confeccion WHERE pedido='$idPedido'";
+                $result = $conexion->consultarDatos($consultaSQL);
+                $prodConfeccion = @$result[0]['entrega'];
+                $consultaSQL = "SELECT * FROM bodega WHERE pedido='$idPedido'";
+                $result = $conexion->consultarDatos($consultaSQL);
+                $prodBodega = @$result[0]['entrega'];
 
                 $datos = $pedido['idpedido'] . "||" . $pedido['num_pedido'] . "||" . $pedido['cliente'] . "||" . $pedido['asesor'] . "||" . $pedido['iniciopedido'] . "||" .
                     $pedido['finpedido'] . "||" . $pedido['diaspedido'] . "||" . $pedido['siglas'] . "||" . $pedido['unds'] . "||" . $pedido['estadopedido'] . "||" . $pedido['idestampacion'] .
-                     "||" . $pedido['obs_estampacion'] . "||" . $pedido['parcial']. "||" . $pedido['numNovedad']. "||" .$novedad. "||" .$nombreAsesor. "||" .$correoAsesor. "||" . $pedido['arte']. 
-                     "||" . $pedido['grabacion']. "||" . $pedido['estampacion']. "||" . $pedido['sublimacion']. "||" . $pedido['tecnica']. "||" . $pedido['nro_diseno']. 
-                     "||" . $pedido['posicion']. "||" . $pedido['seda']. "||" . $pedido['nro_plancha']. "||" . $pedido['fren']. "||" . $pedido['esp']. "||" . $pedido['otro']. 
-                     "||" . $pedido['prep']. "||" . $pedido['est']. "||" . $pedido['sub'];
+                    "||" . $pedido['obs_estampacion'] . "||" . $pedido['parcial'] . "||" . $pedido['numNovedad'] . "||" . $novedad . "||" . $nombreAsesor . "||" . $correoAsesor . "||" . $pedido['arte_diseno'] .
+                    "||" . $pedido['grabacion'] . "||" . $pedido['estampacion'] . "||" . $pedido['sublimacion'] . "||" . $pedido['tecnica'] . "||" . $pedido['nro_diseno'] .
+                    "||" . $pedido['posicion'] . "||" . $pedido['seda'] . "||" . $pedido['nro_plancha'] . "||" . $pedido['fren'] . "||" . $pedido['esp'] . "||" . $pedido['otro'] .
+                    "||" . $pedido['prep'] . "||" . $pedido['est'] . "||" . $pedido['sub'] . "||" . $pedido['arte_impresion'];
 
 
             ?>
@@ -168,37 +170,41 @@ if (empty($_SESSION['active'])) {
                     ?>
                     <td><?php echo ($pedido['siglas']); ?></td>
                     <td><?php echo ($pedido['unds']); ?></td>
-                    <td><?php echo ($pedido['inicioestampacion']);?></td>
-                    <td class="alert-info"><?php echo ($pedido['finestampacion']);?></td>
-                    <td><?php echo ($pedido['diasestampacion']);?></td>
-                    <?php if($diafaltaestampacion>3){
-                        echo "<td class=\"alert-success\">".$diafaltaestampacion."</td>";
-                     }elseif($diafaltaestampacion>=0){
-                         echo "<td class=\"alert-warning\">".$diafaltaestampacion."</td>";  
-                     }else{
-                         echo "<td class=\"alert-danger\">".$diafaltaestampacion."</td>"; 
-                     }?>
-                     <td><?php echo ($prodConfeccion.$prodBodega);?></td>
-                     <td><?php echo ($pedido['arte']);?></td>
-                     <td><?php echo ($pedido['grabacion']);?></td>
-                     <td><?php echo ($pedido['estampacion']);?></td>
-                     <td><?php echo ($pedido['sublimacion']);?></td>
-                     <td><?php echo ($pedido['nro_diseno']);?></td>
-                     <td><?php echo ($pedido['posicion']);?></td>
-                     <td><?php echo ($pedido['tecnica']);?></td>
-                     <td><?php echo ($pedido['seda']);?></td>
-                     <td><?php echo ($pedido['nro_plancha']);?></td>
-                     <td><?php echo ($pedido['fren']);?></td>
-                     <td><?php echo ($pedido['esp']);?></td>
-                     <td><?php echo ($pedido['otro']);?></td>
-                     <td><?php echo ($pedido['prep']);?></td>
-                     <td><?php echo ($pedido['est']);?></td>
-                     <td><?php echo ($pedido['sub']);?></td>
-                     <td><?php echo round(($pedido['sub']+$pedido['est']+$pedido['prep'])*$falta/$unds/60,2);?></td>
-                     <td><?php echo ($parcial);?></td>
-                    <td><?php echo ($falta);?></td>
-                    <td><?php echo ($pedido['obs_estampacion']); if($pedido['numNovedad']>0){echo ("<br><b>Novedad:</b>".$novedad);}?></td>
-                    <td><?php echo ($pedido['estado']);?></td>
+                    <td><?php echo ($pedido['inicioestampacion']); ?></td>
+                    <td class="alert-info"><?php echo ($pedido['finestampacion']); ?></td>
+                    <td><?php echo ($pedido['diasestampacion']); ?></td>
+                    <?php if ($diafaltaestampacion > 3) {
+                        echo "<td class=\"alert-success\">" . $diafaltaestampacion . "</td>";
+                    } elseif ($diafaltaestampacion >= 0) {
+                        echo "<td class=\"alert-warning\">" . $diafaltaestampacion . "</td>";
+                    } else {
+                        echo "<td class=\"alert-danger\">" . $diafaltaestampacion . "</td>";
+                    } ?>
+                    <td><?php echo ($prodConfeccion . $prodBodega); ?></td>
+                    <td><?php echo ($pedido['arte_diseno']); ?></td>
+                    <td><?php echo ($pedido['arte_impresion']); ?></td>
+                    <td><?php echo ($pedido['grabacion']); ?></td>
+                    <td><?php echo ($pedido['estampacion']); ?></td>
+                    <td><?php echo ($pedido['sublimacion']); ?></td>
+                    <td><?php echo ($pedido['nro_diseno']); ?></td>
+                    <td><?php echo ($pedido['posicion']); ?></td>
+                    <td><?php echo ($pedido['tecnica']); ?></td>
+                    <td><?php echo ($pedido['seda']); ?></td>
+                    <td><?php echo ($pedido['nro_plancha']); ?></td>
+                    <td><?php echo ($pedido['fren']); ?></td>
+                    <td><?php echo ($pedido['esp']); ?></td>
+                    <td><?php echo ($pedido['otro']); ?></td>
+                    <td><?php echo ($pedido['prep']); ?></td>
+                    <td><?php echo ($pedido['est']); ?></td>
+                    <td><?php echo ($pedido['sub']); ?></td>
+                    <td><?php echo round(($pedido['sub'] + $pedido['est'] + $pedido['prep']) * $falta / $unds / 60, 2); ?></td>
+                    <td><?php echo ($parcial); ?></td>
+                    <td><?php echo ($falta); ?></td>
+                    <td><?php echo ($pedido['obs_estampacion']);
+                        if ($pedido['numNovedad'] > 0) {
+                            echo ("<br><b>Novedad:</b>" . $novedad);
+                        } ?></td>
+                    <td><?php echo ($pedido['estado']); ?></td>
                     <td>
                         <h5>
                             <a class="my-auto" title=" Editar Estampacion" data-toggle="modal" data-target="#editarEstampacion"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarEstampacion('<?php echo ($datos); ?>')"></i></a>
@@ -226,10 +232,10 @@ if (empty($_SESSION['active'])) {
                 'copyHtml5',
                 'excelHtml5',
                 {
-                        extend: 'pdfHtml5',
-                        orientation: 'landscape',
-                         pageSize: 'LEGAL'
-                    },
+                    extend: 'pdfHtml5',
+                    orientation: 'landscape',
+                    pageSize: 'LEGAL'
+                },
                 'print'
             ],
             responsive: true,

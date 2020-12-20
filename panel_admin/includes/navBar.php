@@ -16,8 +16,7 @@
                 <i class="fas fa-user fa-fw "></i></a>
             <div class="dropdown-menu dropdown-menu-right " id="salir">
                 <nav class="sb-sidenav-menu-nested nav ">
-                    <a class="dropdown-item" href="#">Configuración</a>
-                    <a class="dropdown-item" href="#">Actividades</a>
+                    <a class="dropdown-item" href="" data-toggle="modal" data-target="#editarUsuario">Configuración</a>
                     <hr>
                     <a class="dropdown-item" href="../db/logout.php">Salir</a>
                 </nav>
@@ -63,7 +62,7 @@
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-kmisetas-hover"></i></div>
                 </a>
                 <!-- bodega -->
-                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                <div class="collapse" id="collapsePages" aria-labelledby="heading1" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseBodega" aria-expanded="false" aria-controls="pagesCollapseAuth">
                             Bodega
@@ -79,7 +78,7 @@
                     </nav>
                 </div>
                 <!-- corte -->
-                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                <div class="collapse" id="collapsePages" aria-labelledby="heading2" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseCorte" aria-expanded="false" aria-controls="pagesCollapseAuth">
                             Corte
@@ -95,7 +94,7 @@
                     </nav>
                 </div>
                 <!-- confeccion -->
-                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                <div class="collapse" id="collapsePages" aria-labelledby="heading3" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseConfeccion" aria-expanded="false" aria-controls="pagesCollapseAuth">
                             Confección
@@ -111,7 +110,7 @@
                     </nav>
                 </div>
                 <!-- Sublimacion -->
-                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                <div class="collapse" id="collapsePages" aria-labelledby="heading4" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseSublimacion" aria-expanded="false" aria-controls="pagesCollapseAuth">
                             Sublimación
@@ -127,7 +126,7 @@
                     </nav>
                 </div>
                 <!-- estampacion -->
-                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                <div class="collapse" id="collapsePages" aria-labelledby="heading5" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseEstampacion" aria-expanded="false" aria-controls="pagesCollapseAuth">
                             Estampación
@@ -143,7 +142,7 @@
                     </nav>
                 </div>
                 <!-- Bordado -->
-                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                <div class="collapse" id="collapsePages" aria-labelledby="heading6" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseBordado" aria-expanded="false" aria-controls="pagesCollapseAuth">
                             Bordado
@@ -159,7 +158,7 @@
                     </nav>
                 </div>
                 <!-- Terminación -->
-                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                <div class="collapse" id="collapsePages" aria-labelledby="heading7" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseTerminacion" aria-expanded="false" aria-controls="pagesCollapseAuth">
                             Terminación
@@ -249,4 +248,58 @@
 
 
 
+    </div>
+    <!-- modal Restaurar Pedido -->
+    <div class="modal fade" id="restaurarPedido" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h2 class="modal-title mx-auto">Restaurar Pedido</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="salirModal" aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class=" mx-auto d-block border border-dark rounded col-md-9">
+                        <h3 class="mx-auto d-block mt-2 p-1 text-center"><span>Escribe El número de Pedido</span></h3>
+
+                        <form id="formRestaurarPedido" class="formRestaurarPedido" method="POST" novalidate>
+                            <div class="form-group text-center col-md-5 mx-auto">
+                                <input type="hidden" name="area" value="<?php echo ($area) ?>">
+                                <input type="text" name="nroPedido" id="nroPedido" class="form-control " aria-describedby="helpId">
+                            </div>
+                            <div id="tablaRestaurar"></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="btnRestaurar" onclick="">Restaurar Pedido</button>
+                    <button type="button" class="btn btn-danger salirModal" data-dismiss="modal" id="salirModal">Cancelar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal Restaurar Pedido -->
+    <div class="modal fade" id="editarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h2 class="modal-title mx-auto">Editar Usuario</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="salirModal" aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class=" mx-auto d-block border border-dark rounded col-md-9">
+                        <h3 class="mx-auto d-block mt-2 p-1 text-center"><span>En construcción</span></h3>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="btnRestaurar" onclick="">Editar Usuario</button>
+                    <button type="button" class="btn btn-danger salirModal" data-dismiss="modal" id="salirModal">Cancelar</button>
+
+                </div>
+            </div>
+        </div>
     </div>

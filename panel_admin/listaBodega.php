@@ -8,6 +8,7 @@ include("../db/Conexion.php");
 if (empty($_SESSION['active'])) {
     header('location: ../');
 }
+$area="bodega";
 ?>
 
 
@@ -39,7 +40,10 @@ if (empty($_SESSION['active'])) {
                 <!-- tabla -->
                 <div class="card mb-4">
                     <div class="card-header ">
-                        <i class="fas fa-table mr-1"></i> Lista de Pedidos Para Bodega
+                        <div class="card-body d-flex justify-content-between align-items-center p-0">
+                            Lista de Pedidos Para Bodega
+                            <a href="#" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#restaurarPedido">Restaurar Pedidos</a>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -144,6 +148,7 @@ if (empty($_SESSION['active'])) {
                     </div>
                 </div>
             </div>
+            
 
         </main>
         <?php include("includes/footer.php") ?>
@@ -151,7 +156,7 @@ if (empty($_SESSION['active'])) {
 
     <?php include("includes/scriptDown.php") ?>
 
-    <!-- alerta al cancelar modal -->
+
     <script>
         $(document).ready(function() {
             $('.tablabodega').load('tablas/tablaBodega.php');

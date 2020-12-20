@@ -45,7 +45,7 @@ if (empty($_SESSION['active'])) {
                 <div class="accordion" id="accordionExample">
                     <!-- botones para acordeon -->
                     <div class="alert" style="background-color: #FFFFFF;"" >
-                        <h4 class=" text-rigth" style="font-weight: 500;"><i class="fas fa-clipboard-list"></i> Informe General de Pedidos</h4>
+                        <h4 class=" text-rigth" style="font-weight: 500;"><i class="fas fa-clipboard-list"></i> Informe General de Pedidos </h4>
                         <hr>
                         <div class="breadcrumb px-0 h-100" style="background-color: #FFFFFF;">
 
@@ -67,7 +67,7 @@ if (empty($_SESSION['active'])) {
                                             <div class="col-md-8">
                                                 <div class="text-center" style="font-size: 18px; color:black; font-weight:500; margin-top:3px">Atrasados</div>
                                                 <hr style="padding: 0; margin:0px; color: #000000;font-size: 10px;">
-                                                <?php echo $contar . " pedidos.  (" . $unds . " unds)."; ?>
+                                                <?php echo $contar . "  (" . $unds . " unds)."; ?>
                                                 <div style="margin-top:8px; margin-bottom:8px;">
                                                     <span style="background-color: #c00808; color:#FFFFFF; padding:5px; border-radius:50px; "> Ver Detalle <i class="fas fa-angle-right"></i></span>
                                                 </div>
@@ -99,7 +99,7 @@ if (empty($_SESSION['active'])) {
                                             <div class="col-md-8">
                                                 <div class="text-center" style="font-size: 18px; color:black; font-weight:500; margin-top:3px">0 a 3 días</div>
                                                 <hr style="padding: 0; margin:0px; color: #000000;font-size: 10px;">
-                                                <?php echo $contar . " pedidos.  (" . $unds . " unds)."; ?>
+                                                <?php echo $contar . " (" . $unds . " unds)."; ?>
                                                 <div style="margin-top:8px; margin-bottom:8px;">
                                                     <span style="background-color: #f1cd00; color:#FFFFFF; padding:5px; border-radius:50px; "> Ver Detalle <i class="fas fa-angle-right"></i></span>
                                                 </div>
@@ -131,7 +131,7 @@ if (empty($_SESSION['active'])) {
                                             <div class="col-md-8">
                                                 <div class="text-center" style="font-size: 18px; color:black; font-weight:500; margin-top:3px">> 3 días</div>
                                                 <hr style="padding: 0; margin:0px; color: #000000;font-size: 10px;">
-                                                <?php echo $contar . " pedidos.  (" . $unds . " unds)."; ?>
+                                                <?php echo $contar . "  (" . $unds . " unds)."; ?>
                                                 <div style="margin-top:8px; margin-bottom:8px;">
                                                     <span style="background-color:  #20a14b; color:#FFFFFF; padding:5px; border-radius:50px; "> Ver Detalle <i class="fas fa-angle-right"></i></span>
                                                 </div>
@@ -163,7 +163,7 @@ if (empty($_SESSION['active'])) {
                                             <div class="col-md-8">
                                                 <div class="text-center" style="font-size: 18px; color:black; font-weight:500; margin-top:3px">Total</div>
                                                 <hr style="padding: 0; margin:0px; color: #000000;font-size: 10px;">
-                                                <?php echo $contar . " pedidos.  (" . $unds . " unds)."; ?>
+                                                <?php echo $contar . " (" . $unds . " unds)."; ?>
                                                 <div  style="margin-top:8px; margin-bottom:8px;">
                                                     <span class="bg-dark" style="color:#FFFFFF; padding:5px; border-radius:50px; "> Ver Detalle <i class="fas fa-angle-right"></i></span>
                                                 </div>
@@ -695,7 +695,7 @@ if (empty($_SESSION['active'])) {
                 ],
                 responsive: true,
                 "order": [
-                    [0, "des"]
+                    [6, "asc"]
                 ],
                 "pageLength": 10,
                 "language": {

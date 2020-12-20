@@ -1,5 +1,4 @@
 <?php
-session_set_cookie_params(60 * 60 * 24);
 session_start();
 if (!empty($_SESSION['active'])){
     header('location: panel_admin/');
@@ -51,7 +50,7 @@ if (!empty($_SESSION['active'])){
                                         <input type="password" class="form-control form-control-lg  bg-transparent border-left-0 text-kmisetas" id="password" name="password" placeholder="Contraseña">
                                     </div>
                                 </div>
-                                <p style="text-align: right;"> <a href="recuperar.php" class="auth-link text-kmisetas">¿Olvidaste tus datos?</a></p>
+                                <!-- <p style="text-align: right;"> <a href="recuperar.php" class="auth-link text-kmisetas">¿Olvidaste tus datos?</a></p> -->
 
                                 <div style="margin-top: 30px;">
                                     <button type="submit" name="submit" id="submit" style="background-color:  #00a8a8; padding:15px 50px 15px 50px; border-radius:50px; font-weight:600;">Ingresar    </button>

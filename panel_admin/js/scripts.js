@@ -1,38 +1,38 @@
 //icono reload
-$(document).ready(function() {
-    window.onload = function() {
+$(document).ready(function () {
+    window.onload = function () {
         $('.centrado').fadeOut();
     }
 });
 
 //ocultar el sidebar
-(function($) {
+(function ($) {
     "use strict";
 
     // Add active state to sidbar nav links
     var path = window.location.href; // because the 'href' property of the DOM element is the absolute path
-    $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function() {
+    $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function () {
         if (this.href === path) {
             $(this).addClass("active");
         }
     });
 
     // Toggle the side navigation
-    $("#sidebarToggle").on("click", function(e) {
+    $("#sidebarToggle").on("click", function (e) {
         e.preventDefault();
         $("body").toggleClass("sb-sidenav-toggled");
     });
 })(jQuery);
 
 // Validar formularios
-(function() {
+(function () {
     'use strict';
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
         // Get the forms we want to add validation styles to
         var forms = document.getElementsByClassName('needs-validation');
         // Loop over them and prevent submission
-        var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
+        var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
                 if (form.checkValidity() === false) {
                     event.preventDefault();
                     event.stopPropagation();
@@ -48,7 +48,7 @@ function agregarPedido() {
         type: "POST",
         url: "php/agregarPedido.php",
         data: $("#formIngresoPedido").serialize(),
-        success: function(r) {
+        success: function (r) {
             if (r == 1) {
                 alertify.success("Pedido Ingresado Correctamente");
             } else {
@@ -58,7 +58,7 @@ function agregarPedido() {
     });
 }
 //alerta al cancelar modal
-$('.salirModal').click(function() {
+$('.salirModal').click(function () {
     alertify.error("Se Canceló Proceso");
 });
 
@@ -86,7 +86,7 @@ function editarPedido() {
         url: "php/editarPedido.php",
         data: $("#formEditarPedido").serialize(),
         datatype: "json",
-        success: function(r) {
+        success: function (r) {
             if (r == 1) {
                 $('#mostrarTabla').load('tablas/tablaPedido.php');
                 alertify.success("Pedido Editado Correctamente");
@@ -103,7 +103,7 @@ function editarProceso() {
         url: "php/editarProceso.php",
         data: $("#formEditarProceso").serialize(),
         datatype: "json",
-        success: function(r) {
+        success: function (r) {
             console.log(r);
             if (r == 1) {
                 $('.centrado').fadeIn();
@@ -121,11 +121,11 @@ function confirmarAnuladoPedido(datos) {
     d = datos.split('||');
     idPedido = "id=" + d[0];
     alertify.prompt('Anular Pedido', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br><b>Asesor: </b>' + d[3] + '<br><b>Unds: </b>' + d[7] + '<br><b>Procesos: </b>' + d[6] + '<br><br>Motivo por la cual se anula el Pedido:<br>', '',
-        function(evt, value) {
+        function (evt, value) {
             input = idPedido + "&obs=" + value;
             anularPedido(input)
         },
-        function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Anular', cancel: 'Cancelar' });
+        function () { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Anular', cancel: 'Cancelar' });
 }
 //anular Pedido
 function anularPedido(datos) {
@@ -136,7 +136,7 @@ function anularPedido(datos) {
         url: "php/anularPedido.php",
         data: datos,
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             if (data == 1) {
                 $('#mostrarTabla').load('tablas/tablaPedido.php');
                 $('.tablaterminacion').load('tablas/tablaTerminacion.php');
@@ -171,7 +171,7 @@ function editarCliente() {
         url: "php/editarCliente.php",
         data: $("#formEditarCliente").serialize(),
         datatype: "json",
-        success: function(r) {
+        success: function (r) {
             console.log(r);
             if (r == 1) {
                 $('.centrado').fadeIn();
@@ -204,7 +204,7 @@ function editarAsesor() {
         url: "php/editarAsesor.php",
         data: $("#formEditarAsesor").serialize(),
         datatype: "json",
-        success: function(r) {
+        success: function (r) {
 
             if (r == 1) {
                 $('.mostrarTabla').load('tablas/tablaAsesores.php');
@@ -241,7 +241,7 @@ function finalizarNovedad() {
         url: "php/finalizarNovedad.php",
         data: $(".formFinalizarNovedad").serialize(),
         datatype: "json",
-        success: function(r) {
+        success: function (r) {
             if (r == 1) {
                 $('.tablabodega').load('tablas/tablaBodega.php');
                 $('.tablacorte').load('tablas/tablaCorte.php');
@@ -257,6 +257,67 @@ function finalizarNovedad() {
         }
     });
 }
+
+
+//RESTAURAR PEDIDOS EN GENERAL
+//prevenir que se envie datos con ENTER
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('input[type=text]').forEach(node => node.addEventListener('keypress', e => {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "php/cargarPedidosFinalizados.php",
+                data: $('#formRestaurarPedido').serialize(),
+                success: function (r) {
+                    $('#tablaRestaurar').html(r);
+                    $('#nroPedido').focus();
+                    $('#nroPedido').val('');
+                }
+            });
+        }
+    }))
+});
+//cargar datos con change
+$('#nroPedido').change(function (e) {
+    $.ajax({
+        type: "POST",
+        url: "php/cargarPedidosFinalizados.php",
+        data: $('#formRestaurarPedido').serialize(),
+        success: function (r) {
+            $('#tablaRestaurar').html(r);
+            $('#nroPedido').focus();
+            $('#nroPedido').val('');
+        }
+    });
+
+});
+//restaurar pedidos
+$('#btnRestaurar').click(function () {
+    $.ajax({
+        type: "POST",
+        url: "php/restaurarPedidos.php",
+        data: $('#formRestaurarPedido').serialize(),
+        dataType: "json",
+        success: function (data) {
+            if (data == 1) {
+                $('.tablabodega').load('tablas/tablaBodega.php');
+                $('.tablacorte').load('tablas/tablaCorte.php');
+                $('.tablaconfeccion').load('tablas/tablaConfeccion.php');
+                $('.tablasublimacion').load('tablas/tablaSublimacion.php');
+                $('.tablaestampacion').load('tablas/tablaEstampacion.php');
+                $('.tablabordado').load('tablas/tablaBordado.php');
+                $('.tablaterminacion').load('tablas/tablaTerminacion.php');
+                alertify.success('Pedido Restaurado');
+            } else {
+                alertify.error('Error al Restaurar Pedido');
+            }
+            $('#nroPedido').val('');
+            $('#tablaRestaurar').html('');
+        }
+    });
+
+});
 
 
 //SCRIPTS DE BODEGA
@@ -289,7 +350,7 @@ function editarBodega() {
         url: "php/editarBodega.php",
         data: $("#formEditarBodega").serialize(),
         datatype: "json",
-        success: function(r) {
+        success: function (r) {
             console.log(r);
             if (r == 1) {
                 $('.centrado').fadeIn();
@@ -310,7 +371,7 @@ function novedadBodega() {
         url: "php/novedadBodega.php",
         data: $("#formNovedadBodega").serialize(),
         datatype: "json",
-        success: function(r) {
+        success: function (r) {
             if (r == 1) {
                 $('.centrado').fadeIn();
                 $('.tablabodega').load('tablas/tablaBodega.php');
@@ -332,11 +393,11 @@ function confirmarFinalizarBodega(datos) {
         alertify.alert('Finalizar Novedad', '<center>Este pedido contiene una novedad que no ha sido solucionada. <br>Por favor darle trámite para finalizar Pedido.</center>');
     } else {
         alertify.prompt('Finalizar Bodega', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br><b>Asesor: </b>' + d[3] + " (" + d[15] + ")" + '<br><b>Unds: </b>' + d[8] + '<br><b>Procesos: </b>' + d[7] + '<br><br>Observaciones de Finalizado :<br>', '',
-            function(evt, obs) {
+            function (evt, obs) {
                 input = idPedido + "&obs=" + obs + idBodega + unds + idNovedad;
                 finalizarBodega(input)
             },
-            function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
+            function () { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
     }
 }
 //finalizar Pedido
@@ -346,7 +407,7 @@ function finalizarBodega(datos) {
         url: "php/finalizarBodega.php",
         data: datos,
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             if (data == 1) {
                 $('.tablabodega').load('tablas/tablaBodega.php');
                 alertify.success('Pedido Finalizado Correctamente');
@@ -390,7 +451,7 @@ function editarCorte() {
         url: "php/editarCorte.php",
         data: $("#formEditarCorte").serialize(),
         datatype: "json",
-        success: function(r) {
+        success: function (r) {
             console.log(r);
             if (r == 1) {
                 $('.tablacorte').load('tablas/tablaCorte.php');
@@ -409,7 +470,7 @@ function novedadCorte() {
         url: "php/novedadCorte.php",
         data: $("#formNovedadCorte").serialize(),
         datatype: "json",
-        success: function(r) {
+        success: function (r) {
             if (r == 1) {
                 $('.tablacorte').load('tablas/tablaCorte.php');
                 alertify.success("Novedad Generada Correctamente. Se ha enviado copia al Comercial");
@@ -428,11 +489,11 @@ function confirmarFinalizarCorte(datos) {
         alertify.alert('Finalizar Novedad', '<center>Este pedido contiene una novedad que no ha sido solucionada. <br>Por favor darle trámite para finalizar Pedido.</center>');
     } else {
         alertify.prompt('Finalizar Corte', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br><b>Asesor: </b>' + d[3] + " (" + d[15] + ")" + '<br><b>Unds: </b>' + d[8] + '<br><b>Procesos: </b>' + d[7] + '<br><br>Observaciones de Finalizado :<br>', '',
-            function(evt, obs) {
+            function (evt, obs) {
                 input = idPedido + idCorte + unds + "&obs=" + obs;
                 finalizarCorte(input);
             },
-            function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
+            function () { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
     }
 }
 //finalizar Pedido
@@ -442,7 +503,7 @@ function finalizarCorte(datos) {
         url: "php/finalizarCorte.php",
         data: datos,
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             if (data == 1) {
                 $('.tablacorte').load('tablas/tablaCorte.php');
                 alertify.success('Pedido Finalizado Correctamente');
@@ -486,7 +547,7 @@ function editarConfeccion() {
         url: "php/editarConfeccion.php",
         data: $("#formEditarConfeccion").serialize(),
         datatype: "json",
-        success: function(r) {
+        success: function (r) {
             if (r == 1) {
                 $('.tablaconfeccion').load('tablas/tablaConfeccion.php');
                 alertify.success("Pedido Editado Correctamente");
@@ -504,7 +565,7 @@ function novedadConfeccion() {
         url: "php/novedadConfeccion.php",
         data: $("#formNovedadConfeccion").serialize(),
         datatype: "json",
-        success: function(r) {
+        success: function (r) {
             if (r == 1) {
                 $('.tablaconfeccion').load('tablas/tablaConfeccion.php');
                 alertify.success("Novedad Generada Correctamente. Se ha enviado copia al Comercial");
@@ -524,11 +585,11 @@ function confirmarFinalizarConfeccion(datos) {
         alertify.alert('Finalizar Novedad', '<center>Este pedido contiene una novedad que no ha sido solucionada. <br>Por favor darle trámite para finalizar Pedido.</center>');
     } else {
         alertify.prompt('Finalizar Confeccion', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br><b>Asesor: </b>' + d[3] + " (" + d[15] + ")" + '<br><b>Unds: </b>' + d[8] + '<br><b>Procesos: </b>' + d[7] + '<br><br>Observaciones de Finalizado :<br>', '',
-            function(evt, obs) {
+            function (evt, obs) {
                 input = idPedido + idConfeccion + unds + "&obs=" + obs;
                 finalizarConfeccion(input);
             },
-            function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
+            function () { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
     }
 }
 //finalizar Pedido
@@ -538,7 +599,7 @@ function finalizarConfeccion(datos) {
         url: "php/finalizarConfeccion.php",
         data: datos,
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             if (data == 1) {
                 $('.tablaconfeccion').load('tablas/tablaConfeccion.php');
                 alertify.success('Pedido Finalizado Correctamente');
@@ -582,7 +643,7 @@ function editarSublimacion() {
         url: "php/editarSublimacion.php",
         data: $("#formEditarSublimacion").serialize(),
         datatype: "json",
-        success: function(r) {
+        success: function (r) {
             console.log(r);
             if (r == 1) {
                 $('.tablasublimacion').load('tablas/tablaSublimacion.php');
@@ -601,7 +662,7 @@ function novedadSublimacion() {
         url: "php/novedadSublimacion.php",
         data: $("#formNovedadSublimacion").serialize(),
         datatype: "json",
-        success: function(r) {
+        success: function (r) {
             if (r == 1) {
                 $('.tablasublimacion').load('tablas/tablaSublimacion.php');
                 alertify.success("Novedad Generada Correctamente. Se ha enviado copia al Comercial");
@@ -620,11 +681,11 @@ function confirmarFinalizarSublimacion(datos) {
         alertify.alert('Finalizar Novedad', '<center>Este pedido contiene una novedad que no ha sido solucionada. <br>Por favor darle trámite para finalizar Pedido.</center>');
     } else {
         alertify.prompt('Finalizar Sublimación', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br><b>Asesor: </b>' + d[3] + " (" + d[15] + ")" + '<br><b>Unds: </b>' + d[8] + '<br><b>Procesos: </b>' + d[7] + '<br><br>Observaciones de Finalizado :<br>', '',
-            function(evt, obs) {
+            function (evt, obs) {
                 input = idPedido + idSublimacion + unds + "&obs=" + obs;
                 finalizarSublimacion(input);
             },
-            function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
+            function () { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
     }
 }
 //finalizar Pedido
@@ -634,7 +695,7 @@ function finalizarSublimacion(datos) {
         url: "php/finalizarSublimacion.php",
         data: datos,
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             if (data == 1) {
                 $('.tablasublimacion').load('tablas/tablaSublimacion.php');
                 alertify.success('Pedido Finalizado Correctamente');
@@ -668,8 +729,9 @@ function formEditarEstampacion(datos) {
     $('.parcial').val(d[12]);
     $('.idNovedad').val(d[13]);
     $('.novedad').val(d[14]);
-    $('.arte').val(d[17]);
-    if(d[18]=='si'){$('.grabacion').val('X');}else{$('.grabacion').val(d[18]);}
+    $('.arte_diseno').val(d[17]);
+    $('.arte_impresion').val(d[32]);
+    if (d[18] == 'si') { $('.grabacion').val('✓'); } else { $('.grabacion').val(d[18]); }
     $('.estampacion').val(d[19]);
     $('.sublimacion').val(d[20]);
     $('.tecnica').val(d[21]);
@@ -692,7 +754,7 @@ function editarEstampacion() {
         url: "php/editarEstampacion.php",
         data: $("#formEditarEstampacion").serialize(),
         datatype: "json",
-        success: function(r) {
+        success: function (r) {
             console.log(r);
             if (r == 1) {
                 $('.tablaestampacion').load('tablas/tablaEstampacion.php');
@@ -711,7 +773,7 @@ function novedadEstampacion() {
         url: "php/novedadEstampacion.php",
         data: $("#formNovedadEstampacion").serialize(),
         datatype: "json",
-        success: function(r) {
+        success: function (r) {
             if (r == 1) {
                 $('.tablaestampacion').load('tablas/tablaEstampacion.php');
                 alertify.success("Novedad Generada Correctamente. Se ha enviado copia al Comercial");
@@ -730,11 +792,11 @@ function confirmarFinalizarEstampacion(datos) {
         alertify.alert('Finalizar Novedad', '<center>Este pedido contiene una novedad que no ha sido solucionada. <br>Por favor darle trámite para finalizar Pedido.</center>');
     } else {
         alertify.prompt('Finalizar Sublimación', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br><b>Asesor: </b>' + d[3] + " (" + d[15] + ")" + '<br><b>Unds: </b>' + d[8] + '<br><b>Procesos: </b>' + d[7] + '<br><br>Observaciones de Finalizado :<br>', '',
-            function(evt, obs) {
+            function (evt, obs) {
                 input = idPedido + idEstampacion + unds + "&obs=" + obs;
                 finalizarEstampacion(input);
             },
-            function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
+            function () { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
     }
 }
 //finalizar Pedido
@@ -744,7 +806,7 @@ function finalizarEstampacion(datos) {
         url: "php/finalizarEstampacion.php",
         data: datos,
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             if (data == 1) {
                 $('.tablaestampacion').load('tablas/tablaEstampacion.php');
                 alertify.success('Pedido Finalizado Correctamente');
@@ -779,9 +841,9 @@ function formEditarBordado(datos) {
     $('.idNovedad').val(d[13]);
     $('.novedad').val(d[14]);
     $('.logo').val(d[17]);
-    if(d[18]=="x"){$('.pte_diseno').val('X')}else{$('.pte_diseno').val(d[18])};
+    if (d[18] == "x") { $('.pte_diseno').val('X') } else { $('.pte_diseno').val(d[18]) };
     $('.num_bordado').val(d[19]);
-    if(d[20]=="x"){$('.muestra').val("X")}else{$('.muestra').val(d[20])};
+    if (d[20] == "x") { $('.muestra').val("X") } else { $('.muestra').val(d[20]) };
     $('.punt_unidad').val(d[21]);
 
 
@@ -793,7 +855,7 @@ function editarBordado() {
         url: "php/editarBordado.php",
         data: $("#formEditarBordado").serialize(),
         datatype: "json",
-        success: function(r) {
+        success: function (r) {
             console.log(r);
             if (r == 1) {
                 $('.tablabordado').load('tablas/tablaBordado.php');
@@ -812,7 +874,7 @@ function novedadBordado() {
         url: "php/novedadBordado.php",
         data: $("#formNovedadBordado").serialize(),
         datatype: "json",
-        success: function(r) {
+        success: function (r) {
             if (r == 1) {
                 $('.tablabordado').load('tablas/tablaBordado.php');
                 alertify.success("Novedad Generada Correctamente. Se ha enviado copia al Comercial");
@@ -831,11 +893,11 @@ function confirmarFinalizarBordado(datos) {
         alertify.alert('Finalizar Novedad', '<center>Este pedido contiene una novedad que no ha sido solucionada. <br>Por favor darle trámite para finalizar Pedido.</center>');
     } else {
         alertify.prompt('Finalizar Bordado', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br><b>Asesor: </b>' + d[3] + " (" + d[15] + ")" + '<br><b>Unds: </b>' + d[8] + '<br><b>Procesos: </b>' + d[7] + '<br><br>Observaciones de Finalizado :<br>', '',
-            function(evt, obs) {
+            function (evt, obs) {
                 input = idPedido + idBordado + unds + "&obs=" + obs;
                 finalizarBordado(input);
             },
-            function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
+            function () { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
     }
 }
 //finalizar Pedido
@@ -845,7 +907,7 @@ function finalizarBordado(datos) {
         url: "php/finalizarBordado.php",
         data: datos,
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             if (data == 1) {
                 $('.tablabordado').load('tablas/tablaBordado.php');
                 alertify.success('Pedido Finalizado Correctamente');
@@ -889,7 +951,7 @@ function editarTerminacion() {
         url: "php/editarTerminacion.php",
         data: $("#formEditarTerminacion").serialize(),
         datatype: "json",
-        success: function(r) {
+        success: function (r) {
             console.log(r);
             if (r == 1) {
                 $('.tablaterminacion').load('tablas/tablaTerminacion.php');
@@ -908,7 +970,7 @@ function novedadTerminacion() {
         url: "php/novedadTerminacion.php",
         data: $("#formNovedadTerminacion").serialize(),
         datatype: "json",
-        success: function(r) {
+        success: function (r) {
             if (r == 1) {
                 $('.tablaterminacion').load('tablas/tablaTerminacion.php');
                 alertify.success("Novedad Generada Correctamente. Se ha enviado copia al Comercial");
@@ -934,11 +996,11 @@ function confirmarFinalizarTerminacion(datos) {
             alertify.alert('Finalizar Novedad', '<center>Este pedido contiene una novedad que no ha sido solucionada. <br>Por favor darle trámite para finalizar Pedido.</center>');
         } else {
             alertify.prompt('Finalizar Terminacion', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br> <b> Correo Cliente: </b>' + d[17] + ' <br> <b> Asesor: </b> ' + d[3] + " (" + d[15] + ")" + ' <br> <b> Unds: </b> ' + d[7] + ' <br> <b> Procesos: </b> ' + d[6] + ' <br> <br> Observaciones de Finalizado: <br> ', '',
-                function(evt, obs) {
+                function (evt, obs) {
                     input = idPedido + idTerminacion + unds + "&obs=" + obs + correoAsesor + correoCliente + nombreCliente + nombreAsesor + nroPedido;
                     finalizarTerminacion(input);
                 },
-                function() { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
+                function () { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
         }
     } else {
         alertify.alert('Ingresar Correo al Cliente', '<center>El Cliente no tiene correo, por favor hablar con el comercial para actualizar datos del clientes.</center>');
@@ -953,7 +1015,7 @@ function finalizarTerminacion(datos) {
         url: "php/finalizarTerminacion.php",
         data: datos,
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             console.log(data);
             if (data == 1) {
                 $('.tablaterminacion').load('tablas/tablaTerminacion.php');
@@ -969,7 +1031,7 @@ function finalizarTerminacion(datos) {
         url: "php/correoCliente.php",
         data: datos,
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             console.log(data);
             if (data == 1) {
                 alertify.success('Se ha enviado correo al Cliente y al Comercial');
@@ -981,3 +1043,4 @@ function finalizarTerminacion(datos) {
         }
     });
 }
+

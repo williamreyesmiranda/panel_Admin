@@ -10,8 +10,8 @@ $usuario = $_SESSION['iduser'];
 
 $conexion = new Conexion();
 $consultaSQL = "UPDATE confeccion SET parcial='$unds', obs_confeccion='$obs',
-                   usuario='$usuario', finprocesofecha='$fechaFin', estado=4, entrega='X'
+                   usuario='$usuario', finprocesofecha='$fechaFin', estado=4, entrega='✓'
                     WHERE idconfeccion='$idConfeccion';
-                 UPDATE pedidos SET estConfeccion='X' WHERE idpedido='$idPedido';";
+                 UPDATE pedidos SET estConfeccion='✓' WHERE idpedido='$idPedido';";
 $result = $conexion->editarDatos($consultaSQL);
 echo json_encode($result);
