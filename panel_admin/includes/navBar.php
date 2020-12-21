@@ -290,7 +290,7 @@
             </div>
         </div>
     </div>
-    <!-- modal Restaurar Pedido -->
+    <!-- modal Editar Usuario -->
     <div class="modal fade" id="editarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content ">
@@ -303,10 +303,45 @@
                 <div class="modal-body">
                     <div class=" mx-auto d-block border border-dark rounded col-md-9">
                         <h3 class="mx-auto d-block mt-2 p-1 text-center"><span>En construcción</span></h3>
+                        <form action="" id="formEditarUsuario" method="POST" novalidate>
+                            <div class="form-group">
+                                <input type="hidden" name="idUsuario" value="<?php echo $_SESSION['iduser'] ?>">
+                                <label for="nombre" class="font-weight-bold">Nombre:</label>
+                                <input type="text" class="form-control " name="nombre" id="nombre" aria-describedby="helpId" value="<?php echo $_SESSION['nombre'] ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="cedula" class="font-weight-bold">Identificación:</label>
+                                <input type="text" class="form-control" name="cedula" id="cedula" aria-describedby="helpId" value="<?php echo $_SESSION['cedula'] ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="sexo" class="font-weight-bold">Género:</label>
+                                <select name="sexo" id="sexo" class="custom-select itemunico">
+                                    <option value="<?php echo $_SESSION['sexo'] ?>"><?php if ($_SESSION['sexo'] == 'hombre') {
+                                                                                        echo "Masculino";
+                                                                                    } else {
+                                                                                        echo "Femenino";
+                                                                                    } ?></option>
+                                    <option value="hombre">Masculino</option>
+                                    <option value="mujer">Femenino</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="usuario" class="font-weight-bold">Usuario:</label>
+                                <input type="text" class="form-control" name="usuario" id="usuario" aria-describedby="helpId" value="<?php echo $_SESSION['user'] ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="clave" class="font-weight-bold">Contraseña:</label>
+                                <input type="password" class="form-control" name="clave" id="clave" aria-describedby="helpId" value="<?php echo $_SESSION['clave'] ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="correo" class="font-weight-bold">Correo:</label>
+                                <input type="email" class="form-control" name="correo" id="correo" aria-describedby="helpId" value="<?php echo $_SESSION['correo'] ?>">
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal" id="btnRestaurar" onclick="">Editar Usuario</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="btnEditarUsuario" onclick="editarUsuario()">Editar Usuario</button>
                     <button type="button" class="btn btn-danger salirModal" data-dismiss="modal" id="salirModal">Cancelar</button>
 
                 </div>

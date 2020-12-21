@@ -62,6 +62,34 @@ $('.salirModal').click(function () {
     alertify.error("Se Canceló Proceso");
 });
 
+//Editar Usuario
+function editarUsuario() {
+    $.ajax({
+        type: "POST",
+        url: "php/editarUsuario.php",
+        data: $('#formEditarUsuario').serialize(),
+        dataType: "json",
+        success: function (r) {
+            console.log(r);
+            if (r == 1) {
+                Swal.fire({
+                    position: 'center',
+                    html: '<br><img src="images/logo_kamisetas.png" alt="" style="width:100px">',
+                    title: '<br>Usuario Editado<br><br>Para ver los cambios se cerrará la sesión.!!',
+                    background: ' #181313ec',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                    backdrop: false,
+                }).then((result) => {
+                    window.location.href = "../db/logout.php";});
+            } else {
+                alertify.error("Error al Editar Usuario");
+            }
+        }
+    });
+}
+
 
 // SCRIPTS DATOS DE PEDIDOS
 //ingresar datos a formulario editar pedido
@@ -991,18 +1019,18 @@ function confirmarFinalizarTerminacion(datos) {
     nombreAsesor = "&nombreAsesor=" + d[15];
     nroPedido = "&nroPedido=" + d[1];
 
-    
-        if (d[13] != 0) {
-            alertify.alert('Finalizar Novedad', '<center>Este pedido contiene una novedad que no ha sido solucionada. <br>Por favor darle trámite para finalizar Pedido.</center>');
-        } else {
-            alertify.prompt('Finalizar Terminacion', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br> <b> Correo Cliente: </b>' + d[17] + ' <br> <b> Asesor: </b> ' + d[3] + " (" + d[15] + ")" + ' <br> <b> Unds: </b> ' + d[7] + ' <br> <b> Procesos: </b> ' + d[6] + ' <br> <br> Observaciones de Finalizado: <br> ', '',
-                function (evt, obs) {
-                    input = idPedido + idTerminacion + unds + "&obs=" + obs + correoAsesor + correoCliente + nombreCliente + nombreAsesor + nroPedido;
-                    finalizarTerminacion(input);
-                },
-                function () { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
-        }
+
+    if (d[13] != 0) {
+        alertify.alert('Finalizar Novedad', '<center>Este pedido contiene una novedad que no ha sido solucionada. <br>Por favor darle trámite para finalizar Pedido.</center>');
+    } else {
+        alertify.prompt('Finalizar Terminacion', '<b>Pedido: </b>' + d[1] + '<br><b>Cliente: </b>' + d[2] + '<br> <b> Correo Cliente: </b>' + d[17] + ' <br> <b> Asesor: </b> ' + d[3] + " (" + d[15] + ")" + ' <br> <b> Unds: </b> ' + d[7] + ' <br> <b> Procesos: </b> ' + d[6] + ' <br> <br> Observaciones de Finalizado: <br> ', '',
+            function (evt, obs) {
+                input = idPedido + idTerminacion + unds + "&obs=" + obs + correoAsesor + correoCliente + nombreCliente + nombreAsesor + nroPedido;
+                finalizarTerminacion(input);
+            },
+            function () { alertify.error('Se Canceló Proceso') }).set('labels', { ok: 'Finalizar', cancel: 'Cancelar' });
     }
+}
 //finalizar Pedido
 function finalizarTerminacion(datos) {
     console.log(datos)
@@ -1030,7 +1058,7 @@ function finalizarTerminacion(datos) {
         success: function (data) {
             console.log(data);
             if (data == 1) {
-                alertify.success('Se ha enviado correo al Cliente y al Comercial');
+                alertify.success('Se ha enviado correo al Comercial');
             } else if (data == 2) {
                 alertify.warning('El correo no se envía hasta que todo quede terminado');
             } else {
