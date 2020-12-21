@@ -73,8 +73,8 @@ if (isset($_POST['from']))
 <html lang="es">
 <head>
         <meta charset="utf-8">
-        <title>Calendario</title>
-       
+        <title>Permisos</title>
+        <link rel="shortcut icon" href="images/icono.png" />
         <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/calendar.css">
         <link rel="stylesheet" href="css/navBarVertical.scss">
@@ -114,7 +114,7 @@ if (isset($_POST['from']))
 
                                 </div>
                                     <div class="pull-right form-inline"><br>
-                                        <button class="btn btn-info" data-toggle='modal' data-target='#add_evento'>Añadir Evento</button>
+                                        <button class="btn btn-info" data-toggle='modal' data-target='#add_evento'>Añadir Permiso</button>
                                     </div>
 
                 </div><hr>

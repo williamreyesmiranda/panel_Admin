@@ -29,7 +29,7 @@ if($undsPedido==$undsTerminadas){
         <h1 style=\" text-transform: uppercase;\">".$nombreAsesor."</h1> 
         <p> 
         
-        <b>Te informamos que tu pedido ya se encuentra finalizado y listo para entrega</b>. <br><br>
+        <b>Te informamos que este pedido se encuentra listo para entrega</b>. <br><br>
         Información del pedido <br>
         Pedido: ".$nroPedido."<br>
         Unds: ".$undsTerminadas."<br>
@@ -48,7 +48,7 @@ if($undsPedido==$undsTerminadas){
         $headers .= "From: No Responder <noreply@intranetk-misetas.com>\r\n"; 
         
         //dirección de respuesta, si queremos que sea distinta que la del remitente 
-        $headers .= "Reply-To:".$correoAsesor."\r\n"; 
+        //$headers .= "Reply-To:".$correoAsesor."\r\n"; 
         
         //ruta del mensaje desde origen a destino 
         /* $headers .= "Return-path:".$correoCliente."\r\n";  */

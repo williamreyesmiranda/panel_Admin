@@ -129,7 +129,7 @@ if (empty($_SESSION['active'])) {
                                                 <i class="fas fa-bell "></i>
                                             </div>
                                             <div class="col-md-8">
-                                                <div class="text-center" style="font-size: 18px; color:black; font-weight:500; margin-top:3px">> 3 días</div>
+                                                <div class="text-center" style="font-size: 18px; color:black; font-weight:500; margin-top:3px">4 días en Adelante</div>
                                                 <hr style="padding: 0; margin:0px; color: #000000;font-size: 10px;">
                                                 <?php echo $contar . "  (" . $unds . " unds)."; ?>
                                                 <div style="margin-top:8px; margin-bottom:8px;">

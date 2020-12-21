@@ -1033,7 +1033,6 @@ function confirmarFinalizarTerminacion(datos) {
 }
 //finalizar Pedido
 function finalizarTerminacion(datos) {
-    console.log(datos)
     $.ajax({
         type: "POST",
         url: "php/finalizarTerminacion.php",
