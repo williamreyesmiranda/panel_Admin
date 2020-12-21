@@ -12,6 +12,6 @@ $conexion = new Conexion();
 $consultaSQL = "UPDATE confeccion SET parcial='$unds', obs_confeccion='$obs',
                    usuario='$usuario', finprocesofecha='$fechaFin', estado=4, entrega='✓'
                     WHERE idconfeccion='$idConfeccion';
-                 UPDATE pedidos SET estConfeccion='✓' WHERE idpedido='$idPedido';";
+                 UPDATE pedidos SET estConfeccion='✓', estado=1 WHERE idpedido='$idPedido';";
 $result = $conexion->editarDatos($consultaSQL);
 echo json_encode($result);

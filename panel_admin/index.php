@@ -165,7 +165,7 @@ if (empty($_SESSION['active'])) {
                                                 <hr style="padding: 0; margin:0px; color: #000000;font-size: 10px;">
                                                 <?php echo $contar . " (" . $unds . " unds)."; ?>
                                                 <div  style="margin-top:8px; margin-bottom:8px;">
-                                                    <span class="bg-dark" style="color:#FFFFFF; padding:5px; border-radius:50px; "> Ver Detalle <i class="fas fa-angle-right"></i></span>
+                                                    <span class="bg-dark" style="color:#FFFFFF; padding:5px; border-radius:50px; "> Ver Calendario <i class="fas fa-angle-right"></i></span>
                                                 </div>
                                             </div>
 

@@ -12,6 +12,6 @@ $conexion = new Conexion();
 $consultaSQL = "UPDATE bordado SET parcial='$unds', obs_bordado='$obs',
                    usuario='$usuario', finprocesofecha='$fechaFin', estado=4 
                     WHERE idbordado='$idBordado';
-                 UPDATE pedidos SET estBordado='✓' WHERE idpedido='$idPedido'";
+                 UPDATE pedidos SET estBordado='✓', estado=1 WHERE idpedido='$idPedido'";
 $result = $conexion->editarDatos($consultaSQL);
 echo json_encode($result);

@@ -111,7 +111,7 @@ if (empty($_SESSION['active'])) {
                 $oc=@$result[0]['oc'];
                 $unds_corte=@$result[0]['parcial'];
                 if($unds==$unds_corte){
-                    $unds_corte="OK";}
+                    $unds_corte="✓";}
                     
                 $datos = $pedido['idpedido'] . "||" . $pedido['num_pedido'] . "||" . $pedido['cliente'] . "||" . $pedido['asesor'] . "||" . $pedido['iniciopedido'] . "||" .
                     $pedido['finpedido'] . "||" . $pedido['diaspedido'] . "||" . $pedido['siglas'] . "||" . $pedido['unds'] . "||" . $pedido['estadopedido'] . "||" . $pedido['idconfeccion'] .

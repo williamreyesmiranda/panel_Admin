@@ -182,7 +182,7 @@ if (empty($_SESSION['active'])) {
                                                         $oc = @$result[0]['oc'];
                                                         $unds_corte = @$result[0]['parcial'];
                                                         if ($unds == $unds_corte) {
-                                                            $unds_corte = "OK";
+                                                            $unds_corte = "✓";
                                                         }
                                                     ?>
 
@@ -276,7 +276,7 @@ if (empty($_SESSION['active'])) {
                                                         $oc = @$result[0]['oc'];
                                                         $unds_corte = @$result[0]['parcial'];
                                                         if ($unds == $unds_corte) {
-                                                            $unds_corte = "OK";
+                                                            $unds_corte = "✓";
                                                         }
                                                     ?>
 
@@ -370,7 +370,7 @@ if (empty($_SESSION['active'])) {
                                                         $oc = @$result[0]['oc'];
                                                         $unds_corte = @$result[0]['parcial'];
                                                         if ($unds == $unds_corte) {
-                                                            $unds_corte = "OK";
+                                                            $unds_corte = "✓";
                                                         }
                                                     ?>
 
@@ -543,7 +543,7 @@ if (empty($_SESSION['active'])) {
                                                                             $oc = @$result[0]['oc'];
                                                                             $unds_corte = @$result[0]['parcial'];
                                                                             if ($unds == $unds_corte) {
-                                                                                $unds_corte = "OK";
+                                                                                $unds_corte = "✓";
                                                                             }
                                                                         ?>
 
