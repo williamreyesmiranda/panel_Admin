@@ -25,6 +25,10 @@ if($resultado){
     $_SESSION['cedula'] = $resultado[0]['cedula']; 
     $_SESSION['clave'] = $resultado[0]['clave']; 
     $_SESSION['correo'] = $resultado[0]['correo']; 
+
+    $user=$resultado[0]['usuario'];
+    $consultaSQL="INSERT INTO inicio_sesion(usuario, hora) VALUES ('$user', current_timestamp())";
+    $resultado = $conexion->agregarDatos($consultaSQL);
 }else{
    print json_encode(-1);
    
