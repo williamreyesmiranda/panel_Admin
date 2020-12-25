@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
 <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
 <script src="jquery/jquery-3.5.1.min.js"></script>
+<script src="plugins/plotly/plotly.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
 <script src="plugins/alertify/alertify.js"></script>

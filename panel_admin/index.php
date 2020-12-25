@@ -164,7 +164,7 @@ if (empty($_SESSION['active'])) {
                                                 <div class="text-center" style="font-size: 18px; color:black; font-weight:500; margin-top:3px">Total</div>
                                                 <hr style="padding: 0; margin:0px; color: #000000;font-size: 10px;">
                                                 <?php echo $contar . " (" . $unds . " unds)."; ?>
-                                                <div  style="margin-top:8px; margin-bottom:8px;">
+                                                <div style="margin-top:8px; margin-bottom:8px;">
                                                     <span class="bg-dark" style="color:#FFFFFF; padding:5px; border-radius:50px; "> Ver Calendario <i class="fas fa-angle-right"></i></span>
                                                 </div>
                                             </div>
@@ -581,6 +581,12 @@ if (empty($_SESSION['active'])) {
                         </table>
                     </div>
                 </div>
+                <!-- grafico pieChart -->
+                <div class="row mt-3 mb-3 rounded-3">
+                    <div class="col-sm-6 text-center mx-auto">
+                    <div class="pieChart"></div>
+                    </div>
+                </div>
                 <!-- Novedades -->
                 <div class="card mb-4 ">
                     <div class="card-header  alert-secondary" style="background-color: #FFFFFF;">
@@ -648,7 +654,6 @@ if (empty($_SESSION['active'])) {
                         </div>
                     </div>
                 </div>
-
             </div>
 
         </main>
@@ -660,6 +665,7 @@ if (empty($_SESSION['active'])) {
     <!-- alerta al cancelar modal -->
     <script>
         $(document).ready(function() {
+            $('.pieChart').load('graficos/graficoGeneralPedidos.php');
             $('.tablaDinamica').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
