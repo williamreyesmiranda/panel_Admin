@@ -580,13 +580,17 @@ if (empty($_SESSION['active'])) {
 
                         </table>
                     </div>
-                </div>
-                <!-- grafico pieChart -->
-                <div class="row mt-3 mb-3 rounded-3">
-                    <div class="col-sm-6 text-center mx-auto">
-                    <div class="pieChart"></div>
+                    <!-- grafico pieChart -->
+                    <div class="row mt-3 mb-3 mx-auto rounded">
+                        <div class="col-sm-4 mx-auto">
+                            <div class="pieChart"></div>
+                        </div>
+                        <div class="col-sm-8 mx-auto">
+                            <div class="barChart"></div>
+                        </div>
                     </div>
                 </div>
+
                 <!-- Novedades -->
                 <div class="card mb-4 ">
                     <div class="card-header  alert-secondary" style="background-color: #FFFFFF;">
@@ -665,7 +669,8 @@ if (empty($_SESSION['active'])) {
     <!-- alerta al cancelar modal -->
     <script>
         $(document).ready(function() {
-            $('.pieChart').load('graficos/graficoGeneralPedidos.php');
+            $('.pieChart').load('graficos/pieChartPedidos.php');
+            $('.barChart').load('graficos/barChartPedidos.php');
             $('.tablaDinamica').DataTable({
                 dom: 'Bfrtip',
                 buttons: [

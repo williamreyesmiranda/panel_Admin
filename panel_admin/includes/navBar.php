@@ -5,6 +5,7 @@
     <!-- Navbar-->
     <ul class="navbar-nav  ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <p class=" mx-auto"><?php
+       
                             include("functions.php");
                             /* echo fechaC(); */ ?> </p>&nbsp;&nbsp;
 
@@ -302,8 +303,8 @@
                 </div>
                 <div class="modal-body">
                     <div class=" mx-auto d-block border border-dark rounded col-md-9">
-                        <h3 class="mx-auto d-block mt-2 p-1 text-center"><span>En construcción</span></h3>
-                        <form action="" id="formEditarUsuario" method="POST" novalidate>
+                        
+                        <form action="" id="formEditarUsuario" method="POST"  class="mt-3" novalidate>
                             <div class="form-group">
                                 <input type="hidden" name="idUsuario" value="<?php echo $_SESSION['iduser'] ?>">
                                 <label for="nombre" class="font-weight-bold">Nombre:</label>

@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('America/Bogota'); 
 function fechaToDays($from, $to)
 {
     $workingDays = [1, 2, 3, 4, 5]; # formato = N (1 = lunes, ...)

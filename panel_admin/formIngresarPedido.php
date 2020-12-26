@@ -15,14 +15,15 @@ if (empty($_SESSION['active'])) {
         $fechaInicio = $_POST['fechaInicio'];
         $fechaFin = $_POST['fechaFin'];
         $unds = $_POST['unds'];
+        $valor=$_POST['valor'];
         $procesos = $_POST['procesos'];
         $idUsuario = $_SESSION['iduser'];
         $diasHabiles = $_POST['diasHabiles'];
 
         //ingresar datos a tabla pedidos
         $conexion = new Conexion();
-        $consultaSQL = ("INSERT INTO pedidos(num_pedido,cliente, fecha_inicio, fecha_fin, dias_habiles, procesos, unds, asesor, usuario)
-        values('$nroPedido','$nombreCliente','$fechaInicio','$fechaFin','$diasHabiles','$procesos','$unds', '$asesor', '$idUsuario')");
+        $consultaSQL = ("INSERT INTO pedidos(num_pedido,cliente, fecha_inicio, fecha_fin, dias_habiles, procesos, unds, asesor, usuario, valor)
+        values('$nroPedido','$nombreCliente','$fechaInicio','$fechaFin','$diasHabiles','$procesos','$unds', '$asesor', '$idUsuario', '$valor')");
         $insert = $conexion->agregarDatos($consultaSQL);
 
         //veridicar si se ingresó datos a pedidos para ingresarlos a las áreas
@@ -168,7 +169,7 @@ if (empty($_SESSION['active'])) {
                         <form action="" id="formIngresoPedido" class="needs-validation mt-4 p-2 " method="POST" novalidate>
                             <div class="form-row">
                                 <div class="form-group col-md-3">
-                                    <input type="text" class="form-control" id="nroPedido" name="nroPedido" placeholder="Nro Pedido(*)" autocomplete="off" required autofocus>
+                                    <input type="text" class="form-control" name="nroPedido" placeholder="Nro Pedido(*)" autocomplete="off" required autofocus>
                                     <div class="invalid-feedback">Ingrese el Nro de Pedido</div>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -250,6 +251,12 @@ if (empty($_SESSION['active'])) {
 
                                     <!-- <div class="valid-feedback">Listo</div> -->
                                     <div class="invalid-feedback">Ingrese Los Procesos</div>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="valor">Valor: (*)</label>
+                                    <input type="number" class="form-control " id="valor" placeholder="" name="valor" required>
+                                    <!-- <div class="valid-feedback">Listo</div> -->
+                                    <div class="invalid-feedback">Ingrese Valor Pedido</div>
                                 </div>
                             </div>
                             <div id="diasProceso" class=""></div>

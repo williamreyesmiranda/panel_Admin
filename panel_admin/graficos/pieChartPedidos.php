@@ -18,13 +18,16 @@ if (empty($_SESSION['active'])) {
     $consultaSQL = "SELECT count(num_pedido) as 'contar' FROM pedidos WHERE fecha_fin > '$tresDias' AND estado<3;";
     $pedidos = $conexion->consultarDatos($consultaSQL);
     $pieChart[] = $pedidos[0]['contar'];
-
     $datos = json_encode($pieChart);
+
+
 }
 ?>
 
 <div id="pieChart"></div>
 
+
+<!-- script JSON -->
 <script>
     function convertirJson(json) {
         var parsed = JSON.parse(json);
@@ -35,23 +38,24 @@ if (empty($_SESSION['active'])) {
         return arr;
     }
 </script>
+<!-- Script pieChart -->
 <script>
- datos=convertirJson('<?php echo($datos)?>')
+    datos = convertirJson('<?php echo ($datos) ?>')
     var data = [{
         values: datos,
         labels: ['Atrasados', '0 a 3 días', '> 3 días'],
         type: 'pie',
+        opacity: 0.7,
         marker: {
-            colors: ['#F60F24', '#E5F60F', '#29DE21'],
+            colors: ['#c00808', '#f1cd00', '#20a14b'],
         },
         textinfo: "label+percent",
         insidetextorientation: "radial"
     }];
-
     var layout = {
-        title: '<b>Gráfico General de Pedidos del <?php echo(date('d/m/Y'))?></b>',
-        height: 500,
-        width: 900
+        title: '<b>% de Pedidos del <?php echo (date('d/m/Y')) ?></b>',
+        height: 400,
+        
     };
 
     Plotly.newPlot('pieChart', data, layout);

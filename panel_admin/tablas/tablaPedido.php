@@ -17,6 +17,7 @@ if (empty($_SESSION['active'])) {
             <th>Proc</th>
             <th>Est Pedido</th>
             <th>Unds</th>
+            <th>Valor</th>
             <th>Usuario</th>
             <th>Acciones</th>
         </tr>
@@ -33,6 +34,7 @@ if (empty($_SESSION['active'])) {
             <th>Proc</th>
             <th>Est Pedido</th>
             <th>Unds</th>
+            <th>Valor</th>
             <th>Usuario</th>
             <th>Acciones</th>
         </tr>
@@ -59,7 +61,7 @@ if (empty($_SESSION['active'])) {
             }
 
             $datos = $pedido['idpedido'] . "||" . $pedido['num_pedido'] . "||" . $pedido['cliente'] . "||" . $pedido['asesor'] . "||" . $pedido['fecha_inicio'] . "||" .
-                $pedido['fecha_fin'] . "||" . $pedido['siglas'] . "||" . $pedido['unds'] . "||" . $pedido['dias_habiles'] . "||" . $pedido['idproceso'];
+                $pedido['fecha_fin'] . "||" . $pedido['siglas'] . "||" . $pedido['unds'] . "||" . $pedido['dias_habiles'] . "||" . $pedido['idproceso']. "||" . $pedido['valor'];
 
 
         ?>
@@ -82,6 +84,7 @@ if (empty($_SESSION['active'])) {
                 <td><?php echo ($pedido['siglas']); ?></td>
                 <td><?php echo ($pedido['estado']); ?></td>
                 <td><?php echo ($pedido['unds']); ?></td>
+                <td><?php echo ('$'.number_format($pedido['valor'])); ?></td>
                 <td><?php echo ($pedido['usuario']); ?></td>
                 <td>
                     <h5><?php if ($_SESSION['user'] == $pedido['usuario'] || $_SESSION['idrol'] == 1) : ?>

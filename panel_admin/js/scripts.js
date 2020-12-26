@@ -105,6 +105,7 @@ function formEditarPedido(datos) {
     $('.procesosEditar').val(d[6]);
     $('.diasEditar').val(d[8]);
     $('.idProcesosEditar').val(d[9]);
+    $('.valorEditar').val(d[10]);
 
 }
 //Editar Pedido
@@ -115,6 +116,7 @@ function editarPedido() {
         data: $("#formEditarPedido").serialize(),
         datatype: "json",
         success: function (r) {
+            console.log(r)
             if (r == 1) {
                 $('#mostrarTabla').load('tablas/tablaPedido.php');
                 alertify.success("Pedido Editado Correctamente");

@@ -5,6 +5,7 @@ $idPedido=$_POST['idPedidoEditar'];
 $nroPedido = $_POST['nroPedidoEditar'];
 $nombreCliente = $_POST['clienteEditar'];
 $asesor = $_POST['asesor'];
+$valor=$_POST['valorEditar'];
 $fechaInicio = $_POST['fechaInicio'];
 $fechaFin = $_POST['fechaFin'];
 $unds = $_POST['undsEditar'];
@@ -13,7 +14,7 @@ $diasHabiles=$_POST['diasEditar'];
 
 $conexion= new Conexion();
 $consultaSQL="UPDATE pedidos SET num_pedido='$nroPedido', cliente='$nombreCliente', asesor='$asesor', fecha_inicio='$fechaInicio',
-      fecha_fin='$fechaFin',  dias_habiles='$diasHabiles', unds='$unds'     
+      fecha_fin='$fechaFin',  dias_habiles='$diasHabiles', unds='$unds', valor='$valor'
              WHERE idpedido='$idPedido'";
 $result=$conexion->editarDatos($consultaSQL);
 echo json_encode($result);

@@ -130,6 +130,12 @@ if (empty($_SESSION['active'])) {
                                         <!-- <div class="valid-feedback">Listo</div> -->
                                         <div class="invalid-feedback">Por Favor Ingrese Fecha</div>
                                     </div>
+                                    <div class="form-group ">
+                                        <label for="valorEditar">Valor: (*)</label>
+                                        <input type="number" class="form-control input-sm valorEditar" value="" id="valorEditar" placeholder="" name="valorEditar" required>
+                                        <!-- <div class="valid-feedback">Listo</div> -->
+                                        <div class="invalid-feedback">Por Favor Ingrese Fecha</div>
+                                    </div>
 
                                     <div class="form-group ">
                                         <label for="">Procesos (*)</label>
