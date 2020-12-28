@@ -48,7 +48,7 @@ if (empty($_SESSION['active'])) {
             </div>
 
             <!-- MODALES -->
-            <!-- modal editar Asesor (sin proceso) -->
+            <!-- modal editar Asesor -->
             <div class="modal fade" id="editarAsesor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">
                     <div class="modal-content ">

@@ -1,6 +1,6 @@
 <nav class="sb-topnav navbar navbar-dark navbar-expand " style="background: #00a8a8; z-index:1 !important;">
     <a class="navbar-brand" href="index.php"></a>
-    <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+    <button class="btn btn-link btn-sm order-1 order-lg-0 " id="sidebarToggle" href="#"><i class="fas fa-bars text-dark"></i></button>
 
     <!-- Navbar-->
     <ul class="navbar-nav  ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -17,7 +17,7 @@
                 <i class="fas fa-user fa-fw "></i></a>
             <div class="dropdown-menu dropdown-menu-right " id="salir">
                 <nav class="sb-sidenav-menu-nested nav ">
-                    <a class="dropdown-item" href="" data-toggle="modal" data-target="#editarUsuario">Configuración</a>
+                    <a class="dropdown-item" href="" data-toggle="modal" data-target="#editarUsuario">Editar Usuario</a>
                     <hr>
                     <a class="dropdown-item" href="../db/logout.php">Salir</a>
                 </nav>
@@ -34,7 +34,7 @@
 
                     <div class="sb-sidenav-menu-heading">Interface</div>
                     <a class="nav-link collapsed text-kmisetas-hover" href="#" data-toggle="collapse" data-target="#administracion" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon text-kmisetas-hover"><i class="fas fa-asterisk"></i></div>
+                        <div class="sb-nav-link-icon text-kmisetas-hover"><i class="fab fa-dashcube"></i></div>
                         Maestro
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-kmisetas-hover"></i></div>
                     </a>
@@ -42,8 +42,22 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link text-kmisetas-hover" href="listaClientes.php">Clientes</a>
                             <a class="nav-link text-kmisetas-hover" href="listaAsesores.php">Asesores</a>
+                            <a class="nav-link text-kmisetas-hover" href="listaTallas.php">Tallas</a>
+                            <a class="nav-link text-kmisetas-hover" href="listaReferencias.php">Referencias</a>
+                            <a class="nav-link text-kmisetas-hover" href="listaColores.php">Colores</a>
                         </nav>
                     </div>
+                    <a class="nav-link collapsed text-kmisetas-hover" href="#" data-toggle="collapse" data-target="#collapseStock" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon text-kmisetas-hover"><i class="fas fa-tshirt"></i></div>
+                            Stock Mínimo
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-kmisetas-hover"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseStock" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link text-kmisetas-hover" href="stockMinimo.php">Lista</a>
+                                <a class="nav-link text-kmisetas-hover" href="#">Reporte</a>
+                            </nav>
+                        </div>
                     <?php if ($_SESSION['idrol'] == 3 || $_SESSION['idrol'] == 4 || $_SESSION['idrol'] == 1) : ?>
                         <a class="nav-link collapsed text-kmisetas-hover" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon text-kmisetas-hover"><i class="far fa-calendar-alt"></i></div>

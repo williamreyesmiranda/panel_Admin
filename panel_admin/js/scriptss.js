@@ -82,7 +82,8 @@ function editarUsuario() {
                     allowEnterKey: false,
                     backdrop: false,
                 }).then((result) => {
-                    window.location.href = "../db/logout.php";});
+                    window.location.href = "../db/logout.php";
+                });
             } else {
                 alertify.error("Error al Editar Usuario");
             }
@@ -1069,3 +1070,151 @@ function finalizarTerminacion(datos) {
     });
 }
 
+//TALLAS
+//ingresar Tallas
+function ingresarTallas() {
+    $.ajax({
+        type: "POST",
+        url: "php/ingresarTallas.php",
+        data: $("#formIngresarTallas").serialize(),
+        datatype: "json",
+        success: function (r) {
+            console.log(r);
+            if (r == 1) {
+                $('.tablaTallas').load('tablas/tablaTallas.php');
+                alertify.success("Talla Ingresada Correctamente");
+            } else {
+                alertify.error('Error al Ingresar Talla');
+            }
+        }
+    });
+}
+//Ingresar datos aformulario editar Tallas
+function formEditarTallas(datos) {
+
+    d = datos.split('||');
+    idTalla = 'idTalla=' + (d[0]);
+    $.ajax({
+        type: "POST",
+        url: "php/cargarTallas.php",
+        data: idTalla,
+        success: function (r) {
+            $('.cargaTallas').html(r);
+        }
+    });
+}
+//editar Tallas
+function editarTallas() {
+    $.ajax({
+        type: "POST",
+        url: "php/editarTallas.php",
+        data: $("#formEditarTallas").serialize(),
+        datatype: "json",
+        success: function (r) {
+            console.log(r);
+            if (r == 1) {
+                $('.tablaTallas').load('tablas/tablaTallas.php');
+                alertify.success("Talla Editada Correctamente");
+            } else {
+                alertify.error('Error al Editar Talla');
+            }
+        }
+    });
+}
+
+//REFERENCIAS
+//ingresar referencia
+function ingresarReferencias() {
+    $.ajax({
+        type: "POST",
+        url: "php/ingresarReferencias.php",
+        data: $("#formIngresarReferencias").serialize(),
+        datatype: "json",
+        success: function (r){
+            console.log(r);
+            if (r == 1) {
+                $('.tablaReferencias').load('tablas/tablaReferencias.php');
+                $('.codigo').val('');
+                $('.talla').val('');
+                $('.descripcion').val('');
+                $('.correo').val('');
+                alertify.success("Referencia Ingresada Correctamente");
+            } else {
+                alertify.error('Error al Ingresar Referencia');
+            }
+        }
+    });
+}
+//Ingresar datos aformulario editar Referencias
+function formEditarReferencias(datos) {
+
+    d = datos.split('||');
+    $('.idReferencia').val(d[0]);
+    $('.codigo').val(d[1]);
+    $('.descripcion').val(d[2]);
+    $('.correo').val(d[3]);
+    $('.talla').val(d[4]);
+}
+//editar Referencias
+function editarReferencias() {
+    $.ajax({
+        type: "POST",
+        url: "php/editarReferencias.php",
+        data: $("#formEditarReferencias").serialize(),
+        datatype: "json",
+        success: function (r) {
+            console.log(r);
+            if (r == 1) {
+                $('.tablaReferencias').load('tablas/tablaReferencias.php');
+                alertify.success("Referencia Editada Correctamente");
+            } else {
+                alertify.error('Error al Editar Referencia');
+            }
+        }
+    });
+}
+
+//COLORES
+//ingresar color
+function ingresarColores() {
+    $.ajax({
+        type: "POST",
+        url: "php/ingresarColores.php",
+        data: $("#formIngresarColores").serialize(),
+        datatype: "json",
+        success: function (r) {
+            console.log(r);
+            if (r == 1) {
+                $('.tablaColores').load('tablas/tablaColores.php');
+                $('#color').val('');
+                alertify.success("Color Ingresada Correctamente");
+            } else {
+                alertify.error('Error al Ingresar Color');
+            }
+        }
+    });
+}
+//Ingresar datos aformulario editar Colores
+function formEditarColores(datos) {
+    d = datos.split('||');
+    $('.idColor').val(d[0]);
+    $('.color').val(d[1]);
+}
+//editar Referencias
+function editarColores() {
+    $.ajax({
+        type: "POST",
+        url: "php/editarColores.php",
+        data: $("#formEditarColores").serialize(),
+        datatype: "json",
+        success: function (r) {
+            console.log(r);
+            if (r == 1) {
+                $('.tablaColores').load('tablas/tablaColores.php');
+                alertify.success("Color Editado Correctamente");
+            } else {
+                alertify.error('Error al Editar Color');
+            }
+        }
+    });
+}

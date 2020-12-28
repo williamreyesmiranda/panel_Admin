@@ -1,125 +1,57 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            font-family: "Lato", sans-serif;
-        }
-        
-        .sidebar2 {
-            height: 100%;
-            width: 30px;
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            left: 0;
-            background-color: #111;
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
-        }
-        
-        .sidebar {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            left: 0;
-            background-color: #111;
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
-        }
-        
-        .sidebar a {
-            padding: 8px 8px 8px 32px;
-            text-decoration: none;
-            font-size: 25px;
-            color: #818181;
-            display: block;
-            transition: 0.3s;
-        }
-        
-        .sidebar a:hover {
-            color: #f1f1f1;
-        }
-        
-        .sidebar .closebtn {
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-        }
-        
-        .openbtn {
-            font-size: 20px;
-            cursor: pointer;
-            background-color: #111;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-        }
-        
-        .openbtn:hover {
-            background-color: #444;
-        }
-        
-        #main {
-            transition: margin-left .5s;
-            padding: 16px;
-        }
-        /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-        
-        @media screen and (max-height: 450px) {
-            .sidebar {
-                padding-top: 15px;
-            }
-            .sidebar a {
-                font-size: 18px;
-            }
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
-
 <body>
+    
 
-    <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
-    </div>
-    <div id="mySidebar2" class="sidebar2" style="color:aqua; margin:auto">
-        <p id="hamburguesa">></p>
-    </div>
+<div class="container">
+    <div class="form-group mt-5 mb-5">
+        <button type="button" class="btn btn-primary mr-2" onclick="agregarFila()">Agregar Fila</button>
+        <button type="button" class="btn btn-danger" onclick="eliminarFila()">Eliminar Fila</button>
+      </div>
+  <div class="row">
+    <table border="1" class="" id="tablaprueba">
+      <thead >
+        <tr class="bg-dark text-white">
+          <th style="width: 50px;">ID</th>
+          <th style="width: 200px;">Talla</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <td>1</td>
+        <td><input type="text" name="tallas[]" id=""></td>
+      </tbody>
+    </table>
 
-    <div id="main">
-        <button class="openbtn" onclick="openNav()">+ Open Sidebar</button>
-        <h2>Collapsed Sidebar</h2>
-        <p>Click on the hamburger menu/bar icon to open the sidebar, and push this content to the right.</p>
-    </div>
+    
+  </div>
+</div>
 
-    <script>
-        function openNav() {
-            document.getElementById("mySidebar").style.width = "250px";
-            document.getElementById("mySidebar2").style.left = "250px";
-            document.getElementById('hamburguesa').innerHTML = '<';
-            document.getElementById("main").style.marginLeft = "250px";
-        }
+<script>
+    function agregarFila(){
+        var table = document.getElementById("tablaprueba");
+  var rowCount = table.rows.length;
+  document.getElementById("tablaprueba").insertRow(-1).innerHTML = '<td>'+rowCount+'</td><td><input type="text" name="tallas[]" id=""></td>';
+ /*  console.log(rowCount); */
+}
 
-        function closeNav() {
-            document.getElementById("mySidebar").style.width = "0";
-            document.getElementById("mySidebar2").style.left = "0";
-            document.getElementById('hamburguesa').innerHTML = '>';
-            document.getElementById("main").style.marginLeft = "0";
-        }
-    </script>
-
+function eliminarFila(){
+  var table = document.getElementById("tablaprueba");
+  var rowCount = table.rows.length;
+  /* console.log(rowCount); */
+  
+  if(rowCount <= 1)
+    alert('No se puede eliminar el encabezado');
+  else
+    table.deleteRow(rowCount -1);
+}
+</script>
+    
 </body>
-
 </html>

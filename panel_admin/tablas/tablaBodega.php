@@ -5,7 +5,7 @@ if (empty($_SESSION['active'])) {
 }
 ?>
 <div class="table-container">
-    <table class="table table-hover table-condensed table-bordered tablaDinamica" style="width:1700px !important;"id="" cellspacing="0">
+    <table class="table table-hover table-condensed table-bordered tablaDinamica" style="width:1700px !important;" id="" cellspacing="0">
         <thead>
             <tr>
                 <th class="alert-info text-center" colspan="6">Info Pedido</th>
@@ -88,20 +88,20 @@ if (empty($_SESSION['active'])) {
                     $diafaltabodega =  - (fechaToDays($diabodega, $hoy) - 1);
                 }
                 //consulta de la novedad por medio del idNovedad
-                $numNovedad=$pedido['numNovedad'];
-                $consultaSQL="SELECT * FROM novedades WHERE idNovedad='$numNovedad'";
-                $result=$conexion->consultarDatos($consultaSQL);
-                $novedad=@$result[0]['novedad'];
+                $numNovedad = $pedido['numNovedad'];
+                $consultaSQL = "SELECT * FROM novedades WHERE idNovedad='$numNovedad'";
+                $result = $conexion->consultarDatos($consultaSQL);
+                $novedad = @$result[0]['novedad'];
                 //consulta del nombre del asesor por medio del usuario
-                $asesor=$pedido['asesor'];
-                $consultaSQL="SELECT * FROM asesor WHERE usuario='$asesor'";
-                $result=$conexion->consultarDatos($consultaSQL);
-                $nombreAsesor=@$result[0]['nombre'];
-                $correoAsesor=@$result[0]['correo'];
+                $asesor = $pedido['asesor'];
+                $consultaSQL = "SELECT * FROM asesor WHERE usuario='$asesor'";
+                $result = $conexion->consultarDatos($consultaSQL);
+                $nombreAsesor = @$result[0]['nombre'];
+                $correoAsesor = @$result[0]['correo'];
 
                 $datos = $pedido['idpedido'] . "||" . $pedido['num_pedido'] . "||" . $pedido['cliente'] . "||" . $pedido['asesor'] . "||" . $pedido['iniciopedido'] . "||" .
                     $pedido['finpedido'] . "||" . $pedido['diaspedido'] . "||" . $pedido['siglas'] . "||" . $pedido['unds'] . "||" . $pedido['estadopedido'] . "||" . $pedido['idbodega'] .
-                     "||" . $pedido['obs_bodega'] . "||" . $pedido['parcial']. "||" . $pedido['numNovedad']. "||" .$novedad. "||" .$nombreAsesor. "||" .$correoAsesor;
+                    "||" . $pedido['obs_bodega'] . "||" . $pedido['parcial'] . "||" . $pedido['numNovedad'] . "||" . $novedad . "||" . $nombreAsesor . "||" . $correoAsesor;
 
 
             ?>
@@ -120,20 +120,23 @@ if (empty($_SESSION['active'])) {
                     ?>
                     <td><?php echo ($pedido['siglas']); ?></td>
                     <td><?php echo ($pedido['unds']); ?></td>
-                    <td><?php echo ($pedido['iniciobodega']);?></td>
-                    <td><?php echo ($pedido['finbodega']);?></td>
-                    <td><?php echo ($pedido['diasbodega']);?></td>
-                    <?php if($diafaltabodega>3){
-                        echo "<td class=\"alert-success\">".$diafaltabodega."</td>";
-                     }elseif($diafaltabodega>=0){
-                         echo "<td class=\"alert-warning\">".$diafaltabodega."</td>";  
-                     }else{
-                         echo "<td class=\"alert-danger\">".$diafaltabodega."</td>"; 
-                     }?>
-                    <td><?php echo ($parcial);?></td>
-                    <td><?php echo ($falta);?></td>
-                    <td><?php echo ($pedido['obs_bodega']); if($pedido['numNovedad']>0){echo ("<br><b>Novedad:</b>".$novedad);}?></td>
-                    <td><?php echo ($pedido['estado']);?></td>
+                    <td><?php echo ($pedido['iniciobodega']); ?></td>
+                    <td><?php echo ($pedido['finbodega']); ?></td>
+                    <td><?php echo ($pedido['diasbodega']); ?></td>
+                    <?php if ($diafaltabodega > 3) {
+                        echo "<td class=\"alert-success\">" . $diafaltabodega . "</td>";
+                    } elseif ($diafaltabodega >= 0) {
+                        echo "<td class=\"alert-warning\">" . $diafaltabodega . "</td>";
+                    } else {
+                        echo "<td class=\"alert-danger\">" . $diafaltabodega . "</td>";
+                    } ?>
+                    <td><?php echo ($parcial); ?></td>
+                    <td><?php echo ($falta); ?></td>
+                    <td><?php echo ($pedido['obs_bodega']);
+                        if ($pedido['numNovedad'] > 0) {
+                            echo ("<br><b>Novedad:</b>" . $novedad);
+                        } ?></td>
+                    <td><?php echo ($pedido['estado']); ?></td>
                     <td>
                         <h5>
                             <a class="my-auto" title=" Editar Bodega" data-toggle="modal" data-target="#editarBodega"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarBodega('<?php echo ($datos); ?>')"></i></a>

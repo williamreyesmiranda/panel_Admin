@@ -55,7 +55,7 @@ if (empty($_SESSION['active'])) {
                                         <?php
                                         $conexion = new Conexion();
                                         $consultaSQL = "SELECT count(unds) as 'contar', sum(unds) as 'unds'  FROM pedidos 
-                                WHERE estado<3 AND fecha_fin < '$hoy'";
+                                        WHERE estado<3 AND fecha_fin < '$hoy'";
                                         $pedidos = $conexion->consultarDatos($consultaSQL);
                                         $contar = $pedidos[0]['contar'];
                                         $unds = $pedidos[0]['unds'];
