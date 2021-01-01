@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="plugins/alertify/css/themes/default.css">
 <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
 <link rel="stylesheet" href="plugins/select2/select2.min.css">
+<link rel="stylesheet" href="plugins/animatecss/animate.min.css">
 <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
 <script src="jquery/jquery-3.5.1.min.js"></script>
 <script src="plugins/plotly/plotly.js"></script>

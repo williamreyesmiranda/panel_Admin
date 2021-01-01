@@ -1,4 +1,4 @@
-<nav class="sb-topnav navbar navbar-dark navbar-expand " style="background: #00a8a8; z-index:1 !important;">
+<nav class="sb-topnav navbar navbar-dark navbar-expand " style="background: #00a8a8; z-index:2 !important;">
     <a class="navbar-brand" href="index.php"></a>
     <button class="btn btn-link btn-sm order-1 order-lg-0 " id="sidebarToggle" href="#"><i class="fas fa-bars text-dark"></i></button>
 

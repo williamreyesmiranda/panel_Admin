@@ -52,7 +52,7 @@ if (empty($_SESSION['active'])) {
 
             <!-- MODALES -->
             <!-- modal ingresar Referencias -->
-            <div class="modal fade" id="ingresarReferencia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+            <div class="modal fade animate__animated animate__rollIn" id="ingresarReferencia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">
                     <div class="modal-content ">
                         <div class="modal-header">

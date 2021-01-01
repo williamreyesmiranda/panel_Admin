@@ -115,7 +115,7 @@ if (empty($_SESSION['active'])) {
                 <div class="modal-dialog">
                     <div class="modal-content ">
                         <div class="modal-header">
-                            <h2 class="modal-title mx-auto">Ingresar Talla</h2>
+                            <h2 class="modal-title mx-auto">Editar Talla</h2>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span class="salirModal" aria-hidden="true">&times;</span>
                             </button>

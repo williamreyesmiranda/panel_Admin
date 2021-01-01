@@ -29,84 +29,68 @@ if (empty($_SESSION['active'])) {
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                <ol class="breadcrumb mb-3 mt-3">
+                <ol class="breadcrumb mb-3 mt-3 ">
                     <li class="breadcrumb-item "><a class="a-text-kmisetas" href="index.php">Inicio</a></li>
                     <li class="breadcrumb-item active">Stock Mínimo</li>
                 </ol>
                 <div class="card-body">
-                        <div class="table-responsive">
-                            <div class="tablaStockMinimo"></div>
-                        </div>
+                    <div class="table-responsive">
+                        <div class="tablaStockMinimo"></div>
+
                     </div>
+                </div>
                 <!-- tabla -->
-                
+
             </div>
             <!-- MODALES -->
             <!-- modal ingresar Colores -->
-            <div class="modal fade" id="ingresarColor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
+            <div div class="modal fade" id="relacionarColor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content ">
                         <div class="modal-header">
-                            <h2 class="modal-title mx-auto">Ingresar Color</h2>
+                            <h2 class="modal-title mx-auto">Relacionar Colores con Referencia</h2>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span class="salirModal" aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <div class=" mx-auto d-block border border-dark rounded col-md-9">
-                                <form id="formIngresarColores" class="needs-validation p-2 " method="POST" novalidate>
-                                    <div class="form-group mx-auto text-center">
-                                        <label for="color">Color:</label>
-                                        <input type="text" name="color" id="color" class="form-control text-center" placeholder="" aria-describedby="helpId" autocomplete="off">
-                                    </div>
+                        <div class="modal-body ">
+                            <div class=" mx-auto d-block border border-dark rounded col-md-12">
+                                <form id="formRelacionarColores" class="needs-validation p-2 " method="POST" novalidate>
+                                    <div class="cargaRelacion">
                                 </form>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-dark" data-dismiss="modal" id="" onclick="ingresarColores()">Ingresar Color</button>
+                            <button type="button" class="btn btn-dark" data-dismiss="modal" id="" onclick="relacionarColor()">Relacionar</button>
                             <button type="button" class="btn btn-danger salirModal" data-dismiss="modal" id="salirModal">Cancelar</button>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- modal editar Colores -->
-            <div class="modal fade" id="editarColor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog">
+            <!-- modal editar disponible -->
+            <div class="modal fade" id="relacionarDisponible" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content ">
                         <div class="modal-header">
-                            <h2 class="modal-title mx-auto">Editar Color</h2>
+                            <h2 class="modal-title mx-auto">Editar Unidades Disponibles</h2>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span class="salirModal" aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <div class=" mx-auto d-block border border-dark rounded col-md-9">
-
-                                <form id="formEditarColores" class="needs-validation p-2 " method="POST" novalidate>
-                                    <div class="form-group col-md-4 mx-auto text-center">
-                                        <label for="idColor" class="font-weight-bold">ID</label>
-                                        <input type="text" name="idColor" id="idColor" class="form-control idColor text-center" readonly>
-                                    </div>
-                                    <div class="form-group mx-auto text-center">
-                                        <label for="color">Color:</label>
-                                        <input type="text" name="color" class="form-control text-center color" placeholder="" aria-describedby="helpId" autocomplete="off">
-
-                                    </div>
-
+                        <div class="modal-body ">
+                            <div class=" mx-auto d-block border border-dark rounded col-md-12">
+                                <form id="formEditarDisponible" class="needs-validation p-2 " method="POST" novalidate>
+                                    <div class="cargaDisponible">
                                 </form>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-dark" data-dismiss="modal" id="" onclick="editarColores()">Editar Color</button>
+                            <button type="button" class="btn btn-dark" data-dismiss="modal" id="" onclick="editarDisponible()">Relacionar</button>
                             <button type="button" class="btn btn-danger salirModal" data-dismiss="modal" id="salirModal">Cancelar</button>
-
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </main>
         <?php include("includes/footer.php") ?>
     </div>
@@ -116,7 +100,26 @@ if (empty($_SESSION['active'])) {
     <script>
         $(document).ready(function() {
             $('.tablaStockMinimo').load('tablas/tablaStockMinimo.php');
+            /*Swal.fire({
+                position: 'center',
+                html: '<br><img src="images/logo_kamisetas.png" alt="" style="width:150px">',
+                title: '<br>Página en construcción',
+                background: ' #000000cd',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+                backdrop: false,
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                }
+            });*/
 
+            $(".select2").select2({
+                width: 200,
+            });
         });
     </script>
 

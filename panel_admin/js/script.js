@@ -1,3 +1,9 @@
+//select2
+$(document).ready(function () {
+    $('.select2').select2();
+});
+
+
 //icono reload
 $(document).ready(function () {
     window.onload = function () {
@@ -1130,7 +1136,7 @@ function ingresarReferencias() {
         url: "php/ingresarReferencias.php",
         data: $("#formIngresarReferencias").serialize(),
         datatype: "json",
-        success: function (r){
+        success: function (r) {
             console.log(r);
             if (r == 1) {
                 $('.tablaReferencias').load('tablas/tablaReferencias.php');
@@ -1214,6 +1220,72 @@ function editarColores() {
                 alertify.success("Color Editado Correctamente");
             } else {
                 alertify.error('Error al Editar Color');
+            }
+        }
+    });
+}
+
+
+//STOCK MINIMO
+//Ingresar datos a formulario RELACIONAR color
+function formRelacionarColor(datos) {
+
+    d = datos.split('||');
+    idReferencia = 'idReferencia=' + (d[0]);
+    $.ajax({
+        type: "POST",
+        url: "php/cargarRelacionarColor.php",
+        data: idReferencia,
+        success: function (r) {
+            $('.cargaRelacion').html(r);
+        }
+    });
+}
+//relacionar Color y Stock Minimo
+function relacionarColor() {
+    $.ajax({
+        type: "POST",
+        url: "php/relacionarColores.php",
+        data: $('#formRelacionarColores').serialize(),
+        dataType: "JSON",
+        success: function (r) {
+            if (r == 1) {
+                $('.tablaStockMinimo').load('tablas/tablaStockMinimo.php');
+                alertify.success("Colores y Stock Relacionados Correctamente");
+            } else {
+                alertify.error('Error al Relacionar Colores y Stock');
+            }
+        }
+    });
+}
+//Ingresar datos a formulario editar Disponible
+function formEditarDisponible(datos) {
+
+    d = datos.split('||');
+    datos = 'idReferencia=' + (d[0]) + '&idColor=' + (d[1]);
+    $.ajax({
+        type: "POST",
+        url: "php/cargarEditarDisponibles.php",
+        data: datos,
+        success: function (r) {
+            $('.cargaDisponible').html(r);
+        }
+    });
+}
+//Editar Disponibles
+function editarDisponible() {
+    $('#editarDisponible').modal('show')
+    $.ajax({
+        type: "POST",
+        url: "php/editarDisponible.php",
+        data: $('#formEditarDisponible').serialize(),
+        dataType: "JSON",
+        success: function (r) {
+            if (r == 1) {
+                $('.tablaStockMinimo').load('tablas/tablaStockMinimo.php');
+                alertify.success("Disponibles editados Correctamente");
+            } else {
+                alertify.error('Error al Editar Disponibles');
             }
         }
     });

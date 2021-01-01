@@ -9,7 +9,7 @@ if (empty($_SESSION['active'])) {
         <thead>
             <tr>
                 <th class="alert-info text-center" colspan="6">Info Pedido</th>
-                <th class="alert-secondary text-center" colspan="12">Info confeccion</th>
+                <th class="alert-secondary text-center" colspan="12">Info Confección</th>
             </tr>
             <tr class="text-center">
                 <th class="sticky-top">Pedido</th>
