@@ -21,7 +21,7 @@ $max = $referencias[0]['numTallas'];
                 <th colspan="<?php echo ($max) ?>" class=" text-center bg-secondary">Disponibles</th>
             </tr>
             <tr class="bg-dark text-white text-center">
-                <th style="width: 200px;">Color</th>
+                <th style="width: 250px;">Color</th>
                 <?php for ($i = 1; $i <= $max; $i++) : ?>
                     <th class=" text-center bg-secondary"><?php echo ($referencias[0][$i]) ?></th>
                 <?php endfor ?>

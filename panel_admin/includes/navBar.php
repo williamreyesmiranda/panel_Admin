@@ -1,11 +1,11 @@
-<nav class="sb-topnav navbar navbar-dark navbar-expand " style="background: #00a8a8; z-index:2 !important;">
+<nav class="sb-topnav navbar navbar-dark navbar-expand " style="background: #00a8a8; z-index:200 !important;">
     <a class="navbar-brand" href="index.php"></a>
     <button class="btn btn-link btn-sm order-1 order-lg-0 " id="sidebarToggle" href="#"><i class="fas fa-bars text-dark"></i></button>
 
     <!-- Navbar-->
     <ul class="navbar-nav  ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <p class=" mx-auto"><?php
-       
+
                             include("functions.php");
                             /* echo fechaC(); */ ?> </p>&nbsp;&nbsp;
 
@@ -43,21 +43,21 @@
                             <a class="nav-link text-kmisetas-hover" href="listaClientes.php">Clientes</a>
                             <a class="nav-link text-kmisetas-hover" href="listaAsesores.php">Asesores</a>
                             <a class="nav-link text-kmisetas-hover" href="listaTallas.php">Tallas</a>
-                            <a class="nav-link text-kmisetas-hover" href="listaReferencias.php">Referencias</a>
                             <a class="nav-link text-kmisetas-hover" href="listaColores.php">Colores</a>
+                            <a class="nav-link text-kmisetas-hover" href="listaReferencias.php">Referencias</a>
                         </nav>
                     </div>
                     <a class="nav-link collapsed text-kmisetas-hover" href="#" data-toggle="collapse" data-target="#collapseStock" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon text-kmisetas-hover"><i class="fas fa-tshirt"></i></div>
-                            Stock Mínimo
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-kmisetas-hover"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseStock" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-kmisetas-hover" href="stockMinimo.php">Lista</a>
-                                <a class="nav-link text-kmisetas-hover" href="#">Reporte</a>
-                            </nav>
-                        </div>
+                        <div class="sb-nav-link-icon text-kmisetas-hover"><i class="fas fa-tshirt"></i></div>
+                        Stock Mínimo
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-kmisetas-hover"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseStock" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link text-kmisetas-hover" href="stockMinimo.php">Lista</a>
+                            <a class="nav-link text-kmisetas-hover" href="#">Reporte</a>
+                        </nav>
+                    </div>
                     <?php if ($_SESSION['idrol'] == 3 || $_SESSION['idrol'] == 4 || $_SESSION['idrol'] == 1) : ?>
                         <a class="nav-link collapsed text-kmisetas-hover" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon text-kmisetas-hover"><i class="far fa-calendar-alt"></i></div>
@@ -317,8 +317,8 @@
                 </div>
                 <div class="modal-body">
                     <div class=" mx-auto d-block border border-dark rounded col-md-9">
-                        
-                        <form action="" id="formEditarUsuario" method="POST"  class="mt-3" novalidate>
+
+                        <form action="" id="formEditarUsuario" method="POST" class="mt-3" novalidate>
                             <div class="form-group">
                                 <input type="hidden" name="idUsuario" value="<?php echo $_SESSION['iduser'] ?>">
                                 <label for="nombre" class="font-weight-bold">Nombre:</label>

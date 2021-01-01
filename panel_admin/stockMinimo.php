@@ -67,30 +67,7 @@ if (empty($_SESSION['active'])) {
                     </div>
                 </div>
             </div>
-            <!-- modal editar disponible -->
-            <div class="modal fade" id="relacionarDisponible" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content ">
-                        <div class="modal-header">
-                            <h2 class="modal-title mx-auto">Editar Unidades Disponibles</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span class="salirModal" aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body ">
-                            <div class=" mx-auto d-block border border-dark rounded col-md-12">
-                                <form id="formEditarDisponible" class="needs-validation p-2 " method="POST" novalidate>
-                                    <div class="cargaDisponible">
-                                </form>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-dark" data-dismiss="modal" id="" onclick="editarDisponible()">Relacionar</button>
-                            <button type="button" class="btn btn-danger salirModal" data-dismiss="modal" id="salirModal">Cancelar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </main>
         <?php include("includes/footer.php") ?>
     </div>
