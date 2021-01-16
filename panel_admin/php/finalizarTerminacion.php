@@ -13,7 +13,7 @@ $usuario = $_SESSION['iduser'];
 $conexion = new Conexion();
 $consultaSQL = "UPDATE terminacion SET parcial='$unds', obs_terminacion='$obs',
                      usuario='$usuario', finprocesofecha='$fechaFin', estado=4
-                     WHERE idterminacion='$idTerminacion';
+                     WHERE pedido='$idPedido';
                      UPDATE pedidos SET estado=4 WHERE idpedido='$idPedido';
                      UPDATE bodega SET estado=4 WHERE pedido='$idPedido';
                      UPDATE corte SET estado=4 WHERE pedido='$idPedido';

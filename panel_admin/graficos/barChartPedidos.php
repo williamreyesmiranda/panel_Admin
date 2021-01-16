@@ -143,6 +143,7 @@ if (empty($_SESSION['active'])) {
         bargroupgap: 0.1
 
     };
+    var config = {responsive: true}
 
-    Plotly.newPlot('barChart', data, layout);
+    Plotly.newPlot('barChart', data, layout, config);
 </script>

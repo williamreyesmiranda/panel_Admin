@@ -1,4 +1,4 @@
-<link href="css/stylee.css" rel="stylesheet" />
+<link href="css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="plugins/alertify/css/alertify.css">
 <link rel="stylesheet" href="plugins/alertify/css/themes/default.css">

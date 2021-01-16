@@ -57,6 +57,7 @@ if (empty($_SESSION['active'])) {
         height: 400,
         
     };
+    var config = {responsive: true}
 
-    Plotly.newPlot('pieChart', data, layout);
+    Plotly.newPlot('pieChart', data, layout, config);
 </script>

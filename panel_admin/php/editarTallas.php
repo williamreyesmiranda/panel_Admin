@@ -7,7 +7,7 @@ $conexion = new Conexion();
 $contar = 0;
   foreach ($tallas as $talla) {
         $contar = $contar + 1;
-        $consulta = "UPDATE tallas SET `$contar`=$talla, numTallas=$contar, siglas='$siglas' WHERE idTalla=$idTalla";
+        $consulta = "UPDATE tallas SET `$contar`='$talla', numTallas=$contar, siglas='$siglas' WHERE idTalla=$idTalla";
         $update = $conexion->editarDatos($consulta);
     }
 

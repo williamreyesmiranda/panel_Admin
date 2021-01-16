@@ -18,13 +18,14 @@ $max = $referencias[0]['numTallas'];
         <thead>
             <tr class="bg-dark text-white text-center">
                 <th colspan="1"></th>
-                <th colspan="<?php echo ($max) ?>" class=" text-center bg-secondary">Disponibles</th>
+                <th colspan="<?php echo ($max+1) ?>" class=" text-center bg-secondary">Disponibles</th>
             </tr>
             <tr class="bg-dark text-white text-center">
                 <th style="width: 250px;">Color</th>
                 <?php for ($i = 1; $i <= $max; $i++) : ?>
                     <th class=" text-center bg-secondary"><?php echo ($referencias[0][$i]) ?></th>
                 <?php endfor ?>
+                <th class=" text-center bg-secondary"">Total</th>
             </tr>
         </thead>
         <tbody>
@@ -39,21 +40,33 @@ $max = $referencias[0]['numTallas'];
                 <tr>
                     <td>
                         <?php
-                        $consultaSQL = "SELECT * FROM colores order by nombreColor";
-                        $colores = $conexion->consultarDatos($consultaSQL);
-
                         ?>
                         <input type="hidden" name="idColor" value="<?php echo ($ref_color['color_referencia']) ?>">
                         <input type="text" class="form-control text-center font-weight-bold" value="<?php echo ($ref_color['nombreColor']) ?>" readonly>
                         
                     </td>
                     <?php for ($i = 1; $i <= $max; $i++) : ?>
-                        <td><input type="number" name="disponibles[<?php echo ($i) ?>]" value="<?php echo ($ref_color['d' . $i]); ?>" class="form-control" autocomplete="off"></td>
-                    <?php $sumaD = $sumaD + $ref_color['s' . $i];
+                        <td><input type="number" id="D<?php echo ($i) ?>" oninput="calcularDisponible('<?php echo ($max) ?>')" name="disponibles[<?php echo ($i) ?>]" value="<?php echo ($ref_color['d' . $i]); ?>" class="form-control" autocomplete="off"></td>
+                    <?php $sumaD = $sumaD + $ref_color['d' . $i];
                     endfor; ?>
+                    <td class="text-center">
+                            <div class="suma form-control" readonly><?php echo ($sumaD) ?></div>
+                        </td>
                 </tr>
             <?php 
             endforeach; ?>
         </tbody>
     </table>
 </div>
+
+<script>
+    function calcularDisponible(dato) {
+       
+       var max=dato;
+       var total=0;
+       for(var i=1; i<=max; i++){
+           total=total+parseInt($("#D"+i).val())||0;
+       }
+       $(".suma").html(total);
+    }
+</script>

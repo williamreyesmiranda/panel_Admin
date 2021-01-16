@@ -6,7 +6,7 @@ $('#formLogin').submit(function(e) {
     if (usuario.length == "" || password.length == "") {
         Swal.fire({
             position: 'center',
-            html: '<br><img src="images/logo_kamisetas.png" alt="" style="width:100px">',
+            html: '<br><img src="images/logo_kamisetas.png" alt="" style="width:150px">',
             title: '<br>Ingresa un usuario y contraseña',
             background: ' #000000cd',
             showConfirmButton: false,
@@ -27,7 +27,7 @@ $('#formLogin').submit(function(e) {
                 if (data == -1) {
                     Swal.fire({
                         position: 'center',
-                        html: '<br><img src="images/logo_kamisetas.png" alt="" style="width:100px">',
+                        html: '<br><img src="images/logo_kamisetas.png" alt="" style="width:150px">',
                         title: '<br>El usuario y/o contraseña no son correctos',
                         background: ' #000000cd',
                         showConfirmButton: false,
@@ -40,7 +40,7 @@ $('#formLogin').submit(function(e) {
                 } else {
                     Swal.fire({
                         position: 'center',
-                        html: '<br><img src="images/logo_kamisetas.png" alt="" style="width:100px">',
+                        html: '<br><img src="images/logo_kamisetas.png" alt="" style="width:150px">',
                         title: '<br>Bienvenido!',
                         background: ' #000000cd',
                         showConfirmButton: false,

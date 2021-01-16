@@ -63,10 +63,8 @@ function agregarPedido() {
         }
     });
 }
-//alerta al cancelar modal
-$('.salirModal').click(function () {
-    alertify.error("Se Canceló Proceso");
-});
+
+
 
 //Editar Usuario
 function editarUsuario() {
