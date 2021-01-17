@@ -31,11 +31,7 @@ if (empty($_SESSION['active'])) {
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                <ol class="breadcrumb mb-3 mt-3">
-                    <li class="breadcrumb-item "><a class="a-text-kmisetas" href="index.php">Inicio</a></li>
-                    <li class="breadcrumb-item "><a class="a-text-kmisetas" href="listaConfeccion.php">Lista Confección</a></li>
-                    <li class="breadcrumb-item active">Reporte Confección</li>
-                </ol>
+
                 <?php
                 $hoy = date('Y-m-d');
                 $tresDias = dayToFecha($hoy, 3);
@@ -44,7 +40,12 @@ if (empty($_SESSION['active'])) {
                 <div class="accordion" id="accordionExample">
                     <!-- botones para acordeon -->
                     <div class="alert alert-secondary">
-                        <h1 class="text-center">INFORME DE CONFECCIÓN</h1>
+                        <div class="card-body d-flex text-center justify-content-between align-items-center p-0">
+                            <h1 class="text-center">INFORME DE CONFECCIÓN <?php echo date('d-m-Y'); ?></h1>
+                            <a href="excelReporteConfeccion.php" title="Exportar a Excel" class="text-dark text-lg">
+                                <h2><i class="far fa-file-excel"></i></h2>
+                            </a>
+                        </div>
                     </div>
                     <div class="breadcrumb mb-3 mt-3 px-0 h-100">
 

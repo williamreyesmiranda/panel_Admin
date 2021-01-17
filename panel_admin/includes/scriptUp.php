@@ -1,5 +1,7 @@
 <link href="css/style.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="bootstrap/css/print.css" media="print">
 <link rel="stylesheet" href="plugins/alertify/css/alertify.css">
 <link rel="stylesheet" href="plugins/alertify/css/themes/default.css">
 <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">

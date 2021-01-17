@@ -5366,9 +5366,9 @@ a.badge-dark.focus {
 }
 
 .alert-success {
-    color: rgb(21, 87, 36);
-    background-color: rgb(212, 237, 218);
-    border-color: rgb(195, 230, 203);
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
 }
 
 .alert-success hr {
@@ -5394,9 +5394,9 @@ a.badge-dark.focus {
 }
 
 .alert-warning {
-    color: rgb(133, 100, 4);
-    background-color: rgb(255, 243, 205);
-    border-color: rgb(255, 238, 186);
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
 }
 
 .alert-warning hr {
@@ -5408,9 +5408,9 @@ a.badge-dark.focus {
 }
 
 .alert-danger {
-    color: rgb(114, 28, 36);
-    background-color: rgb(248, 215, 218);
-    border-color: rgb(245, 198, 203);
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
 }
 
 .alert-danger hr {
@@ -5436,9 +5436,9 @@ a.badge-dark.focus {
 }
 
 .alert-dark {
-    color: rgb(27, 30, 33);
-    background-color: rgb(214, 216, 217);
-    border-color: rgb(198, 200, 202);
+    color: #1b1e21;
+    background-color: #d6d8d9;
+    border-color: #c6c8ca;
 }
 
 .alert-dark hr {
@@ -6759,7 +6759,7 @@ button.bg-secondary:focus {
 }
 
 .bg-success {
-    background-color: rgb(40, 167, 69) !important;
+    background-color: #28a745 !important;
 }
 
 a.bg-success:hover,
@@ -6781,7 +6781,7 @@ button.bg-info:focus {
 }
 
 .bg-warning {
-    background-color: rgb(255, 193, 7) !important;
+    background-color: #ffc107 !important;
 }
 
 a.bg-warning:hover,
@@ -6792,7 +6792,7 @@ button.bg-warning:focus {
 }
 
 .bg-danger {
-    background-color: rgb(220, 53, 69) !important;
+    background-color: #dc3545 !important;
 }
 
 a.bg-danger:hover,
@@ -6814,7 +6814,7 @@ button.bg-light:focus {
 }
 
 .bg-dark {
-    background-color: rgb(52, 58, 64) !important;
+    background-color: #343a40 !important;
 }
 
 a.bg-dark:hover,

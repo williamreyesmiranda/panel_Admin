@@ -41,7 +41,11 @@ if (empty($_SESSION['active'])) {
                 <div class="accordion" id="accordionExample">
                     <!-- botones para acordeon -->
                     <div class="alert alert-secondary">
-                        <h1 class="text-center">INFORME DE BORDADO</h1>
+                        <div class="card-body d-flex text-center justify-content-between align-items-center p-0">
+                            <h1 class="text-center">INFORME DE BORDADO <?php echo date('d-m-Y');?></h1>
+                            <a href="excelReporteBordado.php" title="Exportar a Excel" class="text-dark text-lg"><h2><i class="far fa-file-excel"></i></h2></a>
+                        </div>
+
                     </div>
                     <div class="row mb-3 mt-3 px-0 h-100">
 

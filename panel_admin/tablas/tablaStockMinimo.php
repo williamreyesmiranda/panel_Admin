@@ -23,7 +23,7 @@ if ($referencias) {
 
             $datos = $referencia['idReferencia'];
         ?>
-            <div class="card ">
+            <div class="card" >
                 <a href="#collapse<?php echo ($contar) ?>" class="btn btn-link text-decoration-none text-dark" type="button" data-toggle="collapse" data-target="#collapse<?php echo ($contar) ?>" aria-expanded="true" aria-controls="collapse<?php echo ($contar) ?>">
                     <div class="card-header alert-dark" id="headingOne">
                         <h2 class="mb-0 text-left text-capitalize">
@@ -39,11 +39,12 @@ if ($referencias) {
                                 .
                                 <a href="#" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#relacionarColor" onclick="formRelacionarColor('<?php echo ($datos); ?>')">Relacionar Colores y Stock Mínimo</a>
                             </div>
-                            <div class="card-body ">
+                            <div class="card-body">
                                 <?php
 
                                 ?>
-                                <table class="table table-hover table-condensed table-bordered tablaDinamica">
+                                
+                                <table class="table table-hover tablaDinamica" >
                                     <thead class="thead-dark">
 
                                         <tr>
