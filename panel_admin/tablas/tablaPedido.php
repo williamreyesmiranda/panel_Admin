@@ -88,9 +88,9 @@ if (empty($_SESSION['active'])) {
                 <td><?php echo ($pedido['usuario']); ?></td>
                 <td>
                     <h5><?php if ($_SESSION['user'] == $pedido['usuario'] || $_SESSION['idrol'] == 1) : ?>
-                            <a class="my-auto" title=" Editar pedido" data-toggle="modal" data-target="#editarPedido"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarPedido('<?php echo ($datos); ?>')"></i></a>
-                            <a class="my-auto" title="Cambiar Procesos" data-toggle="modal" data-target="#editarProceso"><i class="far fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarPedido('<?php echo ($datos); ?>')"></i></a>
-                            <a class="my-auto" title="Anular" onclick="confirmarAnuladoPedido('<?php echo ($datos); ?>')" id="anularPedido"><i class="fas fa-minus-circle a-text-kmisetas my-auto"></i></a>
+                            <a class="my-auto" title=" Editar pedido" data-toggle="modal" data-target="#editarPedido"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarPedido(`'<?php echo ($datos); ?>'`)"></i></a>
+                            <a class="my-auto" title="Cambiar Procesos" data-toggle="modal" data-target="#editarProceso"><i class="far fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarPedido(`'<?php echo ($datos); ?>'`)"></i></a>
+                            <a class="my-auto" title="Anular" onclick="confirmarAnuladoPedido(`'<?php echo ($datos); ?>'`)" id="anularPedido"><i class="fas fa-minus-circle a-text-kmisetas my-auto"></i></a>
                         <?php endif; ?>
                     </h5>
                 </td>

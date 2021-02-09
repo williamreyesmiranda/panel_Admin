@@ -143,7 +143,7 @@ if (empty($_SESSION['active'])) {
             ?>
                 <tr class="text-center">
                     <td><?php echo ($pedido['num_pedido']); ?></td>
-                    <td class="mx-auto sticky-left"><a class="a-text-kmisetas" href="" data-toggle="modal" data-target="#verPedido" onclick="verPedido('<?php echo ($datos); ?>')"><?php echo ($pedido['cliente']); ?></a></td>
+                    <td class="mx-auto sticky-left"><a class="a-text-kmisetas" href="" data-toggle="modal" data-target="#verPedido" onclick="verPedido(`'<?php echo ($datos); ?>'`)"><?php echo ($pedido['cliente']); ?></a></td>
                     <td><?php echo ($pedido['finpedido']); ?></td>
                     <?php
                     if ($diafaltapedido > 3) {
@@ -184,9 +184,9 @@ if (empty($_SESSION['active'])) {
                     <td><?php echo ($pedido['estado']); ?></td>
                     <td>
                         <h5>
-                            <a class="my-auto" title=" Editar Bordado" data-toggle="modal" data-target="#editarBordado"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarBordado('<?php echo ($datos); ?>')"></i></a>
-                            <a class="my-auto" title="Reportar Novedad" data-toggle="modal" data-target="#novedadBordado"><i class="fas fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarBordado('<?php echo ($datos); ?>')"></i></a>
-                            <a class="my-auto" title="Finalizar" onclick="confirmarFinalizarBordado('<?php echo ($datos); ?>')" id="finalizarBordado"><i class="fas fa-check-circle a-text-kmisetas my-auto"></i></a>
+                            <a class="my-auto" title=" Editar Bordado" data-toggle="modal" data-target="#editarBordado"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarBordado(`'<?php echo ($datos); ?>'`)"></i></a>
+                            <a class="my-auto" title="Reportar Novedad" data-toggle="modal" data-target="#novedadBordado"><i class="fas fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarBordado(`'<?php echo ($datos); ?>'`)"></i></a>
+                            <a class="my-auto" title="Finalizar" onclick="confirmarFinalizarBordado(`'<?php echo ($datos); ?>'`)" id="finalizarBordado"><i class="fas fa-check-circle a-text-kmisetas my-auto"></i></a>
                         </h5>
                     </td>
                 </tr>

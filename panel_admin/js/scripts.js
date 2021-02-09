@@ -497,7 +497,7 @@ function editarCorte() {
         }
     });
 }
-//novedad Bodega
+//novedad Corte
 function novedadCorte() {
 
     $.ajax({

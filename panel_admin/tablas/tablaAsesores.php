@@ -54,7 +54,7 @@ if (empty($_SESSION['active'])) {
                 <h5>
                     <a class="my-auto" title=" Editar Asesor" data-toggle="modal" data-target="#editarAsesor"><i
                             class="fas fa-edit a-text-kmisetas my-auto"
-                            onclick="formEditarAsesor('<?php echo ($datos); ?>')"></i></a>
+                            onclick="formEditarAsesor(`'<?php echo ($datos); ?>'`)"></i></a>
                 </h5>
             </td>
         </tr>

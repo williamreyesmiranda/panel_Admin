@@ -225,14 +225,15 @@ if (empty($_SESSION['active'])) {
                                                     foreach ($pedidos as $pedido) :
                                                         $totalUnds = $totalUnds + $pedido['unds'];
                                                         $idPedido=$pedido['idpedido'];
-                                                        $areas=array($pedido[6],$pedido[5],$pedido[4],$pedido[3],$pedido[2],$pedido[1],);
+                                                        /* $areas=array($pedido[6],$pedido[5],$pedido[4],$pedido[3],$pedido[2],$pedido[1]);
                                                         foreach($areas as $area){
+                                                           
                                                             $consultaSQL="SELECT * FROM $area WHERE pedido=$idPedido AND estado<3";
                                                             $actual = $conexion->consultarDatos($consultaSQL);
                                                             if($actual){
                                                                 $primero=$area;
                                                             }
-                                                        }
+                                                        } */
                                                         $countPedido++;
                                                     ?>
 
@@ -249,7 +250,7 @@ if (empty($_SESSION['active'])) {
                                                             <td><?php echo ($pedido['estSublimacion']) ?></td>
                                                             <td><?php echo ($pedido['estEstampacion']) ?></td>
                                                             <td><?php echo ($pedido['estBordado']) ?></td>
-                                                            <td class="text-uppercase"><?php echo($primero) ?></td>
+                                                            <td class="text-uppercase"><!-- <?php echo($primero) ?> --></td>
                                                         </tr>
                                                        
                                                     <?php endforeach; ?>
@@ -315,14 +316,16 @@ if (empty($_SESSION['active'])) {
                                                     foreach ($pedidos as $pedido) :
                                                         $totalUnds = $totalUnds + $pedido['unds'];
                                                         $idPedido=$pedido['idpedido'];
-                                                        $areas=array($pedido[6],$pedido[5],$pedido[4],$pedido[3],$pedido[2],$pedido[1],);
+                                                        /* $areas=array($pedido[6],$pedido[5],$pedido[4],$pedido[3],$pedido[2],$pedido[1],);
                                                         foreach($areas as $area){
                                                             $consultaSQL="SELECT * FROM $area WHERE pedido=$idPedido AND estado<3";
                                                             $actual = $conexion->consultarDatos($consultaSQL);
                                                             if($actual){
                                                                 $primero=$area;
+                                                            }else{
+                                                                $primero="";
                                                             }
-                                                        }
+                                                        } */
                                                         $countPedido++;
                                                     ?>
 
@@ -339,7 +342,7 @@ if (empty($_SESSION['active'])) {
                                                             <td><?php echo ($pedido['estSublimacion']) ?></td>
                                                             <td><?php echo ($pedido['estEstampacion']) ?></td>
                                                             <td><?php echo ($pedido['estBordado']) ?></td>
-                                                            <td class="text-uppercase"><?php echo($primero) ?></td>
+                                                            <td class="text-uppercase"><!-- <?php echo($primero) ?> --></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
@@ -404,14 +407,16 @@ if (empty($_SESSION['active'])) {
                                                     foreach ($pedidos as $pedido) :
                                                         $totalUnds = $totalUnds + $pedido['unds'];
                                                         $idPedido=$pedido['idpedido'];
-                                                        $areas=array($pedido[6],$pedido[5],$pedido[4],$pedido[3],$pedido[2],$pedido[1],);
+                                                        /* $areas=array($pedido[6],$pedido[5],$pedido[4],$pedido[3],$pedido[2],$pedido[1],);
                                                         foreach($areas as $area){
                                                             $consultaSQL="SELECT * FROM $area WHERE pedido=$idPedido AND estado<3";
                                                             $actual = $conexion->consultarDatos($consultaSQL);
                                                             if($actual){
                                                                 $primero=$area;
+                                                            }else{
+                                                                $primero="";
                                                             }
-                                                        }
+                                                        } */
                                                         $countPedido++;
                                                     ?>
 
@@ -428,7 +433,7 @@ if (empty($_SESSION['active'])) {
                                                             <td><?php echo ($pedido['estSublimacion']) ?></td>
                                                             <td><?php echo ($pedido['estEstampacion']) ?></td>
                                                             <td><?php echo ($pedido['estBordado']) ?></td>
-                                                            <td class="text-uppercase"><?php echo($primero) ?></td>
+                                                            <td class="text-uppercase"><!-- <?php echo($primero) ?> --></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

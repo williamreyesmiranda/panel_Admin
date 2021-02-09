@@ -37,7 +37,7 @@ if ($referencias) {
                         <div class="card mb-4">
                             <div class="card-header d-flex justify-content-between align-items-center p-1">
                                 .
-                                <a href="#" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#relacionarColor" onclick="formRelacionarColor('<?php echo ($datos); ?>')">Relacionar Colores y Stock Mínimo</a>
+                                <a href="#" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#relacionarColor" onclick="formRelacionarColor(`'<?php echo ($datos); ?>'`)">Relacionar Colores y Stock Mínimo</a>
                             </div>
                             <div class="card-body">
                                 <?php
@@ -127,7 +127,7 @@ if ($referencias) {
                                             <td><?php echo ($sumaP) ?></td>
                                             <td>
                                                 <h5>
-                                                    <a class="my-auto a-text-kmisetas" title="Editar Disponibles" data-toggle="modal" data-target="#relacionarDisponible" onclick="formEditarDisponible('<?php echo ($datos); ?>')"><i class="fas fa-edit a-text-kmisetas my-auto"></i></a>
+                                                    <a class="my-auto a-text-kmisetas" title="Editar Disponibles" data-toggle="modal" data-target="#relacionarDisponible" onclick="formEditarDisponible(`'<?php echo ($datos); ?>'`)"><i class="fas fa-edit a-text-kmisetas my-auto"></i></a>
                                                 </h5>
                                             </td>
 

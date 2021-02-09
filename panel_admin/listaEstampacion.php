@@ -281,7 +281,9 @@ $area = "estampacion";
     <script>
         $(document).ready(function() {
             $('.tablaestampacion').load('tablas/tablaEstampacion.php');
+            
         });
+        
     </script>
 
 </body>

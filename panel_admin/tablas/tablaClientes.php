@@ -60,7 +60,7 @@ if (empty($_SESSION['active'])) {
                 <td><?php echo ($cliente['correo']); ?></td>
                 <td>
                     <h5>
-                        <a class="my-auto" title=" Editar Cliente" data-toggle="modal" data-target="#editarCliente"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarCliente('<?php echo ($datos); ?>')"></i></a>
+                        <a class="my-auto" title=" Editar Cliente" data-toggle="modal" data-target="#editarCliente"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarCliente(`'<?php echo ($datos); ?>'`)"></i></a>
                     </h5>
                 </td>
             </tr>

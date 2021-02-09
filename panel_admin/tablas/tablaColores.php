@@ -30,7 +30,7 @@ $conexion = new Conexion();
             <td><?php echo ($color['nombreColor']) ?></td>
             <td>
                 <h5>
-                    <a class="my-auto" title=" Editar Color" data-toggle="modal" data-target="#editarColor"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarColores('<?php echo ($datos); ?>')"></i></a>
+                    <a class="my-auto" title=" Editar Color" data-toggle="modal" data-target="#editarColor"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarColores(`'<?php echo ($datos); ?>'`)"></i></a>
                 </h5>
             </td>
 

@@ -62,7 +62,7 @@ if (!empty($_SESSION['active'])){
 
                         </div >
                         <div style="position:absolute; bottom:0%; margin:0% 20%">
-                        <p class="text-white font-weight-medium" >Copyright &copy; 2020 K-misetas y K-misetas S.A.S.</p>
+                        <p class="text-white font-weight-medium" >Copyright &copy; <?php echo date('Y')?> K-misetas y K-misetas S.A.S.</p>
                         </div>
                         
                     </div>

@@ -8,10 +8,11 @@ if (empty($_SESSION['active'])) {
     <table class="table table-hover table-condensed table-bordered tablaDinamica" style="width:1700px !important;"id="" cellspacing="0">
         <thead>
             <tr>
-                <th class="alert-info text-center" colspan="6">Info Pedido</th>
+                <th class="alert-info text-center" colspan="7">Info Pedido</th>
                 <th class="alert-secondary text-center" colspan="10">Info Corte</th>
             </tr>
             <tr class="text-center">
+            <th class="sticky-top">ID</th>
                 <th class="sticky-top">Pedido</th>
                 <th style="z-index:100 !important" class="sticky-left sticky-top">Cliente</th>
                 <th class="sticky-top">Fecha Entrega</th>
@@ -109,8 +110,9 @@ if (empty($_SESSION['active'])) {
 
             ?>
                 <tr class="text-center">
+                <td><?php echo ($pedido['idcorte']); ?></td>
                     <td><?php echo ($pedido['num_pedido']); ?></td>
-                    <td class="mx-auto sticky-left"><a class="a-text-kmisetas" href="" data-toggle="modal" data-target="#verPedido" onclick="verPedido('<?php echo ($datos); ?>')"><?php echo ($pedido['cliente']); ?></a></td>
+                    <td class="mx-auto sticky-left"><a class="a-text-kmisetas" href="" data-toggle="modal" data-target="#verPedido" onclick="verPedido(`'<?php echo ($datos); ?>'`)"><?php echo ($pedido['cliente']); ?></a></td>
                     <td><?php echo ($pedido['finpedido']); ?></td>
                     <?php
                     if ($diafaltapedido > 3) {
@@ -140,9 +142,9 @@ if (empty($_SESSION['active'])) {
                     <td><?php echo ($pedido['estado']);?></td>
                     <td>
                         <h5>
-                            <a class="my-auto" title=" Editar Corte" data-toggle="modal" data-target="#editarCorte"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarCorte('<?php echo ($datos); ?>')"></i></a>
-                            <a class="my-auto" title="Reportar Novedad" data-toggle="modal" data-target="#novedadCorte"><i class="fas fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarCorte('<?php echo ($datos); ?>')"></i></a>
-                            <a class="my-auto" title="Finalizar" onclick="confirmarFinalizarCorte('<?php echo ($datos); ?>')" id="finalizarCorte"><i class="fas fa-check-circle a-text-kmisetas my-auto"></i></a>
+                            <a class="my-auto" title=" Editar Corte" data-toggle="modal" data-target="#editarCorte"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarCorte(`'<?php echo ($datos); ?>'`)"></i></a>
+                            <a class="my-auto" title="Reportar Novedad" data-toggle="modal" data-target="#novedadCorte"><i class="fas fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarCorte(`'<?php echo ($datos); ?>'`)"></i></a>
+                            <a class="my-auto" title="Finalizar" onclick="confirmarFinalizarCorte(`'<?php echo ($datos); ?>'`)" id="finalizarCorte"><i class="fas fa-check-circle a-text-kmisetas my-auto"></i></a>
                         </h5>
                     </td>
                 </tr>

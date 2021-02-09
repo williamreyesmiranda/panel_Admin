@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-
 <?php
 session_set_cookie_params(60 * 60 * 24);
 session_start();
@@ -11,7 +8,8 @@ if (empty($_SESSION['active'])) {
 $area="corte";
 ?>
 
-
+<!DOCTYPE html>
+<html lang="es">
 
 <head>
     <meta charset="utf-8" />

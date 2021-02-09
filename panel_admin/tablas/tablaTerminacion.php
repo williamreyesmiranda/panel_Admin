@@ -129,7 +129,7 @@ $conexion = new Conexion();
             ?>
                 <tr class="text-center">
                     <td><?php echo ($pedido['num_pedido']); ?></td>
-                    <td class="mx-auto sticky-left"><a class="a-text-kmisetas" href="" data-toggle="modal" data-target="#verPedido" onclick="verPedido('<?php echo ($datos); ?>')"><?php echo ($pedido['cliente']); ?></a></td>
+                    <td class="mx-auto sticky-left"><a class="a-text-kmisetas" href="" data-toggle="modal" data-target="#verPedido" onclick="verPedido(`'<?php echo ($datos); ?>'`)"><?php echo ($pedido['cliente']); ?></a></td>
                     <td><?php echo ($pedido['finpedido']); ?></td>
                     <?php
                     if ($diafaltapedido > 3) {
@@ -167,10 +167,10 @@ $conexion = new Conexion();
                         } ?></td>
                     <td><?php echo ($pedido['estado']); ?></td>
                     <td>
-                        <a class="my-auto" title=" Editar Terminacion" data-toggle="modal" data-target="#editarTerminacion"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarTerminacion('<?php echo ($datos); ?>')"></i></a>
-                        <a class="my-auto" title="Reportar Novedad" data-toggle="modal" data-target="#novedadTerminacion"><i class="fas fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarTerminacion('<?php echo ($datos); ?>')"></i></a>
-                        <a class="my-auto" title="Finalizar" onclick="confirmarFinalizarTerminacion('<?php echo ($datos); ?>')" id="finalizarTerminacion"><i class="fas fa-check-circle a-text-kmisetas my-auto"></i></a>
-                        <a class="my-auto" title="Anular" onclick="confirmarAnuladoPedido('<?php echo ($datos); ?>')" id="anularPedido"><i class="fas fa-minus-circle a-text-kmisetas my-auto"></i></a>
+                        <a class="my-auto" title=" Editar Terminacion" data-toggle="modal" data-target="#editarTerminacion"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarTerminacion(`'<?php echo ($datos); ?>'`)"></i></a>
+                        <a class="my-auto" title="Reportar Novedad" data-toggle="modal" data-target="#novedadTerminacion"><i class="fas fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarTerminacion(`'<?php echo ($datos); ?>'`)"></i></a>
+                        <a class="my-auto" title="Finalizar" onclick="confirmarFinalizarTerminacion(`'<?php echo ($datos); ?>'`)" id="finalizarTerminacion"><i class="fas fa-check-circle a-text-kmisetas my-auto"></i></a>
+                        <a class="my-auto" title="Anular" onclick="confirmarAnuladoPedido(`'<?php echo ($datos); ?>'`)" id="anularPedido"><i class="fas fa-minus-circle a-text-kmisetas my-auto"></i></a>
                     </td>
                 </tr>
 

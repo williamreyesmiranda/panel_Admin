@@ -37,7 +37,7 @@ $conexion = new Conexion();
             <td><?php echo ($referencia['correo']) ?></td>
             <td>
                 <h5>
-                    <a class="my-auto" title=" Editar Referencia" data-toggle="modal" data-target="#editarReferencias"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarReferencias('<?php echo ($datos); ?>')"></i></a>
+                    <a class="my-auto" title=" Editar Referencia" data-toggle="modal" data-target="#editarReferencias"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarReferencias(`'<?php echo ($datos); ?>'`)"></i></a>
                 </h5>
             </td>
 
