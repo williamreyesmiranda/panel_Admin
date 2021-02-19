@@ -49,7 +49,7 @@ if (empty($_SESSION['active'])) {
 </script>
 
 <script>
-    datosX = convertirJson('<?php echo ($datosX) ?>');
+    datosX = convertirJson('<?ph2p echo ($datosX) ?>');
     datosYAtrasados = convertirJson('<?php echo ($datosYAtrasados) ?>');
     datosY3dias = convertirJson('<?php echo ($datosY3dias) ?>');
     datosY4dias = convertirJson('<?php echo ($datosY4dias) ?>');

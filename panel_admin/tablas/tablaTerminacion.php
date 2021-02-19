@@ -167,10 +167,10 @@ $conexion = new Conexion();
                         } ?></td>
                     <td><?php echo ($pedido['estado']); ?></td>
                     <td>
-                        <a class="my-auto" title=" Editar Terminacion" data-toggle="modal" data-target="#editarTerminacion"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarTerminacion(`'<?php echo ($datos); ?>'`)"></i></a>
-                        <a class="my-auto" title="Reportar Novedad" data-toggle="modal" data-target="#novedadTerminacion"><i class="fas fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarTerminacion(`'<?php echo ($datos); ?>'`)"></i></a>
-                        <a class="my-auto" title="Finalizar" onclick="confirmarFinalizarTerminacion(`'<?php echo ($datos); ?>'`)" id="finalizarTerminacion"><i class="fas fa-check-circle a-text-kmisetas my-auto"></i></a>
-                        <a class="my-auto" title="Anular" onclick="confirmarAnuladoPedido(`'<?php echo ($datos); ?>'`)" id="anularPedido"><i class="fas fa-minus-circle a-text-kmisetas my-auto"></i></a>
+                        <a class="my-auto" title="Editar Terminacion" data-toggle="modal" data-target="#editarTerminacion"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarTerminacion(`<?php echo ($datos); ?>`)"></i></a>
+                        <a class="my-auto" title="Reportar Novedad" data-toggle="modal" data-target="#novedadTerminacion"><i class="fas fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarTerminacion(`<?php echo ($datos); ?>`)"></i></a>
+                        <a class="my-auto" title="Finalizar" onclick="confirmarFinalizarTerminacion(`<?php echo ($datos); ?>`)" id="finalizarTerminacion"><i class="fas fa-check-circle a-text-kmisetas my-auto"></i></a>
+                        <a class="my-auto" title="Anular" onclick="confirmarAnuladoPedido(`<?php echo ($datos); ?>`)" id="anularPedido"><i class="fas fa-minus-circle a-text-kmisetas my-auto"></i></a>
                     </td>
                 </tr>
 

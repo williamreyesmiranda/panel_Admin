@@ -203,7 +203,7 @@ if (empty($_SESSION['active'])) {
                                             <option value="<?php echo $asesor['usuario'] ?>"></option>
                                         <?php endforeach; ?>
                                     </datalist>
-                                    <!-- <div class="valid-feedback">Listo</div> -->
+                                   
                                     <div class="invalid-feedback">Ingrese el Asesor.</div>
                                 </div>
                             </div>
@@ -211,13 +211,13 @@ if (empty($_SESSION['active'])) {
                                 <div class="form-group col-md-5">
                                     <label for="fechaInicio">Fecha Inicio: (*)</label>
                                     <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required>
-                                    <!-- <div class="valid-feedback">Listo</div> -->
+                                   
                                     <div class="invalid-feedback">Ingrese Fecha</div>
                                 </div>
                                 <div class="form-group col-md-5">
                                     <label for="fechaFin">Fecha Final: (*)</label>
                                     <input type="date" class="form-control" id="fechaFin" name="fechaFin" required>
-                                    <!-- <div class="valid-feedback">Listo</div> -->
+                                   
                                     <div class="invalid-feedback">Ingrese Fecha</div>
                                 </div>
                                 <div class="form-group col-md-2">
@@ -232,7 +232,7 @@ if (empty($_SESSION['active'])) {
                                 <div class="form-group col-md-3">
                                     <label for="unds">Unds: (*)</label>
                                     <input type="number" class="form-control " id="unds" placeholder="" name="unds" required>
-                                    <!-- <div class="valid-feedback">Listo</div> -->
+                                   
                                     <div class="invalid-feedback">Ingrese Unidades</div>
                                 </div>
 
@@ -249,13 +249,13 @@ if (empty($_SESSION['active'])) {
                                         <?php endforeach; ?>
                                     </select>
 
-                                    <!-- <div class="valid-feedback">Listo</div> -->
+                                   
                                     <div class="invalid-feedback">Ingrese Los Procesos</div>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="valor">Valor: (*)</label>
                                     <input type="number" class="form-control " id="valor" placeholder="" name="valor" required>
-                                    <!-- <div class="valid-feedback">Listo</div> -->
+                                   
                                     <div class="invalid-feedback">Ingrese Valor Pedido</div>
                                 </div>
                             </div>

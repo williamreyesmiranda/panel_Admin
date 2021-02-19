@@ -1039,8 +1039,9 @@ function confirmarFinalizarTerminacion(datos) {
     }
 }
 //finalizar Pedido
-function finalizarTerminacion(datos) {
-    $.ajax({
+function finalizarTerminacion(datos) 
+{
+   $.ajax({
         type: "POST",
         url: "php/finalizarTerminacion.php",
         data: datos,
