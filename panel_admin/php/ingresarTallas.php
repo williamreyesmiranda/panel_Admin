@@ -13,5 +13,6 @@ if ($insert == 1) {
         $update = $conexion->editarDatos($consulta);
     }
 }
+$ensayo="hola";
 
 echo json_encode($update);
