@@ -5,14 +5,14 @@ if (empty($_SESSION['active'])) {
 }
 ?>
 <div class="table-container">
-    <table class="table table-hover table-condensed table-bordered tablaDinamica" style="width:1700px !important;"id="" cellspacing="0">
+    <table class="table table-hover table-condensed table-bordered tablaDinamica" style="width:1700px !important;" id="" cellspacing="0">
         <thead>
             <tr>
                 <th class="alert-info text-center" colspan="7">Info Pedido</th>
                 <th class="alert-secondary text-center" colspan="10">Info Corte</th>
             </tr>
             <tr class="text-center">
-            <th class="sticky-top">ID</th>
+                <th class="sticky-top">ID</th>
                 <th class="sticky-top">Pedido</th>
                 <th style="z-index:100 !important" class="sticky-left sticky-top">Cliente</th>
                 <th class="sticky-top">Fecha Entrega</th>
@@ -81,7 +81,7 @@ if (empty($_SESSION['active'])) {
                 $hoy = date('Y-m-d');
                 $diapedido = $pedido['finpedido'];
                 $diacorte = $pedido['fincorte'];
-                $OC=$pedido['oc'];
+                $OC = $pedido['oc'];
                 $diafaltapedido =  fechaToDays($hoy, $diapedido) - 1;
                 if ($diafaltapedido < 0) {
                     $diafaltapedido =  - (fechaToDays($diapedido, $hoy) - 1);
@@ -92,25 +92,25 @@ if (empty($_SESSION['active'])) {
                     $diafaltacorte =  - (fechaToDays($diacorte, $hoy) - 1);
                 }
                 //consulta de la novedad por medio del idNovedad
-                $numNovedad=$pedido['numNovedad'];
-                $consultaSQL="SELECT * FROM novedades WHERE idNovedad='$numNovedad'";
-                $result=$conexion->consultarDatos($consultaSQL);
-                $novedad=@$result[0]['novedad'];
+                $numNovedad = $pedido['numNovedad'];
+                $consultaSQL = "SELECT * FROM novedades WHERE idNovedad='$numNovedad'";
+                $result = $conexion->consultarDatos($consultaSQL);
+                $novedad = @$result[0]['novedad'];
                 //consulta del nombre del asesor por medio del usuario
-                $asesor=$pedido['asesor'];
-                $consultaSQL="SELECT * FROM asesor WHERE usuario='$asesor'";
-                $result=$conexion->consultarDatos($consultaSQL);
-                $nombreAsesor=@$result[0]['nombre'];
-                $correoAsesor=@$result[0]['correo'];
+                $asesor = $pedido['asesor'];
+                $consultaSQL = "SELECT * FROM asesor WHERE usuario='$asesor'";
+                $result = $conexion->consultarDatos($consultaSQL);
+                $nombreAsesor = @$result[0]['nombre'];
+                $correoAsesor = @$result[0]['correo'];
 
                 $datos = $pedido['idpedido'] . "||" . $pedido['num_pedido'] . "||" . $pedido['cliente'] . "||" . $pedido['asesor'] . "||" . $pedido['iniciopedido'] . "||" .
                     $pedido['finpedido'] . "||" . $pedido['diaspedido'] . "||" . $pedido['siglas'] . "||" . $pedido['unds'] . "||" . $pedido['estadopedido'] . "||" . $pedido['idcorte'] .
-                     "||" . $pedido['obs_corte'] . "||" . $pedido['parcial']. "||" . $pedido['numNovedad']. "||" .$novedad. "||" .$nombreAsesor. "||" .$correoAsesor. "||" .$OC;
+                    "||" . $pedido['obs_corte'] . "||" . $pedido['parcial'] . "||" . $pedido['numNovedad'] . "||" . $novedad . "||" . $nombreAsesor . "||" . $correoAsesor . "||" . $OC;
 
 
             ?>
                 <tr class="text-center">
-                <td><?php echo ($pedido['idcorte']); ?></td>
+                    <td><?php echo ($pedido['idcorte']); ?></td>
                     <td><?php echo ($pedido['num_pedido']); ?></td>
                     <td class="mx-auto sticky-left"><a class="a-text-kmisetas" href="" data-toggle="modal" data-target="#verPedido" onclick="verPedido(`'<?php echo ($datos); ?>'`)"><?php echo ($pedido['cliente']); ?></a></td>
                     <td><?php echo ($pedido['finpedido']); ?></td>
@@ -125,26 +125,29 @@ if (empty($_SESSION['active'])) {
                     ?>
                     <td><?php echo ($pedido['siglas']); ?></td>
                     <td><?php echo ($pedido['unds']); ?></td>
-                    <td><?php echo ($pedido['iniciocorte']);?></td>
-                    <td><?php echo ($pedido['fincorte']);?></td>
-                    <td><?php echo ($pedido['diascorte']);?></td>
-                    <?php if($diafaltacorte>3){
-                        echo "<td class=\"alert-success\">".$diafaltacorte."</td>";
-                     }elseif($diafaltacorte>=0){
-                         echo "<td class=\"alert-warning\">".$diafaltacorte."</td>";  
-                     }else{
-                         echo "<td class=\"alert-danger\">".$diafaltacorte."</td>"; 
-                     }?>
-                     <td><?php echo ($OC);?></td>
-                    <td><?php echo ($parcial);?></td>
-                    <td><?php echo ($falta);?></td>
-                    <td><?php echo ($pedido['obs_corte']); if($pedido['numNovedad']>0){echo ("<br><b>Novedad:</b>".$novedad);}?></td>
-                    <td><?php echo ($pedido['estado']);?></td>
+                    <td><?php echo ($pedido['iniciocorte']); ?></td>
+                    <td><?php echo ($pedido['fincorte']); ?></td>
+                    <td><?php echo ($pedido['diascorte']); ?></td>
+                    <?php if ($diafaltacorte > 3) {
+                        echo "<td class=\"alert-success\">" . $diafaltacorte . "</td>";
+                    } elseif ($diafaltacorte >= 0) {
+                        echo "<td class=\"alert-warning\">" . $diafaltacorte . "</td>";
+                    } else {
+                        echo "<td class=\"alert-danger\">" . $diafaltacorte . "</td>";
+                    } ?>
+                    <td><?php echo ($OC); ?></td>
+                    <td><?php echo ($parcial); ?></td>
+                    <td><?php echo ($falta); ?></td>
+                    <td><?php echo ($pedido['obs_corte']);
+                        if ($pedido['numNovedad'] > 0) {
+                            echo ("<br><b>Novedad:</b>" . $novedad);
+                        } ?></td>
+                    <td><?php echo ($pedido['estado']); ?></td>
                     <td>
                         <h5>
-                            <a class="my-auto" title=" Editar Corte" data-toggle="modal" data-target="#editarCorte"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarCorte(`'<?php echo ($datos); ?>'`)"></i></a>
-                            <a class="my-auto" title="Reportar Novedad" data-toggle="modal" data-target="#novedadCorte"><i class="fas fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarCorte(`'<?php echo ($datos); ?>'`)"></i></a>
-                            <a class="my-auto" title="Finalizar" onclick="confirmarFinalizarCorte(`'<?php echo ($datos); ?>'`)" id="finalizarCorte"><i class="fas fa-check-circle a-text-kmisetas my-auto"></i></a>
+                            <a class="my-auto" title=" Editar Corte" data-toggle="modal" data-target="#editarCorte"><i class="fas fa-edit a-text-kmisetas my-auto" onclick="formEditarCorte(`<?php echo ($datos); ?>`)"></i></a>
+                            <a class="my-auto" title="Reportar Novedad" data-toggle="modal" data-target="#novedadCorte"><i class="fas fa-paper-plane a-text-kmisetas my-auto" onclick="formEditarCorte(`<?php echo ($datos); ?>`)"></i></a>
+                            <a class="my-auto" title="Finalizar" onclick="confirmarFinalizarCorte(`<?php echo ($datos); ?>`)" id="finalizarCorte"><i class="fas fa-check-circle a-text-kmisetas my-auto"></i></a>
                         </h5>
                     </td>
                 </tr>
